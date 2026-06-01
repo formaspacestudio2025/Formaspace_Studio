@@ -57,9 +57,9 @@ export function Navigation() {
     >
       <nav className="max-w-7xl mx-auto px-6 flex items-center justify-between h-20">
         <a href="/" className="flex items-center gap-2.5">
-          <img src="/logos/FSS logo.png" alt="FSS" className="h-8 w-auto brightness-0 invert" />
+          <img src="/logos/FSS logo.png" alt="FSS" className="h-16 w-auto brightness-0 invert" />
           <span className="font-sans text-base font-semibold tracking-tight text-text-primary">
-            Formaspace
+            Formaspace Studio
           </span>
         </a>
 

@@ -7,8 +7,8 @@ const techBadges = ['BIM', 'Project Controls', 'Digital Twin', 'Cost Intelligenc
 
 const floatingKPIs = [
   { value: '6+', label: 'Projects', color: '#3b82f6' },
-  { value: '$2.5B', label: 'Value Managed', color: '#22c55e' },
-  { value: '30+', label: 'Partners', color: '#f59e0b' },
+  { value: '$20M', label: 'Value Managed', color: '#22c55e' },
+  { value: '10+', label: 'Partners', color: '#f59e0b' },
 ];
 
 export function Hero() {

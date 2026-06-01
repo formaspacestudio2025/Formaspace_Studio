@@ -356,11 +356,11 @@ export const projects: Project[] = [
     status: 'in-progress',
     timeline: '2024 – 2028',
     description:
-      'Megaproject programme management and digital engineering for a greenfield international airport. Delivering project controls, BIM management, and construction intelligence across 30+ design and construction partners.',
+      'Megaproject programme management and digital engineering for a greenfield international airport. Delivering project controls, BIM management, and construction intelligence across 10+ design and construction partners.',
     story:
       'The Kingdom is building a next-generation aviation gateway as part of Vision 2030. Our team was engaged to provide the programme controls framework, BIM coordination, and digital delivery systems for this landmark infrastructure project.',
     approach:
-      'We deployed a fully integrated programme management office with 40+ controls staff managing cost, schedule, risk, and change across all workstreams. BIM coordination follows ISO 19650 protocols with a common data environment connecting 30+ supply chain partners.',
+      'We deployed a fully integrated programme management office with 40+ controls staff managing cost, schedule, risk, and change across all workstreams. BIM coordination follows ISO 19650 protocols with a common data environment connecting 10+ supply chain partners.',
     technologies: [
       'Revit + Dynamo',
       'Primavera P6',
@@ -371,7 +371,7 @@ export const projects: Project[] = [
       'Power BI',
     ],
     workflows: [
-      'ISO 19650-compliant CDE with 30+ supply chain partners',
+      'ISO 19650-compliant CDE with 10+ supply chain partners',
       'LOD 350 to LOD 500 progressive model delivery',
       '4D construction simulation with 2,600+ activities',
       'Earned value management across 80+ control accounts',
@@ -455,7 +455,7 @@ export const insights: Insight[] = [
     id: 'iso-19650-implementation-guide',
     title: 'Implementing ISO 19650: A Practical Guide for Project Teams',
     excerpt:
-      'Lessons from deploying Common Data Environments across 30+ supply-chain partners on megaprojects, including template strategies, permission schemas, and automation wins.',
+      'Lessons from deploying Common Data Environments across 10+ supply-chain partners on megaprojects, including template strategies, permission schemas, and automation wins.',
     category: 'Digital Engineering',
     author: 'Nadeem Ahmad',
     date: '2025-09-28',
@@ -510,9 +510,9 @@ export const insights: Insight[] = [
 
 export const metrics: Metric[] = [
   { value: 6, suffix: '+', label: 'Projects Delivered' },
-  { value: 700, suffix: 'K', label: 'Sqm Under Management', prefix: '+' },
-  { value: 2.5, suffix: 'B', label: 'Project Value Managed', prefix: '$' },
-  { value: 30, suffix: '+', label: 'Supply Chain Partners' },
+  { value: 50, suffix: 'K', label: 'Sqm Under Management', prefix: '+' },
+  { value: 20, suffix: 'M', label: 'Project Value Managed', prefix: '$' },
+  { value: 10, suffix: '+', label: 'Supply Chain Partners' },
   { value: 6, suffix: '', label: 'Service Lines' },
 ];
 

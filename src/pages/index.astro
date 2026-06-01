@@ -3,9 +3,9 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Formaspace | Digital Engineering, BIM &amp; Project Controls</title>
-<meta name="description" content="Formaspace — Project Management Consultancy &amp; Digital Engineering firm. Digital Engineering, BIM, Project Controls and Construction Intelligence.">
-<meta property="og:title" content="Formaspace | Digital Engineering, BIM &amp; Project Controls">
+<title>Formaspace Studio | Digital Engineering, BIM &amp; Project Controls</title>
+<meta name="description" content="Formaspace Studio — Project Management Consultancy &amp; Digital Engineering firm. Digital Engineering, BIM, Project Controls and Construction Intelligence.">
+<meta property="og:title" content="Formaspace Studio | Digital Engineering, BIM &amp; Project Controls">
 <meta property="og:description" content="Project Management Consultancy &amp; Digital Engineering firm at the intersection of construction intelligence, BIM, and data-driven project delivery.">
 <meta property="og:image" content="/logos/FSS App branding without background.png">
 <meta property="og:type" content="website">
@@ -83,7 +83,7 @@ button { border: none; background: none; font: inherit; color: inherit; }
   transition: opacity 0.8s ease, visibility 0.8s;
 }
 #loader.hide { opacity: 0; visibility: hidden; }
-#loader img { width: 140px; height: auto; opacity: 0; animation: fadeIn 1s ease 0.3s forwards; }
+#loader img { width: 280px; height: auto; opacity: 0; animation: fadeIn 1s ease 0.3s forwards; }
 #loader-bar {
   width: 200px; height: 1px; background: var(--border); position: relative; overflow: hidden;
 }
@@ -116,7 +116,7 @@ nav.scrolled {
   text-decoration: none; letter-spacing: 0.01em;
   display: flex; align-items: center; gap: 10px;
 }
-.nav-logo img { height: 32px; width: auto; transition: filter 0.4s ease; }
+.nav-logo img { height: 64px; width: auto; transition: filter 0.4s ease; }
 .nav-logo:hover img { filter: brightness(1.2) drop-shadow(0 0 8px rgba(245,166,35,0.3)); }
 .nav-links {
   display: flex; align-items: center; gap: 36px; list-style: none;
@@ -336,21 +336,8 @@ section { padding: 120px 48px; }
 .right-col { display: flex; flex-direction: column; gap: 24px; }
 .ev-panel { background: var(--surface); border: 1px solid var(--border); padding: 32px; flex: 1; }
 
-/* DIGITAL TWIN */
-#digital-twin { background: var(--surface); position: relative; overflow: hidden; }
-.twin-layout { display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: center; margin-top: 60px; }
-#twin-canvas-wrap { position: relative; aspect-ratio: 1; background: var(--black); border: 1px solid var(--border); overflow: hidden; }
-#twin-canvas { width: 100%; height: 100%; }
-.twin-metrics { display: grid; grid-template-columns: 1fr 1fr; gap: 1px; background: var(--border); margin-top: 32px; }
-.twin-metric { background: var(--surface); padding: 20px; }
-.twin-metric-label { font-family: var(--mono); font-size: 10px; letter-spacing: 0.15em; color: var(--white3); text-transform: uppercase; margin-bottom: 8px; }
-.twin-metric-val { font-family: var(--mono); font-size: 18px; color: var(--blue); font-weight: 500; }
-.ai-features { display: flex; flex-direction: column; gap: 24px; margin-top: 24px; }
-.ai-feature { display: flex; gap: 20px; align-items: flex-start; padding: 24px; border: 1px solid var(--border); transition: border-color 0.3s, background 0.3s; }
-.ai-feature:hover { border-color: var(--amber); background: var(--amber-dim); }
-.ai-feature-icon { font-family: var(--mono); font-size: 16px; color: var(--amber); width: 40px; height: 40px; border: 1px solid var(--border2); display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
-.ai-feature-title { font-family: var(--serif); font-size: 18px; margin-bottom: 8px; color: var(--white); }
-.ai-feature-desc { font-size: 13px; color: var(--white3); line-height: 1.6; }
+/* ASSET MANAGEMENT */
+#asset-management { background: var(--surface); position: relative; overflow: hidden; }
 
 /* PROJECTS */
 #projects { background: var(--black); }
@@ -396,7 +383,7 @@ section { padding: 120px 48px; }
 footer { background: var(--black); padding: 80px 48px 40px; border-top: 1px solid var(--border); }
 .footer-grid { display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 60px; margin-bottom: 60px; }
 .footer-brand-name { font-family: var(--serif); font-size: 28px; margin-bottom: 12px; color: var(--white); display: flex; align-items: center; gap: 12px; }
-.footer-brand-name img { height: 48px; width: auto; }
+.footer-brand-name img { height: 96px; width: auto; }
 .footer-brand-desc { font-size: 13px; color: var(--white3); line-height: 1.7; margin-bottom: 20px; max-width: 300px; }
 .footer-col-title { font-family: var(--mono); font-size: 10px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--amber); margin-bottom: 20px; }
 .footer-links { list-style: none; }
@@ -408,12 +395,68 @@ footer { background: var(--black); padding: 80px 48px 40px; border-top: 1px soli
 .footer-cert { font-family: var(--mono); font-size: 10px; color: var(--white3); letter-spacing: 0.12em; display: flex; gap: 12px; flex-wrap: wrap; }
 .footer-cert span { padding: 4px 8px; border: 1px solid var(--border); }
 .footer-copy { font-family: var(--mono); font-size: 10px; color: var(--white3); letter-spacing: 0.08em; }
+/* CONTACT MODAL */
+#contact-overlay {
+  position: fixed; inset: 0; z-index: 10000;
+  background: rgba(10,12,16,0.85); backdrop-filter: blur(12px);
+  display: flex; align-items: center; justify-content: center;
+  opacity: 0; visibility: hidden; transition: opacity 0.4s ease, visibility 0.4s ease;
+  padding: 24px;
+}
+#contact-overlay.open { opacity: 1; visibility: visible; }
+#contact-modal {
+  background: var(--surface); border: 1px solid var(--border);
+  width: 100%; max-width: 560px; max-height: 90vh; overflow-y: auto;
+  padding: 48px; position: relative;
+  transform: translateY(24px); transition: transform 0.4s ease;
+}
+#contact-overlay.open #contact-modal { transform: translateY(0); }
+#contact-close {
+  position: absolute; top: 20px; right: 20px;
+  font-family: var(--mono); font-size: 18px; color: var(--white3);
+  background: none; border: none; cursor: pointer; padding: 8px;
+  transition: color 0.2s;
+}
+#contact-close:hover { color: var(--amber); }
+.contact-title { font-family: var(--serif); font-size: 28px; color: var(--white); margin-bottom: 8px; }
+.contact-sub { font-family: var(--mono); font-size: 11px; color: var(--white3); letter-spacing: 0.06em; margin-bottom: 32px; }
+.form-group { margin-bottom: 20px; }
+.form-group label {
+  font-family: var(--mono); font-size: 10px; color: var(--white2);
+  letter-spacing: 0.15em; text-transform: uppercase; display: block; margin-bottom: 8px;
+}
+.form-group input,
+.form-group textarea {
+  width: 100%; background: var(--black); border: 1px solid var(--border);
+  padding: 14px 16px; font-family: var(--sans); font-size: 14px; color: var(--white);
+  outline: none; transition: border-color 0.3s;
+}
+.form-group input:focus,
+.form-group textarea:focus { border-color: var(--amber); }
+.form-group textarea { resize: vertical; min-height: 120px; }
+.form-group input::placeholder,
+.form-group textarea::placeholder { color: var(--white3); opacity: 0.5; }
+#contact-submit {
+  width: 100%; font-family: var(--mono); font-size: 11px; letter-spacing: 0.14em;
+  text-transform: uppercase; color: var(--black); background: var(--amber);
+  border: none; padding: 16px 28px; cursor: pointer; transition: background 0.2s, transform 0.15s;
+}
+#contact-submit:hover { background: var(--amber2); transform: translateY(-1px); }
+#contact-submit:disabled { opacity: 0.5; cursor: not-allowed; transform: none; }
+.contact-success {
+  display: none; text-align: center; padding: 40px 0;
+}
+.contact-success.show { display: block; }
+.contact-success-icon { font-size: 48px; color: #4ade80; margin-bottom: 16px; }
+.contact-success-title { font-family: var(--serif); font-size: 24px; color: var(--white); margin-bottom: 8px; }
+.contact-success-text { font-family: var(--mono); font-size: 12px; color: var(--white3); line-height: 1.6; }
+
 ::-webkit-scrollbar { width: 4px; height: 4px; }
 ::-webkit-scrollbar-track { background: var(--black); }
 ::-webkit-scrollbar-thumb { background: var(--border2); }
 
 @media (max-width: 1024px) {
-  .about-grid, .bim-layout, .twin-layout { grid-template-columns: 1fr; gap: 40px; }
+  .about-grid, .bim-layout { grid-template-columns: 1fr; gap: 40px; }
   .services-grid, .intel-grid, .projects-grid, .insights-grid { grid-template-columns: 1fr 1fr; }
   .footer-grid { grid-template-columns: 1fr 1fr; }
   .kpi-strip { grid-template-columns: repeat(2, 1fr); }
@@ -479,7 +522,7 @@ footer { background: var(--black); padding: 80px 48px 40px; border-top: 1px soli
 <nav id="nav">
   <a href="#hero" class="nav-logo">
     <img src="/logos/FSS App branding without background.png" alt="FSS">
-    Formaspace
+    Formaspace Studio
   </a>
   <ul class="nav-links" id="navLinks">
     <li><a href="#about">About</a></li>
@@ -490,7 +533,7 @@ footer { background: var(--black); padding: 80px 48px 40px; border-top: 1px soli
     <li><a href="#insights">Insights</a></li>
   </ul>
   <div style="display:flex;align-items:center;gap:16px;">
-    <button class="nav-cta" onclick="document.getElementById('cta').scrollIntoView({behavior:'smooth'})">Get in Touch</button>
+    <button class="nav-cta" onclick="openContactModal()">Get in Touch</button>
     <button class="nav-toggle" id="navToggle" aria-label="Menu"><span></span><span></span><span></span></button>
   </div>
 </nav>
@@ -500,7 +543,7 @@ footer { background: var(--black); padding: 80px 48px 40px; border-top: 1px soli
   <canvas id="hero-canvas"></canvas>
   <div class="hero-grid-overlay"></div>
   <div class="hero-content">
-    <div class="hero-tag">Formaspace — Est. 2020</div>
+    <div class="hero-tag">Formaspace Studio — Est. 2020</div>
     <h1 class="hero-h1">The Future of<br><em>Project Delivery</em></h1>
     <p class="hero-sub">Digital Engineering, BIM, Project Controls and Construction Intelligence — powered by AI, real-time data, and precision digital workflows.</p>
     <div class="hero-actions">
@@ -518,15 +561,15 @@ footer { background: var(--black); padding: 80px 48px 40px; border-top: 1px soli
       <span class="hero-stat-label">Projects Delivered</span>
     </div>
     <div class="hero-stat">
-      <span class="hero-stat-num" data-count="2.5" data-prefix="$" data-suffix="B">$0</span>
+      <span class="hero-stat-num" data-count="20" data-prefix="$" data-suffix="M">$0</span>
       <span class="hero-stat-label">Value Managed</span>
     </div>
     <div class="hero-stat">
-      <span class="hero-stat-num" data-count="30" data-suffix="+">0</span>
+      <span class="hero-stat-num" data-count="10" data-suffix="+">0</span>
       <span class="hero-stat-label">Supply Chain Partners</span>
     </div>
     <div class="hero-stat">
-      <span class="hero-stat-num" data-count="700" data-suffix="K+ Sqm">0</span>
+      <span class="hero-stat-num" data-count="50" data-suffix="K+ Sqm">0</span>
       <span class="hero-stat-label">Under Management</span>
     </div>
   </div>
@@ -562,10 +605,10 @@ footer { background: var(--black); padding: 80px 48px 40px; border-top: 1px soli
         </div>
       </div>
       <div class="stats-counts reveal reveal-delay-3">
-        <div class="stat-item"><div class="num counter" data-target="6">0</div><div class="label">Projects</div></div>
-        <div class="stat-item"><div class="num counter" data-target="30">0</div><div class="label">Partners</div></div>
-        <div class="stat-item"><div class="num counter" data-target="700">0</div><div class="label">K Sqm</div></div>
-        <div class="stat-item"><div class="num counter" data-target="12">0</div><div class="label">Years Exp</div></div>
+        <div class="stat-item"><div class="num counter" data-count="6">0</div><div class="label">Projects</div></div>
+        <div class="stat-item"><div class="num counter" data-count="10">0</div><div class="label">Partners</div></div>
+        <div class="stat-item"><div class="num counter" data-count="20">0</div><div class="label">K Sqm</div></div>
+        <div class="stat-item"><div class="num counter" data-count="6">0</div><div class="label">Years Exp</div></div>
       </div>
     </div>
     <div class="about-right">
@@ -574,11 +617,11 @@ footer { background: var(--black); padding: 80px 48px 40px; border-top: 1px soli
         <span class="metric-label">Projects Delivered<br>Across Hospitality, Commercial &amp; Technology Sectors</span>
       </div>
       <div class="metric-row reveal reveal-delay-1">
-        <span class="metric-val" data-prefix="$" data-count="2.5" data-suffix="B">$0B</span>
+        <span class="metric-val" data-prefix="$" data-count="20" data-suffix="M">$0M</span>
         <span class="metric-label">Total Project Value Managed<br>Across International Portfolio</span>
       </div>
       <div class="metric-row reveal reveal-delay-2">
-        <span class="metric-val" data-count="30" data-suffix="+">0+</span>
+        <span class="metric-val" data-count="10" data-suffix="+">0+</span>
         <span class="metric-label">Supply Chain Partners<br>ISO 19650 Compliant CDEs</span>
       </div>
       <div class="metric-row reveal reveal-delay-3">
@@ -744,79 +787,74 @@ footer { background: var(--black); padding: 80px 48px 40px; border-top: 1px soli
   </div>
 </section>
 
-<!-- DIGITAL TWIN -->
-<section id="digital-twin">
-  <div class="section-tag reveal">Digital Twin &amp; AI</div>
-  <h2 class="section-h2 reveal reveal-delay-1">Live Digital Intelligence</h2>
-  <p class="section-sub reveal reveal-delay-2">AI-powered digital twins that connect every sensor, system, and decision — from construction site to facility operations.</p>
-  <div class="twin-layout">
+<!-- INTELLIGENT ASSET MANAGEMENT -->
+<section id="asset-management" style="background:var(--surface);">
+  <div class="section-tag reveal">Reality Capture &amp; Asset Intelligence</div>
+  <h2 class="section-h2 reveal reveal-delay-1">Intelligent Asset Management</h2>
+  <p class="section-sub reveal reveal-delay-2">High-precision 3D laser scanning, 360° immersive imaging, and Lidar-powered surveys for comprehensive digital asset capture, verification, and lifecycle management.</p>
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:center;margin-top:60px;">
     <div>
-      <div id="twin-canvas-wrap"><canvas id="twin-canvas"></canvas></div>
-      <div class="twin-metrics">
-        <div class="twin-metric"><div class="twin-metric-label">Sensor Nodes Active</div><div class="twin-metric-val" id="sensor-count">0</div></div>
-        <div class="twin-metric"><div class="twin-metric-label">Data Streams</div><div class="twin-metric-val" id="stream-count">0</div></div>
-        <div class="twin-metric"><div class="twin-metric-label">Anomalies Detected</div><div class="twin-metric-val" style="color:#f87171" id="anomaly-count">0</div></div>
-        <div class="twin-metric"><div class="twin-metric-label">Predictive Accuracy</div><div class="twin-metric-val" style="color:#4ade80" id="accuracy-val">0%</div></div>
+      <div class="reveal" style="margin-bottom:32px;">
+        <div style="font-family:var(--mono);font-size:10px;color:var(--amber);letter-spacing:0.2em;text-transform:uppercase;margin-bottom:12px;">360° Immersive Imaging</div>
+        <div style="font-family:var(--serif);font-size:20px;margin-bottom:12px;color:var(--white);">Interactive Virtual Tours</div>
+        <div style="font-size:13px;color:var(--white3);line-height:1.6;max-width:480px;">Full-spectrum 360° panoramic imaging creates immersive walkthrough environments for remote site inspection, stakeholder collaboration, and as-built documentation.</div>
+      </div>
+      <div class="reveal reveal-delay-1" style="margin-bottom:32px;">
+        <div style="font-family:var(--mono);font-size:10px;color:var(--amber);letter-spacing:0.2em;text-transform:uppercase;margin-bottom:12px;">Lidar Scanning</div>
+        <div style="font-family:var(--serif);font-size:20px;margin-bottom:12px;color:var(--white);">Precision Point Cloud Surveys</div>
+        <div style="font-size:13px;color:var(--white3);line-height:1.6;max-width:480px;">Terrestrial and mobile Lidar capture millions of measurement points per second, delivering millimetre-accurate 3D models for structural analysis, MEP coordination, and heritage preservation.</div>
+      </div>
+      <div class="reveal reveal-delay-2">
+        <div style="font-family:var(--mono);font-size:10px;color:var(--amber);letter-spacing:0.2em;text-transform:uppercase;margin-bottom:12px;">Scan-to-BIM</div>
+        <div style="font-family:var(--serif);font-size:20px;margin-bottom:12px;color:var(--white);">Intelligent Model Conversion</div>
+        <div style="font-size:13px;color:var(--white3);line-height:1.6;max-width:480px;">Point cloud data converted directly into intelligent BIM models — enabling clash detection, quantity takeoffs, renovation planning, and facility management integration.</div>
       </div>
     </div>
-    <div class="ai-features">
-      <div class="ai-feature reveal"><div class="ai-feature-icon">AI</div><div><div class="ai-feature-title">Computer Vision Progress Monitoring</div><div class="ai-feature-desc">ML models trained on construction imagery detect structural completion, safety compliance, and quality deviations in real time from site cameras.</div></div></div>
-      <div class="ai-feature reveal reveal-delay-1"><div class="ai-feature-icon">IoT</div><div><div class="ai-feature-title">IoT Sensor Integration</div><div class="ai-feature-desc">Real-time data streams from structural sensors, environmental monitors, and site equipment feed directly into the digital twin, updating predictive models continuously.</div></div></div>
-      <div class="ai-feature reveal reveal-delay-2"><div class="ai-feature-icon">∿</div><div><div class="ai-feature-title">Predictive Schedule Analytics</div><div class="ai-feature-desc">Probabilistic forecasting models analyse leading indicators, risk signals, and earned value data to predict schedule deviations weeks before they occur.</div></div></div>
-      <div class="ai-feature reveal reveal-delay-3"><div class="ai-feature-icon">⊗</div><div><div class="ai-feature-title">Document Intelligence</div><div class="ai-feature-desc">Natural language processing extracts key obligations, risks, and change events from RFIs, submittals, and contract documents — surfacing critical information instantly.</div></div></div>
+    <div style="display:flex;flex-direction:column;gap:16px;">
+      <div class="reveal" style="background:var(--black);border:1px solid var(--border);padding:24px;text-align:center;">
+        <div style="font-family:var(--mono);font-size:28px;color:var(--amber);margin-bottom:4px;">±1mm</div>
+        <div style="font-family:var(--mono);font-size:10px;color:var(--white3);letter-spacing:0.2em;text-transform:uppercase;">Scan Accuracy</div>
+      </div>
+      <div class="reveal reveal-delay-1" style="background:var(--black);border:1px solid var(--border);padding:24px;text-align:center;">
+        <div style="font-family:var(--mono);font-size:28px;color:var(--amber);margin-bottom:4px;">2M<small> pts/sec</small></div>
+        <div style="font-family:var(--mono);font-size:10px;color:var(--white3);letter-spacing:0.2em;text-transform:uppercase;">Lidar Capture Rate</div>
+      </div>
+      <div class="reveal reveal-delay-2" style="background:var(--black);border:1px solid var(--border);padding:24px;text-align:center;">
+        <div style="font-family:var(--mono);font-size:28px;color:var(--amber);margin-bottom:4px;">360°</div>
+        <div style="font-family:var(--mono);font-size:10px;color:var(--white3);letter-spacing:0.2em;text-transform:uppercase;">Immersive Panoramic Capture</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section-tag reveal" style="margin-top:80px;">360 Virtual Tours</div>
+  <h3 class="section-h2 reveal reveal-delay-1" style="font-size:clamp(28px, 3vw, 40px);">Explore in Immersive 360°</h3>
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:24px;margin-top:40px;">
+    <div class="reveal">
+      <div style="font-family:var(--mono);font-size:10px;color:var(--amber);letter-spacing:0.2em;text-transform:uppercase;margin-bottom:8px;">Hotel MAQAM</div>
+      <iframe id="tour-embeded-1" name="Hotel MAQAM" src="https://tour.panoee.net/iframe/69429a268e3c26784e8aeb17" frameBorder="0" width="100%" height="400px" scrolling="no" allowvr="yes" allow="vr; xr; xr-spatial-tracking; accelerometer; gyroscope; autoplay;" allowFullScreen="false" webkitallowfullscreen="false" mozallowfullscreen="false" loading="eager" style="border:1px solid var(--border);"></iframe>
+    </div>
+    <div class="reveal reveal-delay-1">
+      <div style="font-family:var(--mono);font-size:10px;color:var(--amber);letter-spacing:0.2em;text-transform:uppercase;margin-bottom:8px;">Houseboat Canberra</div>
+      <iframe id="tour-embeded-2" name="Houseboat Canberra" src="https://tour.panoee.net/iframe/690596e5eac32b09e73f0ee0" frameBorder="0" width="100%" height="400px" scrolling="no" allowvr="yes" allow="vr; xr; xr-spatial-tracking; accelerometer; gyroscope; autoplay;" allowFullScreen="false" webkitallowfullscreen="false" mozallowfullscreen="false" loading="eager" style="border:1px solid var(--border);"></iframe>
     </div>
   </div>
 </section>
 
-<!-- AUTOMATION -->
-<section id="automation" style="background:var(--black);padding:120px 48px;">
-  <div class="section-tag reveal">Automation &amp; Workflows</div>
-  <h2 class="section-h2 reveal reveal-delay-1">Intelligent Process Automation</h2>
-  <p class="section-sub reveal reveal-delay-2">Eliminating manual processes through connected digital workflows that keep project data flowing from site to boardroom.</p>
-  <div style="display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:center;margin-top:60px;">
-    <div style="display:flex;flex-direction:column;gap:0;">
-      <div class="reveal" style="display:flex;gap:24px;padding-bottom:32px;">
-        <div style="display:flex;flex-direction:column;align-items:center;width:40px;flex-shrink:0;">
-          <div style="width:12px;height:12px;border:1px solid var(--amber);background:var(--amber);position:relative;z-index:1;flex-shrink:0;"></div>
-          <div style="width:1px;flex:1;background:linear-gradient(to bottom,var(--amber),var(--border));margin-top:8px;"></div>
-        </div>
-        <div><div style="font-family:var(--mono);font-size:10px;color:var(--amber);letter-spacing:0.2em;text-transform:uppercase;margin-bottom:8px;">Data Ingestion</div><div style="font-family:var(--serif);font-size:20px;margin-bottom:8px;color:var(--white);">Site Capture &amp; Sensor Feeds</div><div style="font-size:13px;color:var(--white3);line-height:1.6;">Drone photogrammetry, laser scanning, IoT sensors and field management apps continuously feed real-world data into the digital environment.</div></div>
-      </div>
-      <div class="reveal reveal-delay-1" style="display:flex;gap:24px;padding-bottom:32px;">
-        <div style="display:flex;flex-direction:column;align-items:center;width:40px;flex-shrink:0;">
-          <div style="width:12px;height:12px;border:1px solid var(--amber);background:var(--amber);position:relative;z-index:1;flex-shrink:0;"></div>
-          <div style="width:1px;flex:1;background:linear-gradient(to bottom,var(--amber),var(--border));margin-top:8px;"></div>
-        </div>
-        <div><div style="font-family:var(--mono);font-size:10px;color:var(--amber);letter-spacing:0.2em;text-transform:uppercase;margin-bottom:8px;">AI Processing</div><div style="font-family:var(--serif);font-size:20px;margin-bottom:8px;color:var(--white);">Machine Learning Analysis</div><div style="font-size:13px;color:var(--white3);line-height:1.6;">Computer vision and NLP models process captured data — detecting deviations, extracting insights, and updating the live digital twin in near-real-time.</div></div>
-      </div>
-      <div class="reveal reveal-delay-2" style="display:flex;gap:24px;padding-bottom:32px;">
-        <div style="display:flex;flex-direction:column;align-items:center;width:40px;flex-shrink:0;">
-          <div style="width:12px;height:12px;border:1px solid var(--amber);background:var(--amber);position:relative;z-index:1;flex-shrink:0;"></div>
-          <div style="width:1px;flex:1;background:linear-gradient(to bottom,var(--amber),var(--border));margin-top:8px;"></div>
-        </div>
-        <div><div style="font-family:var(--mono);font-size:10px;color:var(--amber);letter-spacing:0.2em;text-transform:uppercase;margin-bottom:8px;">Integration</div><div style="font-family:var(--serif);font-size:20px;margin-bottom:8px;color:var(--white);">Cross-Platform Sync</div><div style="font-size:13px;color:var(--white3);line-height:1.6;">Data flows automatically between Primavera P6, Procore, Power BI, and BIM platforms — a single connected project data environment.</div></div>
-      </div>
-      <div class="reveal reveal-delay-3" style="display:flex;gap:24px;">
-        <div style="display:flex;flex-direction:column;align-items:center;width:40px;flex-shrink:0;">
-          <div style="width:12px;height:12px;border:1px solid var(--amber);background:var(--amber);position:relative;z-index:1;flex-shrink:0;"></div>
-        </div>
-        <div><div style="font-family:var(--mono);font-size:10px;color:var(--amber);letter-spacing:0.2em;text-transform:uppercase;margin-bottom:8px;">Insight Delivery</div><div style="font-family:var(--serif);font-size:20px;margin-bottom:8px;color:var(--white);">Executive Intelligence</div><div style="font-size:13px;color:var(--white3);line-height:1.6;">Real-time dashboards, automated reports and AI-generated alerts deliver precise project intelligence to stakeholders at every level — anywhere, instantly.</div></div>
-      </div>
-    </div>
-    <div style="position:relative;aspect-ratio:1;background:var(--surface);border:1px solid var(--border);overflow:hidden;">
-      <canvas id="auto-canvas" style="width:100%;height:100%;"></canvas>
-    </div>
-  </div>
-</section>
+<script>
+  var pano_iframe_name_1 = "tour-embeded-1";
+  window.addEventListener("devicemotion", function(e){ var iframe = document.getElementById(pano_iframe_name_1); if (iframe) iframe.contentWindow.postMessage({ type:"devicemotion", deviceMotionEvent:{ acceleration:{ x:e.acceleration.x, y:e.acceleration.y, z:e.acceleration.z }, accelerationIncludingGravity:{ x:e.accelerationIncludingGravity.x, y:e.accelerationIncludingGravity.y, z:e.accelerationIncludingGravity.z }, rotationRate:{ alpha:e.rotationRate.alpha, beta:e.rotationRate.beta, gamma:e.rotationRate.gamma }, interval:e.interval, timeStamp:e.timeStamp } }, "*"); });
+  var pano_iframe_name_2 = "tour-embeded-2";
+  window.addEventListener("devicemotion", function(e){ var iframe = document.getElementById(pano_iframe_name_2); if (iframe) iframe.contentWindow.postMessage({ type:"devicemotion", deviceMotionEvent:{ acceleration:{ x:e.acceleration.x, y:e.acceleration.y, z:e.acceleration.z }, accelerationIncludingGravity:{ x:e.accelerationIncludingGravity.x, y:e.accelerationIncludingGravity.y, z:e.accelerationIncludingGravity.z }, rotationRate:{ alpha:e.rotationRate.alpha, beta:e.rotationRate.beta, gamma:e.rotationRate.gamma }, interval:e.interval, timeStamp:e.timeStamp } }, "*"); });
+</script>
 
 <!-- PROJECTS -->
 <section id="projects">
   <div class="section-tag reveal">Selected Projects</div>
   <h2 class="section-h2 reveal reveal-delay-1">International Portfolio</h2>
   <div class="projects-grid">
-    <div class="project-card reveal"><div class="project-type">Hospitality</div><div class="project-title">Oceanic Horizon Resort</div><div class="project-location">Dubai, UAE</div><div class="project-client">Al Jazira Hospitality Group</div><div class="project-num">01</div></div>
-    <div class="project-card reveal reveal-delay-1"><div class="project-type">Commercial</div><div class="project-title">Vertika Commercial Tower</div><div class="project-location">London, United Kingdom</div><div class="project-client">Thameside Development Corporation</div><div class="project-num">02</div></div>
-    <div class="project-card reveal reveal-delay-2"><div class="project-type">Commercial</div><div class="project-title">Nexus Innovation Campus</div><div class="project-location">Berlin, Germany</div><div class="project-client">Quantix Technologies GmbH</div><div class="project-num">03</div></div>
+    <div class="project-card reveal"><div class="project-type">Industrial</div><div class="project-title">Biological Drug Substance</div><div class="project-location">Munich, Germany</div><div class="project-client">DSE Group</div><div class="project-num">01</div></div>
+    <div class="project-card reveal reveal-delay-1"><div class="project-type">Industrial</div><div class="project-title">SÜD-OST Link and SÜEDLINK Transmission Stations</div><div class="project-location">Düsseldorf, Germany</div><div class="project-client">Tennet</div><div class="project-num">02</div></div>
+    <div class="project-card reveal reveal-delay-2"><div class="project-type">Industrial</div><div class="project-title">PP13 combined cycle powerplant</div><div class="project-location">Riyadh, Saudi Arabia</div><div class="project-client">Worley Parsons</div><div class="project-num">03</div></div>
   </div>
 </section>
 
@@ -876,7 +914,7 @@ footer { background: var(--black); padding: 80px 48px 40px; border-top: 1px soli
   <h2 class="cta-h2 reveal reveal-delay-1">Ready to Transform Your<br>Project Delivery?</h2>
   <p class="cta-sub reveal reveal-delay-2">Let's discuss how our digital engineering, BIM, and project controls capabilities can help you deliver with confidence.</p>
   <div class="cta-actions reveal reveal-delay-3">
-    <a href="mailto:office@formaspacestudio.com" class="btn-primary">Get in Touch</a>
+    <button class="btn-primary" onclick="openContactModal()" style="cursor:pointer;">Get in Touch</button>
     <a href="#services" class="btn-outline">Explore Services</a>
   </div>
 </section>
@@ -885,7 +923,7 @@ footer { background: var(--black); padding: 80px 48px 40px; border-top: 1px soli
 <footer>
   <div class="footer-grid">
     <div>
-      <div class="footer-brand-name"><img src="/logos/FSS App branding without background.png" alt="FSS">Formaspace</div>
+      <div class="footer-brand-name"><img src="/logos/FSS App branding without background.png" alt="FSS">Formaspace Studio</div>
       <div class="footer-brand-desc">Formaspace is a Bangalore-based Project Management Consultancy and Digital Engineering firm operating at the intersection of construction intelligence, BIM, and data-driven project delivery.</div>
       <div class="footer-founders">Founders:<br>Nadeem Ahmad <span style="color:var(--blue)">(BIM)</span><br>Syed Sajid Kirmani <span style="color:var(--amber)">(Project Controls)</span></div>
     </div>
@@ -920,9 +958,48 @@ footer { background: var(--black); padding: 80px 48px 40px; border-top: 1px soli
   </div>
   <div class="footer-bottom">
     <div class="footer-cert"><span>ISO 19650</span><span>PMP</span><span>PSP</span><span>RICS</span><span>PMI</span><span>LEED AP</span></div>
-    <div class="footer-copy">© 2026 Formaspace. All rights reserved.</div>
+    <div class="footer-copy">© 2026 Formaspace Studio. All rights reserved.</div>
   </div>
 </footer>
+
+<!-- CONTACT MODAL -->
+<div id="contact-overlay">
+  <div id="contact-modal">
+    <button id="contact-close" aria-label="Close">&times;</button>
+    <div id="contact-form-wrap">
+      <div class="contact-title">Get in Touch</div>
+      <div class="contact-sub">Fill in the form and our team will get back to you within 24 hours.</div>
+      <form id="contact-form">
+        <div class="form-group">
+          <label for="cf-name">Your Name</label>
+          <input type="text" id="cf-name" placeholder="John Smith" required>
+        </div>
+        <div class="form-group">
+          <label for="cf-email">Email Address</label>
+          <input type="email" id="cf-email" placeholder="john@company.com" required>
+        </div>
+        <div class="form-group">
+          <label for="cf-phone">Phone Number</label>
+          <input type="tel" id="cf-phone" placeholder="+1 234 567 890">
+        </div>
+        <div class="form-group">
+          <label for="cf-company">Company</label>
+          <input type="text" id="cf-company" placeholder="Your Company Ltd.">
+        </div>
+        <div class="form-group">
+          <label for="cf-message">Message</label>
+          <textarea id="cf-message" placeholder="Tell us about your project..." required></textarea>
+        </div>
+        <button type="submit" id="contact-submit">Send Message</button>
+      </form>
+    </div>
+    <div class="contact-success" id="contact-success">
+      <div class="contact-success-icon">&#10003;</div>
+      <div class="contact-success-title">Message Sent</div>
+      <div class="contact-success-text">Thank you for reaching out. Our team will respond to you at the provided email address within 24 hours.</div>
+    </div>
+  </div>
+</div>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
 <script>
@@ -948,7 +1025,7 @@ document.addEventListener('mousemove', e => {
   cursor.style.left = e.clientX + 'px';
   cursor.style.top = e.clientY + 'px';
 });
-document.querySelectorAll('a,button,.phase-card,.service-card,.intel-card,.project-card,.insight-card,.ai-feature,.bim-stage,.partner-cell').forEach(el => {
+document.querySelectorAll('a,button,.phase-card,.service-card,.intel-card,.project-card,.insight-card,.bim-stage,.partner-cell').forEach(el => {
   el.addEventListener('mouseenter', () => cursor.classList.add('hover'));
   el.addEventListener('mouseleave', () => cursor.classList.remove('hover'));
 });
@@ -958,6 +1035,42 @@ const spotlight = document.getElementById('spotlight');
 document.addEventListener('mousemove', e => {
   spotlight.style.left = e.clientX + 'px';
   spotlight.style.top = e.clientY + 'px';
+});
+
+// Contact Modal
+window.openContactModal = function() {
+  document.getElementById('contact-overlay').classList.add('open');
+  document.body.style.overflow = 'hidden';
+};
+window.closeContactModal = function() {
+  document.getElementById('contact-overlay').classList.remove('open');
+  document.body.style.overflow = '';
+};
+document.getElementById('contact-close').addEventListener('click', window.closeContactModal);
+document.getElementById('contact-overlay').addEventListener('click', function(e) {
+  if (e.target === this) window.closeContactModal();
+});
+document.addEventListener('keydown', function(e) {
+  if (e.key === 'Escape') window.closeContactModal();
+});
+document.getElementById('contact-form').addEventListener('submit', function(e) {
+  e.preventDefault();
+  var name = document.getElementById('cf-name').value.trim();
+  var email = document.getElementById('cf-email').value.trim();
+  var phone = document.getElementById('cf-phone').value.trim();
+  var company = document.getElementById('cf-company').value.trim();
+  var message = document.getElementById('cf-message').value.trim();
+  var body = 'Name: ' + name + '%0D%0AEmail: ' + email + '%0D%0APhone: ' + phone + '%0D%0ACompany: ' + company + '%0D%0A%0D%0AMessage:%0D%0A' + message;
+  var btn = document.getElementById('contact-submit');
+  btn.disabled = true;
+  btn.textContent = 'Sending...';
+  window.location.href = 'mailto:office@formaspacestudio.com?subject=New%20Enquiry%20from%20' + encodeURIComponent(name) + '&body=' + body;
+  setTimeout(function() {
+    document.getElementById('contact-form-wrap').style.display = 'none';
+    document.getElementById('contact-success').classList.add('show');
+    btn.disabled = false;
+    btn.textContent = 'Send Message';
+  }, 800);
 });
 
 // Loader
@@ -1389,7 +1502,7 @@ function initHeroCanvas() {
   });
   const t1 = document.createElementNS('http://www.w3.org/2000/svg','text');
   t1.setAttribute('x', cx); t1.setAttribute('y', cy - 4); t1.setAttribute('text-anchor','middle');
-  t1.setAttribute('font-family',"'DM Serif Display',serif"); t1.setAttribute('font-size','20'); t1.setAttribute('fill','#F5A623'); t1.textContent = '$2.5B';
+  t1.setAttribute('font-family',"'DM Serif Display',serif"); t1.setAttribute('font-size','20'); t1.setAttribute('fill','#F5A623'); t1.textContent = '$20M';
   svg.appendChild(t1);
   const t2 = document.createElementNS('http://www.w3.org/2000/svg','text');
   t2.setAttribute('x', cx); t2.setAttribute('y', cy + 14); t2.setAttribute('text-anchor','middle');
@@ -1420,71 +1533,7 @@ function initHeroCanvas() {
   });
 })();
 
-// Digital Twin Canvas
-(function initTwin() {
-  const wrap = document.getElementById('twin-canvas-wrap');
-  if (!wrap) return;
-  const canvas = document.getElementById('twin-canvas');
-  const ctx = canvas.getContext('2d');
-  function resize() { canvas.width = wrap.clientWidth; canvas.height = wrap.clientHeight; }
-  resize(); window.addEventListener('resize', resize);
-  const nodes = [];
-  const nodeCount = 40;
-  for (let i = 0; i < nodeCount; i++) {
-    nodes.push({ x: Math.random(), y: Math.random(), vx: (Math.random() - 0.5) * 0.002, vy: (Math.random() - 0.5) * 0.002, r: Math.random() * 3 + 1, pulse: Math.random() * Math.PI * 2, type: Math.random() > 0.85 ? 'anomaly' : Math.random() > 0.5 ? 'active' : 'idle' });
-  }
-  let t = 0, sensorAnimated = false;
-  const twinObserver = new IntersectionObserver((entries) => {
-    entries.forEach(e => { if (e.isIntersecting && !sensorAnimated) { sensorAnimated = true; animateMetric('sensor-count',0,128,1600,''); animateMetric('stream-count',0,47,1400,''); animateMetric('anomaly-count',0,3,1000,''); animateMetric('accuracy-val',0,94.7,2000,'%',1); } });
-  }, { threshold: 0.3 });
-  twinObserver.observe(wrap);
-  function animateMetric(id,from,to,dur,suffix,decimals=0) {
-    const el = document.getElementById(id); if (!el) return;
-    const start = performance.now();
-    function step(now) { const p = Math.min((now - start) / dur, 1); const ease = 1 - Math.pow(1 - p, 3); const val = from + (to - from) * ease; el.textContent = val.toFixed(decimals) + suffix; if (p < 1) requestAnimationFrame(step); }
-    requestAnimationFrame(step);
-  }
-  function animate() {
-    requestAnimationFrame(animate); t += 0.015;
-    const W = canvas.width, H = canvas.height;
-    ctx.clearRect(0, 0, W, H);
-    ctx.strokeStyle = 'rgba(26,31,46,0.8)'; ctx.lineWidth = 0.5;
-    for (let x = 0; x < W; x += 40) { ctx.beginPath(); ctx.moveTo(x, 0); ctx.lineTo(x, H); ctx.stroke(); }
-    for (let y = 0; y < H; y += 40) { ctx.beginPath(); ctx.moveTo(0, y); ctx.lineTo(W, y); ctx.stroke(); }
-    ctx.strokeStyle = 'rgba(245,166,35,0.12)'; ctx.lineWidth = 1;
-    for (let fl = 0; fl < 6; fl++) { const y = H * 0.7 - fl * H * 0.08; ctx.strokeRect(W * 0.25, y - H * 0.07, W * 0.5, H * 0.07); }
-    nodes.forEach(n => { n.x += n.vx + Math.sin(t * 0.5 + n.pulse) * 0.0005; n.y += n.vy + Math.cos(t * 0.3 + n.pulse) * 0.0005; if (n.x < 0 || n.x > 1) n.vx *= -1; if (n.y < 0 || n.y > 1) n.vy *= -1; n.x = Math.max(0, Math.min(1, n.x)); n.y = Math.max(0, Math.min(1, n.y)); });
-    for (let i = 0; i < nodes.length; i++) { for (let j = i + 1; j < nodes.length; j++) { const dx = (nodes[i].x - nodes[j].x) * W, dy = (nodes[i].y - nodes[j].y) * H, dist = Math.sqrt(dx * dx + dy * dy); if (dist < 90) { ctx.beginPath(); ctx.moveTo(nodes[i].x * W, nodes[i].y * H); ctx.lineTo(nodes[j].x * W, nodes[j].y * H); ctx.strokeStyle = `rgba(79,195,247,${(1 - dist / 90) * 0.3})`; ctx.lineWidth = 0.5; ctx.stroke(); } } }
-    nodes.forEach(n => { const px = n.x * W, py = n.y * H, pulse = Math.sin(t * 2 + n.pulse) * 0.5 + 0.5; let color, glowColor; if (n.type === 'anomaly') { color = '#f87171'; glowColor = 'rgba(248,113,113,'; } else if (n.type === 'active') { color = '#F5A623'; glowColor = 'rgba(245,166,35,'; } else { color = '#4FC3F7'; glowColor = 'rgba(79,195,247,'; } ctx.beginPath(); ctx.arc(px, py, n.r * 3, 0, Math.PI * 2); ctx.fillStyle = glowColor + (pulse * 0.3) + ')'; ctx.fill(); ctx.beginPath(); ctx.arc(px, py, n.r, 0, Math.PI * 2); ctx.fillStyle = color; ctx.fill(); if (n.type === 'anomaly') { ctx.beginPath(); ctx.arc(px, py, n.r * (2 + pulse * 3), 0, Math.PI * 2); ctx.strokeStyle = `rgba(248,113,113,${0.5 - pulse * 0.4})`; ctx.lineWidth = 1; ctx.stroke(); } });
-    for (let i = 0; i < 3; i++) { const progress = ((t * 0.4 + i * 0.33) % 1); const n1 = nodes[i * 8], n2 = nodes[i * 8 + 12]; if (n1 && n2) { const px = (n1.x + (n2.x - n1.x) * progress) * W, py = (n1.y + (n2.y - n1.y) * progress) * H; ctx.beginPath(); ctx.arc(px, py, 3, 0, Math.PI * 2); ctx.fillStyle = '#4FC3F7'; ctx.fill(); } }
-  }
-  animate();
-})();
 
-// Automation Canvas
-(function initAuto() {
-  const wrap = document.querySelector('#automation > div > div:last-child');
-  if (!wrap) return;
-  const canvas = document.getElementById('auto-canvas');
-  if (!canvas) return;
-  const ctx = canvas.getContext('2d');
-  function resize() { canvas.width = wrap.clientWidth; canvas.height = wrap.clientHeight; }
-  resize(); window.addEventListener('resize', resize);
-  const layers = [{ nodes: 4, label: 'Site Data' },{ nodes: 6, label: 'AI Layer' },{ nodes: 5, label: 'Analytics' },{ nodes: 3, label: 'Output' }];
-  let t = 0;
-  const signals = [];
-  for (let i = 0; i < 15; i++) { signals.push({ layer: Math.floor(Math.random() * (layers.length - 1)), from: Math.floor(Math.random() * 6), to: Math.floor(Math.random() * 6), progress: Math.random(), speed: 0.004 + Math.random() * 0.006, color: Math.random() > 0.5 ? '#F5A623' : '#4FC3F7' }); }
-  function getNodePos(layerIdx, nodeIdx, W, H) { const lCount = layers.length; const x = (layerIdx / (lCount - 1)) * (W * 0.8) + W * 0.1; const nCount = layers[layerIdx].nodes; const y = ((nodeIdx + 1) / (nCount + 1)) * H; return { x, y }; }
-  function animate() {
-    requestAnimationFrame(animate); t += 0.01;
-    const W = canvas.width, H = canvas.height;
-    ctx.clearRect(0, 0, W, H);
-    for (let li = 0; li < layers.length - 1; li++) { for (let ni = 0; ni < layers[li].nodes; ni++) { for (let nj = 0; nj < layers[li + 1].nodes; nj++) { const p1 = getNodePos(li, ni, W, H), p2 = getNodePos(li + 1, nj, W, H); ctx.beginPath(); ctx.moveTo(p1.x, p1.y); ctx.lineTo(p2.x, p2.y); ctx.strokeStyle = 'rgba(26,32,48,0.8)'; ctx.lineWidth = 0.5; ctx.stroke(); } } }
-    signals.forEach(sig => { sig.progress += sig.speed; if (sig.progress > 1) { sig.progress = 0; sig.from = Math.floor(Math.random() * layers[sig.layer].nodes); sig.to = Math.floor(Math.random() * layers[sig.layer + 1].nodes); } const p1 = getNodePos(sig.layer, sig.from % layers[sig.layer].nodes, W, H), p2 = getNodePos(sig.layer + 1, sig.to % layers[sig.layer + 1].nodes, W, H); const sx = p1.x + (p2.x - p1.x) * sig.progress, sy = p1.y + (p2.y - p1.y) * sig.progress; for (let tr = 0; tr < 5; tr++) { const tp = Math.max(0, sig.progress - tr * 0.04), tx = p1.x + (p2.x - p1.x) * tp, ty = p1.y + (p2.y - p1.y) * tp; ctx.beginPath(); ctx.arc(tx, ty, 2 - tr * 0.3, 0, Math.PI * 2); const alpha = (0.8 - tr * 0.15); if (sig.color === '#F5A623') ctx.fillStyle = `rgba(245,166,35,${alpha})`; else ctx.fillStyle = `rgba(79,195,247,${alpha})`; ctx.fill(); } });
-    for (let li = 0; li < layers.length; li++) { for (let ni = 0; ni < layers[li].nodes; ni++) { const p = getNodePos(li, ni, W, H); const pulse = Math.sin(t + li + ni) * 0.5 + 0.5; ctx.beginPath(); ctx.arc(p.x, p.y, 4 + pulse * 2, 0, Math.PI * 2); ctx.fillStyle = `rgba(245,166,35,${0.1 + pulse * 0.1})`; ctx.fill(); ctx.beginPath(); ctx.arc(p.x, p.y, 4, 0, Math.PI * 2); ctx.fillStyle = '#F5A623'; ctx.fill(); } const lp = getNodePos(li, -0.5, W, H); ctx.fillStyle = 'rgba(122,120,112,0.8)'; ctx.font = "10px 'IBM Plex Mono'"; ctx.textAlign = 'center'; ctx.fillText(layers[li].label, lp.x, H - 16); }
-  }
-  animate();
-})();
 
 })();
 </script>

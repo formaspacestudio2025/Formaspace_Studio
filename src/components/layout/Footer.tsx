@@ -24,9 +24,9 @@ export function Footer() {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10 lg:gap-8">
           <div className="md:col-span-1">
             <a href="/" className="inline-flex items-center gap-2.5 mb-5">
-              <img src="/logos/FSS logo.png" alt="FSS" className="h-8 w-auto brightness-0 invert" />
+              <img src="/logos/FSS logo.png" alt="FSS" className="h-16 w-auto brightness-0 invert" />
               <span className="font-sans text-lg font-semibold tracking-tight text-text-primary">
-                Formaspace
+                Formaspace Studio
               </span>
             </a>
             <p className="text-text-secondary text-sm leading-relaxed max-w-xs">

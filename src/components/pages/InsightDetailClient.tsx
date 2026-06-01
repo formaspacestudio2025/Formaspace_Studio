@@ -26,7 +26,7 @@ const fullContent: Record<string, { sections: { heading: string; body: string }[
     sections: [
       {
         heading: 'Setting the Standard',
-        body: 'ISO 19650 provides a framework for managing information over the whole life cycle of a built asset using BIM. For large-scale programmes with 30+ design and construction partners across multiple time zones, implementing the standard requires more than just a procedures document — it demands a digital infrastructure that enforces compliance automatically.',
+        body: 'ISO 19650 provides a framework for managing information over the whole life cycle of a built asset using BIM. For large-scale programmes with 10+ design and construction partners across multiple time zones, implementing the standard requires more than just a procedures document — it demands a digital infrastructure that enforces compliance automatically.',
       },
       {
         heading: 'Common Data Environment Strategy',
