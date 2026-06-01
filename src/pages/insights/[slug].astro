@@ -1,0 +1,13 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import { InsightDetailClient } from '../../components/pages/InsightDetailClient.tsx';
+import { insights } from '@/lib/data';
+
+export function getStaticPaths() {
+  return insights.map((i) => ({ params: { slug: i.id } }));
+}
+---
+
+<Layout>
+  <InsightDetailClient client:load slug={Astro.params.slug} />
+</Layout>

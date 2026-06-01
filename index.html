@@ -1,0 +1,1545 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Formaspace | Digital Engineering, BIM & Project Controls</title>
+<meta name="description" content="Formaspace — Project Management Consultancy & Digital Engineering firm. Digital Engineering, BIM, Project Controls and Construction Intelligence.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=IBM+Plex+Mono:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+<style>
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+:root{--bg:#0A0C10;--bg2:#0F1219;--bg3:#111318;--amber:#F5A623;--amber-dim:#C4881A;--blue:#4FC3F7;--blue-dim:#2B7FA8;--text:#E8EAF0;--text-dim:#6B7280;--text-muted:#4B5563;--border:#1E2330;--card-bg:#0D1016;--glow-amber:rgba(245,166,35,0.15);--glow-blue:rgba(79,195,247,0.12);--font-serif:'DM Serif Display',Georgia,serif;--font-mono:'IBM Plex Mono',monospace;--nav-h:64px;--amber-rgb:245,166,35;--blue-rgb:79,195,247}
+html{scroll-behavior:smooth}
+body{font-family:var(--font-mono);background:var(--bg);color:var(--text);overflow-x:hidden;line-height:1.6;-webkit-font-smoothing:antialiased}
+::selection{background:rgba(245,166,35,0.3);color:#fff}
+::-webkit-scrollbar{width:6px}
+::-webkit-scrollbar-track{background:var(--bg)}
+::-webkit-scrollbar-thumb{background:var(--border);border-radius:3px}
+::-webkit-scrollbar-thumb:hover{background:var(--text-muted)}
+img{max-width:100%;display:block}
+a{color:inherit;text-decoration:none}
+button{border:none;background:none;cursor:pointer;font:inherit;color:inherit}
+
+/* Loader */
+#loader{position:fixed;inset:0;z-index:9999;background:var(--bg);display:flex;align-items:center;justify-content:center;flex-direction:column;transition:opacity .6s ease,visibility .6s ease}
+#loader.hidden{opacity:0;visibility:hidden}
+#loader svg{width:120px;height:120px}
+#loader .monogram-path{fill:none;stroke:var(--amber);stroke-width:2;stroke-dasharray:600;stroke-dashoffset:600;animation:drawMonogram 2s ease forwards}
+@keyframes drawMonogram{to{stroke-dashoffset:0}}
+#loader .loader-label{font-family:var(--font-mono);font-size:11px;letter-spacing:4px;text-transform:uppercase;color:var(--text-dim);margin-top:24px;opacity:0;animation:fadeUp .6s ease 1.6s forwards}
+
+/* Custom Cursor */
+#cursor{position:fixed;width:20px;height:20px;pointer-events:none;z-index:9998;mix-blend-mode:difference;transition:transform .3s ease,opacity .3s ease;opacity:0;transform:translate(-50%,-50%)}
+#cursor.show{opacity:1}
+#cursor::before,#cursor::after{content:'';position:absolute;background:var(--amber)}
+#cursor::before{width:1px;height:100%;left:50%;transform:translateX(-50%)}
+#cursor::after{width:100%;height:1px;top:50%;transform:translateY(-50%)}
+#cursor.hover{transform:translate(-50%,-50%) scale(1.6)}
+@media(hover:none){#cursor{display:none}}
+
+/* Nav */
+.nav{position:fixed;top:0;left:0;right:0;z-index:100;height:var(--nav-h);display:flex;align-items:center;justify-content:space-between;padding:0 48px;background:rgba(10,12,16,0.85);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);border-bottom:1px solid transparent;transition:border-color .3s ease}
+.nav.scrolled{border-bottom-color:var(--amber)}
+.nav-logo{font-family:var(--font-serif);font-size:22px;letter-spacing:2px;font-style:italic;color:var(--text)}
+.nav-logo span{color:var(--amber)}
+.nav-links{display:flex;list-style:none;gap:32px;align-items:center}
+.nav-links a{font-family:var(--font-mono);font-size:12px;letter-spacing:1.5px;text-transform:uppercase;color:var(--text-dim);position:relative;padding:4px 0;transition:color .3s ease,letter-spacing .3s ease}
+.nav-links a::after{content:'';position:absolute;bottom:-2px;left:0;width:0;height:1px;background:var(--amber);transition:width .3s ease}
+.nav-links a:hover{color:var(--text);letter-spacing:2.5px}
+.nav-links a:hover::after{width:100%}
+.nav-links a.active{color:var(--amber)}
+.nav-links a.active::after{width:100%}
+.nav-cta{background:var(--amber);color:var(--bg);padding:8px 20px;font-family:var(--font-mono);font-size:11px;letter-spacing:1px;text-transform:uppercase;font-weight:600;border-radius:0;transition:background .3s ease,color .3s ease}
+.nav-cta:hover{background:var(--text);color:var(--bg);letter-spacing:2px!important}
+.nav-toggle{display:none;flex-direction:column;gap:5px;cursor:pointer;padding:4px;background:none;border:none}
+.nav-toggle span{display:block;width:24px;height:1.5px;background:var(--text);transition:transform .3s ease,opacity .3s ease}
+.nav-toggle.open span:nth-child(1){transform:rotate(45deg) translate(4px,5px)}
+.nav-toggle.open span:nth-child(2){opacity:0}
+.nav-toggle.open span:nth-child(3){transform:rotate(-45deg) translate(4px,-5px)}
+@media(max-width:900px){
+  .nav{padding:0 20px}
+  .nav-links{position:fixed;top:var(--nav-h);left:0;right:0;background:rgba(10,12,16,0.98);backdrop-filter:blur(20px);flex-direction:column;padding:32px 24px;gap:20px;transform:translateY(-120%);opacity:0;transition:transform .4s ease,opacity .4s ease;border-bottom:1px solid var(--border)}
+  .nav-links.open{transform:translateY(0);opacity:1}
+  .nav-toggle{display:flex}
+}
+
+/* Hero */
+#hero{position:relative;min-height:100vh;display:flex;align-items:center;overflow:hidden;padding:0 48px}
+#hero .bg-grid{position:absolute;inset:0;background-image:linear-gradient(var(--border) 1px,transparent 1px),linear-gradient(90deg,var(--border) 1px,transparent 1px);background-size:60px 60px;opacity:0.25;pointer-events:none}
+#hero canvas{position:absolute;inset:0;width:100%;height:100%;pointer-events:none}
+#hero .hero-content{position:relative;z-index:2;max-width:800px}
+#hero .hero-tag{font-family:var(--font-mono);font-size:12px;letter-spacing:3px;text-transform:uppercase;color:var(--amber);margin-bottom:16px;opacity:0;transform:translateY(20px);animation:fadeUp .8s ease .3s forwards}
+#hero h1{font-family:var(--font-serif);font-size:clamp(48px,7vw,96px);line-height:1.05;letter-spacing:-1px;color:var(--text);margin-bottom:16px;opacity:0;transform:translateY(30px);animation:fadeUp .8s ease .5s forwards}
+#hero h1 .highlight{color:var(--amber);font-style:italic}
+#hero .hero-sub{font-family:var(--font-mono);font-size:clamp(14px,1.2vw,18px);color:var(--text-dim);max-width:600px;line-height:1.7;margin-bottom:40px;opacity:0;transform:translateY(20px);animation:fadeUp .8s ease .7s forwards}
+#hero .hero-stats{display:flex;gap:48px;opacity:0;transform:translateY(20px);animation:fadeUp .8s ease .9s forwards}
+#hero .hero-stat{}
+#hero .hero-stat .num{font-family:var(--font-serif);font-size:36px;color:var(--text);line-height:1}
+#hero .hero-stat .num .amber{color:var(--amber)}
+#hero .hero-stat .num .blue{color:var(--blue)}
+#hero .hero-stat .label{font-family:var(--font-mono);font-size:11px;letter-spacing:1px;text-transform:uppercase;color:var(--text-muted);margin-top:4px}
+#hero .scroll-indicator{position:absolute;bottom:40px;left:50%;transform:translateX(-50%);z-index:2;display:flex;flex-direction:column;align-items:center;gap:8px;color:var(--text-muted);font-size:10px;letter-spacing:2px;text-transform:uppercase;animation:bounceDown 2s ease infinite}
+#hero .scroll-indicator .line{width:1px;height:40px;background:linear-gradient(to bottom,var(--text-muted),transparent)}
+@media(max-width:768px){
+  #hero{padding:0 20px;min-height:80vh}
+  #hero canvas{display:none}
+  #hero .hero-stats{flex-wrap:wrap;gap:24px}
+}
+
+/* Sections common */
+section{position:relative;padding:120px 48px}
+.section-inner{max-width:1200px;margin:0 auto;position:relative}
+.section-label{font-family:var(--font-mono);font-size:11px;letter-spacing:3px;text-transform:uppercase;color:var(--amber);margin-bottom:12px}
+.section-title{font-family:var(--font-serif);font-size:clamp(32px,4vw,56px);line-height:1.1;color:var(--text);margin-bottom:24px}
+.section-desc{font-family:var(--font-mono);font-size:15px;color:var(--text-dim);max-width:600px;line-height:1.8;margin-bottom:48px}
+.reveal{opacity:0;transform:translateY(40px);transition:opacity .8s cubic-bezier(.22,1,.36,1),transform .8s cubic-bezier(.22,1,.36,1)}
+.reveal.visible{opacity:1;transform:translateY(0)}
+.reveal-delay-1{transition-delay:80ms}
+.reveal-delay-2{transition-delay:160ms}
+.reveal-delay-3{transition-delay:240ms}
+.reveal-delay-4{transition-delay:320ms}
+.reveal-delay-5{transition-delay:400ms}
+@media(max-width:768px){
+  section{padding:80px 20px}
+}
+
+/* Stats Section */
+#stats{background:var(--bg2)}
+.stats-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:48px;margin-bottom:80px}
+.stats-grid .big-stat .num{font-family:var(--font-serif);font-size:clamp(48px,6vw,80px);color:var(--text);line-height:1}
+.stats-grid .big-stat .num .amber{color:var(--amber)}
+.stats-grid .big-stat .num .blue{color:var(--blue)}
+.stats-grid .big-stat .label{font-family:var(--font-mono);font-size:13px;letter-spacing:1px;color:var(--text-muted);margin-top:4px;text-transform:uppercase}
+.stats-counts{display:grid;grid-template-columns:repeat(4,1fr);gap:32px;margin-top:48px}
+.stat-item{text-align:center;padding:32px 16px;border:1px solid var(--border);position:relative;background:var(--card-bg)}
+.stat-item .num{font-family:var(--font-serif);font-size:42px;color:var(--amber);line-height:1}
+.stat-item .label{font-family:var(--font-mono);font-size:11px;letter-spacing:1px;color:var(--text-muted);text-transform:uppercase;margin-top:8px}
+@media(max-width:768px){
+  .stats-counts{grid-template-columns:repeat(2,1fr)}
+}
+
+/* Services */
+#services{background:var(--bg)}
+.services-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px}
+.service-card{padding:40px 32px;border:1px solid var(--border);background:var(--card-bg);position:relative;transition:border-color .3s ease,transform .3s ease}
+.service-card:hover{border-color:var(--amber);transform:translateY(-4px)}
+.service-card .num{font-family:var(--font-serif);font-size:48px;color:var(--amber);opacity:0.2;line-height:1;position:absolute;top:16px;right:20px}
+.service-card h3{font-family:var(--font-serif);font-size:22px;color:var(--text);margin-bottom:12px}
+.service-card p{font-family:var(--font-mono);font-size:13px;color:var(--text-dim);line-height:1.7;margin-bottom:20px}
+.service-card .tech-tags{display:flex;flex-wrap:wrap;gap:8px}
+.service-card .tech-tag{font-family:var(--font-mono);font-size:10px;letter-spacing:.5px;padding:4px 10px;border:1px solid var(--amber);color:var(--amber);transition:background .3s ease,color .3s ease}
+.service-card .tech-tag:hover{background:var(--amber);color:var(--bg)}
+@media(max-width:968px){
+  .services-grid{grid-template-columns:repeat(2,1fr)}
+}
+@media(max-width:600px){
+  .services-grid{grid-template-columns:1fr}
+}
+
+/* Digital Engineering (BIM) */
+#digital-eng{background:var(--bg2)}
+.bim-container{display:grid;grid-template-columns:1fr 1fr;gap:64px;align-items:center}
+.bim-visual{position:relative;height:500px;background:var(--card-bg);border:1px solid var(--border);overflow:hidden}
+.bim-visual .bim-stage{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;opacity:0;transition:opacity .6s ease}
+.bim-visual .bim-stage.active{opacity:1}
+.bim-visual canvas{width:100%;height:100%;display:block}
+.bim-controls{margin-top:24px;display:flex;align-items:center;gap:16px}
+.bim-progress{flex:1;height:4px;background:var(--border);border-radius:2px;position:relative;cursor:pointer}
+.bim-progress .bim-progress-fill{height:100%;background:var(--amber);border-radius:2px;transition:width .5s ease;width:20%}
+.bim-progress .bim-progress-dots{position:absolute;top:50%;left:0;right:0;transform:translateY(-50%);display:flex;justify-content:space-between;pointer-events:none}
+.bim-progress .bim-progress-dots span{width:10px;height:10px;border-radius:50%;background:var(--border);border:2px solid var(--bg2);transition:background .3s ease}
+.bim-progress .bim-progress-dots span.active{background:var(--amber)}
+.bim-stage-label{font-family:var(--font-mono);font-size:13px;letter-spacing:1px;color:var(--text-dim);min-width:120px;text-align:center}
+.bim-btns{display:flex;gap:8px}
+.bim-btns button{width:40px;height:40px;border:1px solid var(--border);color:var(--text-dim);font-size:16px;display:flex;align-items:center;justify-content:center;transition:all .3s ease;background:var(--card-bg)}
+.bim-btns button:hover{border-color:var(--amber);color:var(--amber)}
+.bim-info h3{font-family:var(--font-serif);font-size:28px;color:var(--text);margin-bottom:16px}
+.bim-info .bim-stage-desc{font-family:var(--font-mono);font-size:14px;color:var(--text-dim);line-height:1.8;margin-bottom:24px}
+.bim-info .bim-complete{display:none}
+.bim-info .bim-complete.show{display:block}
+.bim-info .digitwin-counter{font-family:var(--font-serif);font-size:72px;color:var(--amber);line-height:1}
+.bim-info .digitwin-label{font-family:var(--font-mono);font-size:11px;letter-spacing:2px;color:var(--text-dim);text-transform:uppercase}
+@media(max-width:900px){
+  .bim-container{grid-template-columns:1fr;gap:32px}
+  .bim-visual{height:350px}
+}
+
+/* Performance (S-Curve) */
+#performance{background:var(--bg)}
+.chart-container{background:var(--card-bg);border:1px solid var(--border);padding:48px;position:relative}
+.chart-container .chart-fig{width:100%;height:auto}
+.chart-container .chart-fig svg{width:100%;height:auto;display:block}
+.chart-kpis{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-top:32px}
+.kpi-card{padding:20px;border:1px solid var(--border);text-align:center;background:var(--bg2)}
+.kpi-card .kpi-val{font-family:var(--font-serif);font-size:28px;color:var(--amber);line-height:1}
+.kpi-card .kpi-val.blue{color:var(--blue)}
+.kpi-card .kpi-label{font-family:var(--font-mono);font-size:10px;letter-spacing:1px;text-transform:uppercase;color:var(--text-muted);margin-top:4px}
+@media(max-width:768px){
+  .chart-kpis{grid-template-columns:repeat(2,1fr)}
+  .chart-container{padding:24px}
+}
+
+/* Project Controls (Bar Chart) */
+#controls{background:var(--bg2)}
+.bar-chart-container{background:var(--card-bg);border:1px solid var(--border);padding:48px;position:relative}
+.bar-chart-container .chart-fig{width:100%;height:auto}
+.bar-chart-container .chart-fig svg{width:100%;height:auto;display:block}
+
+/* Portfolio Donut */
+#portfolio{background:var(--bg)}
+.portfolio-grid{display:grid;grid-template-columns:1fr 1fr;gap:64px;align-items:center}
+.donut-container{position:relative;width:320px;height:320px;margin:0 auto}
+.donut-container svg{width:100%;height:100%;transform:rotate(-90deg)}
+.donut-container .donut-center{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);text-align:center;pointer-events:none}
+.donut-container .donut-center .val{font-family:var(--font-serif);font-size:42px;color:var(--amber);line-height:1}
+.donut-container .donut-center .label{font-family:var(--font-mono);font-size:10px;letter-spacing:1px;text-transform:uppercase;color:var(--text-muted);margin-top:4px}
+.donut-legend{display:flex;flex-direction:column;gap:12px}
+.donut-legend .legend-item{display:flex;align-items:center;gap:12px;padding:12px 16px;border:1px solid var(--border);cursor:pointer;transition:border-color .3s ease;background:var(--card-bg)}
+.donut-legend .legend-item:hover{border-color:var(--amber)}
+.donut-legend .legend-item .dot{width:10px;height:10px;border-radius:50%;flex-shrink:0}
+.donut-legend .legend-item .lname{font-family:var(--font-mono);font-size:13px;color:var(--text);flex:1}
+.donut-legend .legend-item .lpct{font-family:var(--font-mono);font-size:13px;color:var(--amber);font-weight:600}
+@media(max-width:768px){
+  .portfolio-grid{grid-template-columns:1fr;gap:32px}
+}
+
+/* Lifecycle Timeline */
+#lifecycle{background:var(--bg2);padding:0;overflow:hidden}
+#lifecycle .section-inner{padding:120px 48px 0;max-width:100%}
+.lifecycle-pinned{position:relative;height:100vh;display:flex;align-items:center;overflow:hidden}
+.lifecycle-track{display:flex;gap:0;padding:0 48px;transition:transform .1s linear;will-change:transform}
+.lifecycle-phase{min-width:420px;max-width:420px;padding:48px;border:1px solid var(--border);background:var(--card-bg);position:relative;margin-right:24px;transition:border-color .3s ease,box-shadow .3s ease;flex-shrink:0}
+.lifecycle-phase.active{border-color:var(--amber);box-shadow:0 0 30px var(--glow-amber)}
+.lifecycle-phase .phase-num{font-family:var(--font-serif);font-size:120px;color:var(--text);opacity:0.05;line-height:1;position:absolute;top:0;right:24px;pointer-events:none}
+.lifecycle-phase .phase-icon{width:48px;height:48px;border:1px solid var(--border);display:flex;align-items:center;justify-content:center;font-size:20px;color:var(--amber);margin-bottom:24px}
+.lifecycle-phase h3{font-family:var(--font-serif);font-size:28px;color:var(--text);margin-bottom:8px}
+.lifecycle-phase p{font-family:var(--font-mono);font-size:13px;color:var(--text-dim);line-height:1.7}
+.lifecycle-connector{position:absolute;top:50%;left:100%;width:24px;height:1px;background:var(--border);transform:translateY(-50%)}
+.lifecycle-connector .fill{height:100%;background:var(--amber);width:0%;transition:width .3s ease}
+.lifecycle-progress{position:absolute;bottom:0;left:0;right:0;height:3px;background:var(--border)}
+.lifecycle-progress .fill{height:100%;background:var(--amber);width:0%;transition:width .1s linear}
+.lifecycle-dots{display:flex;gap:8px;margin-top:24px}
+.lifecycle-dots span{width:8px;height:8px;border-radius:50%;background:var(--border);transition:background .3s ease}
+.lifecycle-dots span.active{background:var(--amber)}
+@media(max-width:768px){
+  .lifecycle-phase{min-width:300px;max-width:300px;padding:32px}
+  .lifecycle-phase .phase-num{font-size:72px}
+}
+
+/* Insights */
+#insights{background:var(--bg)}
+.insights-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px}
+.insight-card{padding:32px;border:1px solid var(--border);background:var(--card-bg);position:relative;transition:transform .4s ease,border-color .4s ease;overflow:hidden;cursor:pointer}
+.insight-card:hover{transform:translateY(-8px);border-left:3px solid var(--amber)}
+.insight-card .card-tag{display:inline-block;font-family:var(--font-mono);font-size:10px;letter-spacing:1px;text-transform:uppercase;padding:4px 10px;border:1px solid var(--blue);color:var(--blue);margin-bottom:16px}
+.insight-card .read-time{font-family:var(--font-mono);font-size:10px;color:var(--text-muted);margin-left:8px}
+.insight-card h3{font-family:var(--font-serif);font-size:22px;color:var(--text);margin-bottom:12px;line-height:1.3}
+.insight-card .author{font-family:var(--font-mono);font-size:12px;color:var(--text-muted)}
+.insight-card .read-more{position:absolute;bottom:-32px;left:32px;font-family:var(--font-mono);font-size:11px;letter-spacing:1px;text-transform:uppercase;color:var(--amber);transition:bottom .4s ease}
+.insight-card:hover .read-more{bottom:20px}
+@media(max-width:968px){
+  .insights-grid{grid-template-columns:repeat(2,1fr)}
+}
+@media(max-width:600px){
+  .insights-grid{grid-template-columns:1fr}
+}
+
+/* CTA */
+#cta{background:var(--bg3);text-align:center;padding:120px 48px}
+#cta h2{font-family:var(--font-serif);font-size:clamp(32px,4vw,56px);color:var(--text);margin-bottom:16px}
+#cta p{font-family:var(--font-mono);font-size:15px;color:var(--text-dim);margin-bottom:40px;max-width:500px;margin-left:auto;margin-right:auto}
+.cta-btns{display:flex;gap:16px;justify-content:center;flex-wrap:wrap}
+.btn{font-family:var(--font-mono);font-size:12px;letter-spacing:1.5px;text-transform:uppercase;padding:14px 32px;font-weight:600;transition:all .3s ease;display:inline-flex;align-items:center;gap:8px}
+.btn-amber{background:var(--amber);color:var(--bg)}
+.btn-amber:hover{background:var(--text);color:var(--bg)}
+.btn-outline{border:1px solid var(--amber);color:var(--amber);background:transparent}
+.btn-outline:hover{background:var(--amber);color:var(--bg)}
+
+/* Footer */
+footer{background:var(--bg);padding:80px 48px 0;border-top:1px solid var(--border)}
+.footer-grid{display:grid;grid-template-columns:2fr 1fr 1fr 1.5fr;gap:48px;max-width:1200px;margin:0 auto;padding-bottom:48px}
+.footer-brand .fss-logo{font-family:var(--font-serif);font-size:32px;font-style:italic;color:var(--text);letter-spacing:2px;margin-bottom:16px}
+.footer-brand .fss-logo span{color:var(--amber)}
+.footer-brand p{font-family:var(--font-mono);font-size:12px;color:var(--text-dim);line-height:1.8;max-width:300px}
+.footer-col h4{font-family:var(--font-mono);font-size:11px;letter-spacing:2px;text-transform:uppercase;color:var(--amber);margin-bottom:20px}
+.footer-col ul{list-style:none;display:flex;flex-direction:column;gap:10px}
+.footer-col ul a{font-family:var(--font-mono);font-size:12px;color:var(--text-dim);transition:color .3s ease}
+.footer-col ul a:hover{color:var(--amber)}
+.footer-bottom{border-top:1px solid var(--border);padding:24px 48px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:16px}
+.footer-bottom .certs{display:flex;gap:16px;flex-wrap:wrap}
+.footer-bottom .certs span{font-family:var(--font-mono);font-size:10px;letter-spacing:1px;color:var(--text-muted);padding:4px 10px;border:1px solid var(--border)}
+.footer-bottom p{font-family:var(--font-mono);font-size:10px;color:var(--text-muted)}
+@media(max-width:968px){
+  .footer-grid{grid-template-columns:repeat(2,1fr)}
+}
+@media(max-width:600px){
+  .footer-grid{grid-template-columns:1fr}
+  .footer-bottom{flex-direction:column;text-align:center}
+}
+
+/* Keyframes */
+@keyframes fadeUp{to{opacity:1;transform:translateY(0)}}
+@keyframes bounceDown{0%,100%{transform:translateX(-50%) translateY(0)}50%{transform:translateX(-50%) translateY(8px)}}
+
+/* Responsive */
+@media(max-width:768px){
+  .hero-stats .hero-stat .num{font-size:28px}
+  .donut-container{width:240px;height:240px}
+  .donut-container .donut-center .val{font-size:32px}
+}
+@media(prefers-reduced-motion:reduce){
+  *,*::before,*::after{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important}
+  #loader{opacity:0;visibility:hidden}
+  .reveal{opacity:1;transform:none}
+}
+</style>
+</head>
+<body>
+
+<!-- Loader -->
+<div id="loader">
+  <svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+    <path class="monogram-path" d="M40 40 L160 40 L160 70 L80 70 L80 90 L150 90 L150 120 L80 120 L80 140 L160 140 L160 170 L40 170 L40 40Z" />
+    <path class="monogram-path" d="M180 40 L200 40 L200 170 L180 170 Z" />
+  </svg>
+  <div class="loader-label">Formaspace Studio</div>
+</div>
+
+<!-- Custom Cursor -->
+<div id="cursor"></div>
+
+<!-- Nav -->
+<nav class="nav" id="nav">
+  <a href="#hero" class="nav-logo">F<span>SS</span></a>
+  <button class="nav-toggle" id="navToggle" aria-label="Toggle menu">
+    <span></span><span></span><span></span>
+  </button>
+  <ul class="nav-links" id="navLinks">
+    <li><a href="#stats" class="active">Data</a></li>
+    <li><a href="#services">Services</a></li>
+    <li><a href="#digital-eng">BIM</a></li>
+    <li><a href="#lifecycle">Process</a></li>
+    <li><a href="#insights">Insights</a></li>
+    <li><a href="#cta" class="nav-cta">Contact</a></li>
+  </ul>
+</nav>
+
+<!-- Hero -->
+<section id="hero">
+  <div class="bg-grid"></div>
+  <canvas id="heroCanvas"></canvas>
+  <div class="hero-content">
+    <div class="hero-tag">Formaspace — Est. 2020</div>
+    <h1>The Future of<br><span class="highlight">Project Delivery</span></h1>
+    <p class="hero-sub">Digital Engineering, BIM, Project Controls<br>and Construction Intelligence for the built environment.</p>
+    <div class="hero-stats">
+      <div class="hero-stat"><div class="num"><span class="amber">6+</span></div><div class="label">Projects</div></div>
+      <div class="hero-stat"><div class="num"><span class="amber">$2.5</span><span class="blue">B</span></div><div class="label">Value Managed</div></div>
+      <div class="hero-stat"><div class="num"><span class="blue">30+</span></div><div class="label">Partners</div></div>
+      <div class="hero-stat"><div class="num"><span class="amber">700K+</span></div><div class="label">Sqm Delivered</div></div>
+    </div>
+  </div>
+  <div class="scroll-indicator">
+    <span>Scroll</span>
+    <div class="line"></div>
+  </div>
+</section>
+
+<!-- Stats -->
+<section id="stats">
+  <div class="section-inner">
+    <div class="reveal"><div class="section-label">By the Numbers</div></div>
+    <div class="reveal reveal-delay-1"><h2 class="section-title">Precision in every<br>dimension.</h2></div>
+    <div class="stats-grid">
+      <div class="big-stat reveal reveal-delay-2">
+        <div class="num"><span class="amber counter" data-target="6">0</span><span class="blue">+</span></div>
+        <div class="label">Projects Delivered</div>
+      </div>
+      <div class="big-stat reveal reveal-delay-3">
+        <div class="num"><span class="amber">$</span><span class="amber counter" data-target="2.5">0</span><span class="blue">B</span></div>
+        <div class="label">Total Portfolio Value</div>
+      </div>
+    </div>
+    <div class="stats-counts">
+      <div class="stat-item reveal reveal-delay-1"><div class="num counter" data-target="6">0</div><div class="label">Projects</div></div>
+      <div class="stat-item reveal reveal-delay-2"><div class="num counter" data-target="30">0</div><div class="label">Partners</div></div>
+      <div class="stat-item reveal reveal-delay-3"><div class="num counter" data-target="700">0</div><div class="label">K Sqm</div></div>
+      <div class="stat-item reveal reveal-delay-4"><div class="num counter" data-target="12">0</div><div class="label">Years Exp</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- Portfolio Donut -->
+<section id="portfolio">
+  <div class="section-inner">
+    <div class="reveal"><div class="section-label">Portfolio Allocation</div></div>
+    <div class="reveal reveal-delay-1"><h2 class="section-title">Service mix by<br>portfolio value.</h2></div>
+    <div class="portfolio-grid" style="margin-top:48px">
+      <div class="reveal reveal-delay-2 donut-container" id="donutContainer">
+        <svg viewBox="0 0 320 320" id="donutSvg">
+          <circle cx="160" cy="160" r="120" fill="none" stroke="var(--border)" stroke-width="32" />
+        </svg>
+        <div class="donut-center">
+          <div class="val">$2.5B</div>
+          <div class="label">Portfolio Value</div>
+        </div>
+        <div class="donut-tooltip" id="donutTooltip" style="position:absolute;display:none;background:var(--bg);border:1px solid var(--amber);padding:8px 14px;font-family:var(--font-mono);font-size:12px;color:var(--text);pointer-events:none;z-index:5"></div>
+      </div>
+      <div class="donut-legend reveal reveal-delay-3" id="donutLegend">
+        <div class="legend-item" data-i="0"><span class="dot" style="background:var(--amber)"></span><span class="lname">PMC</span><span class="lpct">30%</span></div>
+        <div class="legend-item" data-i="1"><span class="dot" style="background:var(--blue)"></span><span class="lname">Digital Engineering</span><span class="lpct">25%</span></div>
+        <div class="legend-item" data-i="2"><span class="dot" style="background:#E84855"></span><span class="lname">Project Controls</span><span class="lpct">20%</span></div>
+        <div class="legend-item" data-i="3"><span class="dot" style="background:#2EC4B6"></span><span class="lname">Cost Management</span><span class="lpct">15%</span></div>
+        <div class="legend-item" data-i="4"><span class="dot" style="background:var(--text-muted)"></span><span class="lname">Other</span><span class="lpct">10%</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Services -->
+<section id="services">
+  <div class="section-inner">
+    <div class="reveal"><div class="section-label">What We Do</div></div>
+    <div class="reveal reveal-delay-1"><h2 class="section-title">Integrated project<br>delivery capabilities.</h2></div>
+    <div class="reveal reveal-delay-2"><p class="section-desc">From feasibility through handover, we provide end-to-end digital engineering and project controls that deliver certainty in complex built environments.</p></div>
+    <div class="services-grid">
+      <div class="service-card reveal reveal-delay-1">
+        <div class="num">01</div>
+        <h3>Project Management Consultancy</h3>
+        <p>Strategic oversight and governance for large-scale capital programs, ensuring schedule, cost and quality alignment across all stakeholders.</p>
+        <div class="tech-tags">
+          <span class="tech-tag">Power BI</span>
+          <span class="tech-tag">MS Project</span>
+          <span class="tech-tag">Jira</span>
+        </div>
+      </div>
+      <div class="service-card reveal reveal-delay-2">
+        <div class="num">02</div>
+        <h3>Digital Engineering</h3>
+        <p>BIM authoring, computational design and federated model management. Delivering coordinated digital twins across the asset lifecycle.</p>
+        <div class="tech-tags">
+          <span class="tech-tag">Revit + Dynamo</span>
+          <span class="tech-tag">Navisworks</span>
+          <span class="tech-tag">Solibri</span>
+        </div>
+      </div>
+      <div class="service-card reveal reveal-delay-3">
+        <div class="num">03</div>
+        <h3>Project Controls</h3>
+        <p>Earned value management, forensic schedule analysis and integrated cost-schedule risk management for data-driven decision making.</p>
+        <div class="tech-tags">
+          <span class="tech-tag">Primavera P6</span>
+          <span class="tech-tag">Power BI</span>
+          <span class="tech-tag">MS Project</span>
+        </div>
+      </div>
+      <div class="service-card reveal reveal-delay-4">
+        <div class="num">04</div>
+        <h3>Cost Management</h3>
+        <p>Detailed cost planning, quantity surveying and value engineering with real-time budget tracking and forecasting.</p>
+        <div class="tech-tags">
+          <span class="tech-tag">Excel</span>
+          <span class="tech-tag">Power BI</span>
+          <span class="tech-tag">CostX</span>
+        </div>
+      </div>
+      <div class="service-card reveal reveal-delay-5">
+        <div class="num">05</div>
+        <h3>Schedule Management</h3>
+        <p>Critical path analysis, 4D simulation and delay impact assessment. Ensuring programme certainty on complex linear and vertical projects.</p>
+        <div class="tech-tags">
+          <span class="tech-tag">Primavera P6</span>
+          <span class="tech-tag">MS Project</span>
+          <span class="tech-tag">Synchro 4D</span>
+        </div>
+      </div>
+      <div class="service-card reveal reveal-delay-5">
+        <div class="num">06</div>
+        <h3>Construction Management</h3>
+        <p>On-site supervision, quality assurance and digital construction workflows using lean methodology and real-time field data.</p>
+        <div class="tech-tags">
+          <span class="tech-tag">Procore</span>
+          <span class="tech-tag">Power BI</span>
+          <span class="tech-tag">Bluebeam</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Digital Engineering / BIM -->
+<section id="digital-eng">
+  <div class="section-inner">
+    <div class="reveal"><div class="section-label">Digital Engineering</div></div>
+    <div class="reveal reveal-delay-1"><h2 class="section-title">5-Stage BIM<br>Assembly Process.</h2></div>
+    <div class="bim-container" style="margin-top:48px">
+      <div class="bim-visual reveal reveal-delay-2" id="bimVisual">
+        <canvas id="bimCanvas"></canvas>
+      </div>
+      <div class="bim-info reveal reveal-delay-3">
+        <div class="bim-stage-desc" id="bimDesc">Foundational steel and concrete structure assembled — core columns and primary floor plates positioned within the federated model coordinate system.</div>
+        <div class="bim-controls">
+          <div class="bim-btns">
+            <button id="bimPrev">‹</button>
+            <button id="bimNext">›</button>
+          </div>
+          <div class="bim-progress" id="bimProgress">
+            <div class="bim-progress-fill" id="bimProgressFill"></div>
+            <div class="bim-progress-dots">
+              <span class="active"></span><span></span><span></span><span></span><span></span>
+            </div>
+          </div>
+          <div class="bim-stage-label" id="bimStageLabel">01 / 05 — Structure</div>
+        </div>
+        <div class="bim-complete show" id="bimComplete">
+          <div class="digitwin-counter" id="digitwinCounter">0%</div>
+          <div class="digitwin-label">Digital Twin Complete</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Performance (S-Curve) -->
+<section id="performance">
+  <div class="section-inner">
+    <div class="reveal"><div class="section-label">Project Performance</div></div>
+    <div class="reveal reveal-delay-1"><h2 class="section-title">S-Curve analysis —<br>planned vs actual.</h2></div>
+    <div class="reveal reveal-delay-2 chart-container" id="sCurveContainer">
+      <svg class="chart-fig" viewBox="0 0 800 400" preserveAspectRatio="xMidYMid meet" id="sCurveSvg">
+        <defs>
+          <linearGradient id="amberGrad" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="var(--amber)" stop-opacity="0.15"/><stop offset="100%" stop-color="var(--amber)" stop-opacity="0"/></linearGradient>
+          <linearGradient id="blueGrad" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="var(--blue)" stop-opacity="0.12"/><stop offset="100%" stop-color="var(--blue)" stop-opacity="0"/></linearGradient>
+        </defs>
+        <!-- Grid -->
+        <g class="grid-lines" stroke="var(--border)" stroke-width="0.5" opacity="0.6">
+          <line x1="60" y1="40" x2="60" y2="360"/><line x1="122" y1="40" x2="122" y2="360"/><line x1="184" y1="40" x2="184" y2="360"/><line x1="247" y1="40" x2="247" y2="360"/><line x1="309" y1="40" x2="309" y2="360"/><line x1="371" y1="40" x2="371" y2="360"/><line x1="433" y1="40" x2="433" y2="360"/><line x1="495" y1="40" x2="495" y2="360"/><line x1="557" y1="40" x2="557" y2="360"/><line x1="619" y1="40" x2="619" y2="360"/><line x1="681" y1="40" x2="681" y2="360"/><line x1="743" y1="40" x2="743" y2="360"/>
+          <line x1="60" y1="40" x2="760" y2="40"/><line x1="60" y1="80" x2="760" y2="80"/><line x1="60" y1="120" x2="760" y2="120"/><line x1="60" y1="160" x2="760" y2="160"/><line x1="60" y1="200" x2="760" y2="200"/><line x1="60" y1="240" x2="760" y2="240"/><line x1="60" y1="280" x2="760" y2="280"/><line x1="60" y1="320" x2="760" y2="320"/><line x1="60" y1="360" x2="760" y2="360"/>
+        </g>
+        <!-- Axes -->
+        <line x1="60" y1="40" x2="60" y2="360" stroke="var(--text-muted)" stroke-width="1"/>
+        <line x1="60" y1="360" x2="760" y2="360" stroke="var(--text-muted)" stroke-width="1"/>
+        <!-- Labels X -->
+        <g font-family="var(--font-mono)" font-size="8" fill="var(--text-muted)" text-anchor="middle">
+          <text x="60" y="378">M0</text><text x="122" y="378">M2</text><text x="184" y="378">M4</text><text x="247" y="378">M6</text><text x="309" y="378">M8</text><text x="371" y="378">M10</text><text x="433" y="378">M12</text><text x="495" y="378">M14</text><text x="557" y="378">M16</text><text x="619" y="378">M18</text><text x="681" y="378">M20</text><text x="743" y="378">M22</text>
+        </g>
+        <g font-family="var(--font-mono)" font-size="8" fill="var(--text-muted)" text-anchor="end">
+          <text x="55" y="44">100%</text><text x="55" y="84">90%</text><text x="55" y="124">80%</text><text x="55" y="164">70%</text><text x="55" y="204">60%</text><text x="55" y="244">50%</text><text x="55" y="284">40%</text><text x="55" y="324">30%</text><text x="55" y="364">20%</text>
+        </g>
+        <!-- Area fills -->
+        <path id="sCurveAreaPlanned" fill="url(#amberGrad)" d=""/>
+        <path id="sCurveAreaActual" fill="url(#blueGrad)" d=""/>
+        <!-- Planned curve (amber) -->
+        <path id="sCurvePlanned" fill="none" stroke="var(--amber)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="2000" stroke-dashoffset="2000" d="M60,360 C100,350 180,330 250,300 C320,270 370,230 420,180 C470,130 520,90 580,60 C640,35 700,30 760,30"/>
+        <!-- Actual curve (blue dashed) -->
+        <path id="sCurveActual" fill="none" stroke="var(--blue)" stroke-width="2" stroke-dasharray="8,4" stroke-linecap="round" stroke-linejoin="round" stroke-dashoffset="2000" d="M60,360 C90,355 170,340 240,310 C310,280 360,250 410,210 C460,170 520,130 580,95 C640,65 700,50 760,45"/>
+        <!-- Legend -->
+        <g transform="translate(580,20)">
+          <line x1="0" y1="0" x2="20" y2="0" stroke="var(--amber)" stroke-width="2.5"/>
+          <text x="26" y="4" font-family="var(--font-mono)" font-size="9" fill="var(--text-dim)">Planned</text>
+          <line x1="0" y1="16" x2="20" y2="16" stroke="var(--blue)" stroke-width="2" stroke-dasharray="4,3"/>
+          <text x="26" y="20" font-family="var(--font-mono)" font-size="9" fill="var(--text-dim)">Actual</text>
+        </g>
+      </svg>
+      <div class="chart-kpis" id="sCurveKpis">
+        <div class="kpi-card reveal"><div class="kpi-val" id="spiKpi">0.96</div><div class="kpi-label">SPI</div></div>
+        <div class="kpi-card reveal"><div class="kpi-val" id="cpiKpi">0.93</div><div class="kpi-label">CPI</div></div>
+        <div class="kpi-card reveal"><div class="kpi-val blue" id="forecastKpi">+2.5mo</div><div class="kpi-label">Forecast Variance</div></div>
+        <div class="kpi-card reveal"><div class="kpi-val" id="impactKpi">$1.2M</div><div class="kpi-label">CO Impact</div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Project Controls / Bar Chart -->
+<section id="controls">
+  <div class="section-inner">
+    <div class="reveal"><div class="section-label">Project Controls</div></div>
+    <div class="reveal reveal-delay-1"><h2 class="section-title">Earned value<br>management dashboard.</h2></div>
+    <div class="reveal reveal-delay-2 bar-chart-container" id="barChartContainer">
+      <svg class="chart-fig" viewBox="0 0 800 360" preserveAspectRatio="xMidYMid meet" id="barChartSvg">
+        <!-- Grid -->
+        <g stroke="var(--border)" stroke-width="0.5" opacity="0.6">
+          <line x1="60" y1="40" x2="760" y2="40"/><line x1="60" y1="80" x2="760" y2="80"/>
+          <line x1="60" y1="120" x2="760" y2="120"/><line x1="60" y1="160" x2="760" y2="160"/>
+          <line x1="60" y1="200" x2="760" y2="200"/><line x1="60" y1="240" x2="760" y2="240"/>
+          <line x1="60" y1="280" x2="760" y2="280"/><line x1="60" y1="320" x2="760" y2="320"/>
+        </g>
+        <line x1="60" y1="40" x2="60" y2="320" stroke="var(--text-muted)" stroke-width="1"/>
+        <line x1="60" y1="320" x2="760" y2="320" stroke="var(--text-muted)" stroke-width="1"/>
+        <g font-family="var(--font-mono)" font-size="8" fill="var(--text-muted)" text-anchor="end">
+          <text x="55" y="44">100</text><text x="55" y="84">80</text><text x="55" y="124">60</text><text x="55" y="164">40</text><text x="55" y="204">20</text><text x="55" y="244">0</text>
+        </g>
+        <g font-family="var(--font-mono)" font-size="8" fill="var(--text-muted)" text-anchor="middle">
+          <text x="60" y="338">M0</text><text x="177" y="338">M1</text><text x="293" y="338">M2</text><text x="410" y="338">M3</text><text x="527" y="338">M4</text><text x="643" y="338">M5</text><text x="760" y="338">M6</text>
+        </g>
+        <!-- Legend -->
+        <g transform="translate(600,20)">
+          <rect x="0" y="0" width="14" height="14" fill="var(--amber)" opacity="0.9"/>
+          <text x="20" y="11" font-family="var(--font-mono)" font-size="9" fill="var(--text-dim)">BCWS</text>
+          <rect x="0" y="20" width="14" height="14" fill="var(--blue)" opacity="0.9"/>
+          <text x="20" y="31" font-family="var(--font-mono)" font-size="9" fill="var(--text-dim)">BCWP</text>
+          <rect x="0" y="40" width="14" height="14" fill="var(--text)" opacity="0.25"/>
+          <text x="20" y="51" font-family="var(--font-mono)" font-size="9" fill="var(--text-dim)">ACWP</text>
+        </g>
+        <!-- Bars will be drawn by JS -->
+        <g id="barGroups"></g>
+      </svg>
+    </div>
+  </div>
+</section>
+
+<!-- Lifecycle Timeline -->
+<section id="lifecycle">
+  <div class="section-inner">
+    <div class="reveal"><div class="section-label">Project Delivery Lifecycle</div></div>
+    <div class="reveal reveal-delay-1"><h2 class="section-title">From concept to<br>handover.</h2></div>
+  </div>
+  <div class="lifecycle-pinned" id="lifecyclePinned">
+    <div class="lifecycle-track" id="lifecycleTrack">
+      <div class="lifecycle-phase active" data-phase="0">
+        <div class="phase-num">01</div>
+        <div class="phase-icon">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="var(--amber)" stroke-width="1.5"><circle cx="12" cy="12" r="8"/><path d="M12 4v16M4 12h16"/></svg>
+        </div>
+        <h3>Concept</h3>
+        <p>Feasibility studies, option appraisal and business case development. Establishing project objectives and success criteria.</p>
+      </div>
+      <div class="lifecycle-phase" data-phase="1">
+        <div class="phase-num">02</div>
+        <div class="phase-icon">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="var(--amber)" stroke-width="1.5"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg>
+        </div>
+        <h3>Design</h3>
+        <p>Detailed design development, BIM execution planning, and interdisciplinary coordination across architecture, structure and MEP.</p>
+      </div>
+      <div class="lifecycle-phase" data-phase="2">
+        <div class="phase-num">03</div>
+        <div class="phase-icon">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="var(--amber)" stroke-width="1.5"><rect x="4" y="4" width="16" height="16" rx="2"/><path d="M4 10h16M10 4v16"/></svg>
+        </div>
+        <h3>Digital Engineering</h3>
+        <p>Federated BIM model authoring, clash detection, 4D/5D simulation and digital twin deployment for construction sequencing.</p>
+      </div>
+      <div class="lifecycle-phase" data-phase="3">
+        <div class="phase-num">04</div>
+        <div class="phase-icon">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="var(--amber)" stroke-width="1.5"><path d="M2 20h20M6 20V8l6-4 6 4v12"/><path d="M10 20v-6h4v6"/></svg>
+        </div>
+        <h3>Construction</h3>
+        <p>Site supervision, quality control, progress monitoring and change management. Real-time field data integration with the digital twin.</p>
+      </div>
+      <div class="lifecycle-phase" data-phase="4">
+        <div class="phase-num">05</div>
+        <div class="phase-icon">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="var(--amber)" stroke-width="1.5"><path d="M22 11.08V12a10 10 0 11-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+        </div>
+        <h3>Handover</h3>
+        <p>As-built BIM delivery, asset information model handover, facility management system integration and post-occupancy evaluation.</p>
+      </div>
+    </div>
+    <div class="lifecycle-progress"><div class="fill" id="lifecycleProgressFill"></div></div>
+  </div>
+</section>
+
+<!-- Insights -->
+<section id="insights">
+  <div class="section-inner">
+    <div class="reveal"><div class="section-label">Insights</div></div>
+    <div class="reveal reveal-delay-1"><h2 class="section-title">Latest thinking<br>in project delivery.</h2></div>
+    <div class="insights-grid" style="margin-top:48px">
+      <div class="insight-card reveal reveal-delay-2">
+        <span class="card-tag">Project Controls</span><span class="read-time">5 min read</span>
+        <h3>Earned Value Management in Complex Infrastructure Programs</h3>
+        <div class="author">Nadeem Ahmad — Mar 15, 2026</div>
+        <div class="read-more">Read Article →</div>
+      </div>
+      <div class="insight-card reveal reveal-delay-3">
+        <span class="card-tag">Digital Engineering</span><span class="read-time">8 min read</span>
+        <h3>BIM Level of Development: LOD 350 to LOD 500 Workflows</h3>
+        <div class="author">Syed Sajid Kirmani — Feb 28, 2026</div>
+        <div class="read-more">Read Article →</div>
+      </div>
+      <div class="insight-card reveal reveal-delay-4">
+        <span class="card-tag">Technology</span><span class="read-time">6 min read</span>
+        <h3>Digital Twins for Construction: From Data to Decision</h3>
+        <div class="author">Formaspace Team — Jan 20, 2026</div>
+        <div class="read-more">Read Article →</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section id="cta">
+  <div class="reveal"><h2>Ready to transform your<br>project delivery?</h2></div>
+  <div class="reveal reveal-delay-1"><p>Let's discuss how Formaspace can bring digital certainty to your next program.</p></div>
+  <div class="cta-btns reveal reveal-delay-2">
+    <a href="mailto:info@formaspace.com" class="btn btn-amber">Get in Touch</a>
+    <a href="#services" class="btn btn-outline">Explore Services</a>
+  </div>
+</section>
+
+<!-- Footer -->
+<footer>
+  <div class="footer-grid">
+    <div class="footer-brand">
+      <div class="fss-logo">F<span>SS</span></div>
+      <p>Formaspace is a Bangalore-based Project Management Consultancy and Digital Engineering firm operating at the intersection of construction intelligence, BIM, and data-driven project delivery.</p>
+    </div>
+    <div class="footer-col">
+      <h4>Services</h4>
+      <ul>
+        <li><a href="#services">PMC</a></li>
+        <li><a href="#services">Digital Engineering</a></li>
+        <li><a href="#services">Project Controls</a></li>
+        <li><a href="#services">Cost Management</a></li>
+        <li><a href="#services">Schedule Management</a></li>
+        <li><a href="#services">Construction Management</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>Quick Links</h4>
+      <ul>
+        <li><a href="#stats">Data</a></li>
+        <li><a href="#digital-eng">BIM Process</a></li>
+        <li><a href="#lifecycle">Lifecycle</a></li>
+        <li><a href="#performance">Performance</a></li>
+        <li><a href="#insights">Insights</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>Contact</h4>
+      <ul>
+        <li><a href="https://maps.google.com/?q=Bangalore+India" target="_blank">Bangalore, India</a></li>
+        <li><a href="mailto:info@formaspace.com">info@formaspace.com</a></li>
+      </ul>
+      <div style="margin-top:16px;font-family:var(--font-mono);font-size:11px;color:var(--text-muted);line-height:1.8">
+        <div>Founders:</div>
+        <div style="color:var(--text-dim)">Nadeem Ahmad <span style="color:var(--blue)">(BIM)</span></div>
+        <div style="color:var(--text-dim)">Syed Sajid Kirmani <span style="color:var(--amber)">(Project Controls)</span></div>
+      </div>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <p>© 2026 Formaspace. All rights reserved.</p>
+    <div class="certs">
+      <span>ISO 19650</span><span>PMP</span><span>PSP</span><span>RICS</span><span>PMI</span><span>LEED AP</span>
+    </div>
+  </div>
+</footer>
+
+<script>
+(function(){
+'use strict';
+
+const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+const isMobile = window.innerWidth < 768;
+
+// ─── Loader ──────────────────────────────────────────
+(function(){
+  if(prefersReduced){
+    document.getElementById('loader').classList.add('hidden');
+    return;
+  }
+  setTimeout(() => {
+    document.getElementById('loader').classList.add('hidden');
+  }, 2800);
+})();
+
+// ─── Custom Cursor ───────────────────────────────────
+(function(){
+  const cursor = document.getElementById('cursor');
+  if(!cursor || !window.matchMedia('(hover:hover)').matches) return;
+  document.addEventListener('mousemove', e => {
+    cursor.style.left = e.clientX + 'px';
+    cursor.style.top = e.clientY + 'px';
+    cursor.classList.add('show');
+  });
+  document.addEventListener('mouseleave', () => cursor.classList.remove('show'));
+  document.querySelectorAll('a, button, .service-card, .insight-card, .tech-tag, .btn, .legend-item').forEach(el => {
+    el.addEventListener('mouseenter', () => cursor.classList.add('hover'));
+    el.addEventListener('mouseleave', () => cursor.classList.remove('hover'));
+  });
+})();
+
+// ─── Nav ──────────────────────────────────────────────
+(function(){
+  const nav = document.getElementById('nav');
+  const toggle = document.getElementById('navToggle');
+  const links = document.getElementById('navLinks');
+  const navAnchors = links.querySelectorAll('a');
+
+  window.addEventListener('scroll', () => {
+    nav.classList.toggle('scrolled', window.scrollY > 80);
+  });
+
+  toggle.addEventListener('click', () => {
+    toggle.classList.toggle('open');
+    links.classList.toggle('open');
+  });
+
+  navAnchors.forEach(a => {
+    a.addEventListener('click', () => {
+      toggle.classList.remove('open');
+      links.classList.remove('open');
+    });
+  });
+
+  // Active nav link based on scroll
+  const sections = ['stats','services','digital-eng','lifecycle','insights'];
+  window.addEventListener('scroll', () => {
+    let current = '';
+    sections.forEach(id => {
+      const el = document.getElementById(id);
+      if(el){
+        const rect = el.getBoundingClientRect();
+        if(rect.top <= 200) current = id;
+      }
+    });
+    navAnchors.forEach(a => {
+      a.classList.remove('active');
+      if(a.getAttribute('href') === '#' + current) a.classList.add('active');
+    });
+  });
+})();
+
+// ─── Three.js Hero ────────────────────────────────────
+(function(){
+  if(isMobile) return;
+  const canvas = document.getElementById('heroCanvas');
+  if(!canvas || prefersReduced) return;
+
+  const scene = new THREE.Scene();
+  const camera = new THREE.PerspectiveCamera(45, window.innerWidth / window.innerHeight, 0.1, 1000);
+  const renderer = new THREE.WebGLRenderer({canvas, alpha:true, antialias:true});
+  renderer.setSize(window.innerWidth, window.innerHeight);
+  renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+
+  camera.position.set(18, 14, 22);
+  camera.lookAt(0, 0, 0);
+
+  // Lights
+  const ambient = new THREE.AmbientLight(0x404060, 0.4);
+  scene.add(ambient);
+  const dirLight = new THREE.DirectionalLight(0xf5a623, 0.6);
+  dirLight.position.set(10, 20, 10);
+  scene.add(dirLight);
+  const dirLight2 = new THREE.DirectionalLight(0x4fc3f7, 0.3);
+  dirLight2.position.set(-10, 10, -10);
+  scene.add(dirLight2);
+
+  // Building
+  const building = new THREE.Group();
+  const floorCount = 16;
+  const floorHeight = 0.8;
+  const floorWidth = 5;
+  const floorDepth = 4;
+  const floors = [];
+  const floorMeshes = [];
+
+  for(let i = 0; i < floorCount; i++){
+    const y = i * floorHeight - floorCount * floorHeight / 2;
+    const geo = new THREE.BoxGeometry(floorWidth, floorHeight * 0.85, floorDepth);
+    const mat = new THREE.MeshPhysicalMaterial({
+      color: 0x1a1f2e,
+      transparent: true,
+      opacity: 0.08,
+      metalness: 0.6,
+      roughness: 0.3,
+      wireframe: false
+    });
+    const mesh = new THREE.Mesh(geo, mat);
+    mesh.position.y = y + floorHeight / 2;
+    building.add(mesh);
+    floorMeshes.push(mesh);
+
+    // Wireframe edge
+    const edges = new THREE.EdgesGeometry(geo);
+    const wireMat = new THREE.LineBasicMaterial({
+      color: i % 3 === 0 ? 0xf5a623 : 0x4fc3f7,
+      transparent: true,
+      opacity: 0.3 + (i / floorCount) * 0.5
+    });
+    const wireframe = new THREE.LineSegments(edges, wireMat);
+    wireframe.position.y = y + floorHeight / 2;
+    building.add(wireframe);
+    floors.push(wireframe);
+  }
+
+  // Vertical grid lines
+  for(let x = -floorWidth/2; x <= floorWidth/2; x += floorWidth/4){
+    const pts = [];
+    for(let i = 0; i <= floorCount; i++){
+      pts.push(new THREE.Vector3(x, i * floorHeight - floorCount * floorHeight / 2, -floorDepth/2));
+    }
+    const geo = new THREE.BufferGeometry().setFromPoints(pts);
+    const line = new THREE.Line(geo, new THREE.LineBasicMaterial({color:0x4fc3f7, transparent:true, opacity:0.15}));
+    building.add(line);
+  }
+  for(let z = -floorDepth/2; z <= floorDepth/2; z += floorDepth/4){
+    const pts = [];
+    for(let i = 0; i <= floorCount; i++){
+      pts.push(new THREE.Vector3(-floorWidth/2, i * floorHeight - floorCount * floorHeight / 2, z));
+    }
+    const geo = new THREE.BufferGeometry().setFromPoints(pts);
+    const line = new THREE.Line(geo, new THREE.LineBasicMaterial({color:0x4fc3f7, transparent:true, opacity:0.15}));
+    building.add(line);
+  }
+
+  scene.add(building);
+
+  // Particles
+  const particleCount = 1200;
+  const particles = new THREE.BufferGeometry();
+  const pos = new Float32Array(particleCount * 3);
+  const colors = new Float32Array(particleCount * 3);
+  for(let i = 0; i < particleCount; i++){
+    const r = 12 + Math.random() * 10;
+    const theta = Math.random() * Math.PI * 2;
+    const phi = Math.acos(2 * Math.random() - 1);
+    pos[i*3] = r * Math.sin(phi) * Math.cos(theta);
+    pos[i*3+1] = r * Math.cos(phi) * 0.6;
+    pos[i*3+2] = r * Math.sin(phi) * Math.sin(theta);
+    colors[i*3] = 0.3 + Math.random() * 0.3;
+    colors[i*3+1] = 0.7 + Math.random() * 0.3;
+    colors[i*3+2] = 0.9 + Math.random() * 0.1;
+  }
+  particles.setAttribute('position', new THREE.BufferAttribute(pos, 3));
+  particles.setAttribute('color', new THREE.BufferAttribute(colors, 3));
+  const particleMat = new THREE.PointsMaterial({
+    size: 0.06,
+    transparent: true,
+    opacity: 0.8,
+    vertexColors: true,
+    blending: THREE.AdditiveBlending
+  });
+  const particleSystem = new THREE.Points(particles, particleMat);
+  scene.add(particleSystem);
+
+  // Animation state
+  let scrollProgress = 0;
+  let time = 0;
+
+  // Scroll handler
+  let ticking = false;
+  window.addEventListener('scroll', () => {
+    if(!ticking){
+      window.requestAnimationFrame(() => {
+        const hero = document.getElementById('hero');
+        if(hero){
+          const rect = hero.getBoundingClientRect();
+          scrollProgress = Math.max(0, Math.min(1, -rect.top / (rect.height - window.innerHeight)));
+        }
+        ticking = false;
+      });
+      ticking = true;
+    }
+  });
+
+  // Animate building assembly on load
+  let assemblyProgress = 0;
+
+  function animate(){
+    time += 0.005;
+    requestAnimationFrame(animate);
+
+    // Assembly (floors stack in)
+    if(assemblyProgress < 1){
+      assemblyProgress += 0.008;
+      if(assemblyProgress > 1) assemblyProgress = 1;
+    }
+
+    floors.forEach((f, i) => {
+      const target = i / floorCount;
+      if(assemblyProgress >= target){
+        const local = (assemblyProgress - target) / (1 - target + 0.01);
+        f.material.opacity = Math.min(1, local * (0.3 + (i/floorCount)*0.5));
+      } else {
+        f.material.opacity = 0;
+      }
+    });
+    floorMeshes.forEach((m, i) => {
+      const target = i / floorCount;
+      if(assemblyProgress >= target){
+        const local = (assemblyProgress - target) / (1 - target + 0.01);
+        m.material.opacity = Math.min(0.12, local * 0.12);
+      } else {
+        m.material.opacity = 0;
+      }
+    });
+
+    // Scroll transition: wireframe fades, solid mesh becomes visible
+    const solidProgress = scrollProgress;
+    floorMeshes.forEach(m => {
+      m.material.opacity = Math.min(0.12, 0.08 + solidProgress * 0.12);
+      m.material.color.setHSL(0.1, 0.3, 0.12 + solidProgress * 0.08);
+    });
+    floors.forEach(f => {
+      f.material.opacity = f.material.opacity * (1 - solidProgress * 0.8);
+    });
+
+    // Camera orbit
+    const radius = 28;
+    camera.position.x = radius * Math.cos(time * 0.15) * 0.7;
+    camera.position.z = radius * Math.sin(time * 0.15) * 0.7;
+    camera.position.y = 6 + Math.sin(time * 0.1) * 2;
+    camera.lookAt(0, 0, 0);
+
+    // Particles float
+    const ppos = particles.attributes.position.array;
+    for(let i = 0; i < particleCount; i++){
+      ppos[i*3+1] += Math.sin(time * 0.5 + i) * 0.002;
+    }
+    particles.attributes.position.needsUpdate = true;
+
+    renderer.render(scene, camera);
+  }
+
+  animate();
+
+  // Resize
+  window.addEventListener('resize', () => {
+    camera.aspect = window.innerWidth / window.innerHeight;
+    camera.updateProjectionMatrix();
+    renderer.setSize(window.innerWidth, window.innerHeight);
+  });
+})();
+
+// ─── Intersection Observer (Reveals) ──────────────────
+(function(){
+  if(prefersReduced){
+    document.querySelectorAll('.reveal').forEach(el => el.classList.add('visible'));
+    return;
+  }
+  const observer = new IntersectionObserver(entries => {
+    entries.forEach(entry => {
+      if(entry.isIntersecting){
+        entry.target.classList.add('visible');
+        observer.unobserve(entry.target);
+      }
+    });
+  }, {threshold: 0.1});
+  document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+})();
+
+// ─── Counters ─────────────────────────────────────────
+(function(){
+  if(prefersReduced){
+    document.querySelectorAll('.counter').forEach(el => {
+      el.textContent = el.getAttribute('data-target');
+    });
+    return;
+  }
+  const counters = document.querySelectorAll('.counter');
+  const observer = new IntersectionObserver(entries => {
+    entries.forEach(entry => {
+      if(entry.isIntersecting){
+        const el = entry.target;
+        const target = parseFloat(el.getAttribute('data-target'));
+        const isDecimal = target % 1 !== 0;
+        const duration = 2000;
+        const start = performance.now();
+        function update(now){
+          const pct = Math.min(1, (now - start) / duration);
+          const eased = 1 - Math.pow(1 - pct, 3);
+          const val = eased * target;
+          el.textContent = isDecimal ? val.toFixed(1) : Math.floor(val);
+          if(pct < 1) requestAnimationFrame(update);
+          else el.textContent = isDecimal ? target.toFixed(1) : target;
+        }
+        requestAnimationFrame(update);
+        observer.unobserve(el);
+      }
+    });
+  }, {threshold: 0.5});
+  counters.forEach(c => observer.observe(c));
+})();
+
+// ─── S-Curve Animation ───────────────────────────────
+(function(){
+  if(prefersReduced) return;
+  const container = document.getElementById('sCurveContainer');
+  const planned = document.getElementById('sCurvePlanned');
+  const actual = document.getElementById('sCurveActual');
+  if(!container || !planned || !actual) return;
+
+  const observer = new IntersectionObserver(entries => {
+    entries.forEach(entry => {
+      if(entry.isIntersecting){
+        // Init CSS values and force reflow for reliable transition
+        planned.style.strokeDashoffset = '2000';
+        actual.style.strokeDashoffset = '2000';
+        void planned.offsetWidth;
+        planned.style.transition = 'stroke-dashoffset 2s cubic-bezier(0.22,1,0.36,1) 0.3s';
+        planned.style.strokeDashoffset = '0';
+        actual.style.transition = 'stroke-dashoffset 2.4s cubic-bezier(0.22,1,0.36,1) 0.6s';
+        actual.style.strokeDashoffset = '0';
+
+        // Area fills
+        const plannedPath = planned.getAttribute('d');
+        const actualPath = actual.getAttribute('d');
+        const areaPlanned = document.getElementById('sCurveAreaPlanned');
+        const areaActual = document.getElementById('sCurveAreaActual');
+        if(areaPlanned && plannedPath){
+          areaPlanned.setAttribute('d', plannedPath + ' L760,360 L60,360 Z');
+        }
+        if(areaActual && actualPath){
+          areaActual.setAttribute('d', actualPath + ' L760,360 L60,360 Z');
+        }
+
+        observer.unobserve(entry.target);
+      }
+    });
+  }, {threshold: 0.2});
+  observer.observe(container);
+})();
+
+// ─── Bar Chart ────────────────────────────────────────
+(function(){
+  if(prefersReduced) return;
+  const container = document.getElementById('barChartContainer');
+  const group = document.getElementById('barGroups');
+  if(!container || !group) return;
+
+  // Data: BCWS (planned), BCWP (earned), ACWP (actual) for 6 months
+  const months = ['M1','M2','M3','M4','M5','M6'];
+  const data = [
+    {bcws:15, bcwp:12, acwp:14},
+    {bcws:32, bcwp:28, acwp:30},
+    {bcws:52, bcwp:47, acwp:50},
+    {bcws:70, bcwp:65, acwp:68},
+    {bcws:85, bcwp:81, acwp:83},
+    {bcws:95, bcwp:92, acwp:94}
+  ];
+
+  const chartW = 800, chartH = 360;
+  const padL = 60, padB = 40, padT = 50, padR = 40;
+  const plotW = chartW - padL - padR;
+  const plotH = chartH - padT - padB;
+  const groupW = plotW / data.length;
+  const barW = groupW * 0.18;
+  const maxVal = 100;
+
+  let barsHtml = '';
+  data.forEach((d, i) => {
+    const x = padL + i * groupW + groupW * 0.12;
+    const h1 = (d.bcws / maxVal) * plotH;
+    const h2 = (d.bcwp / maxVal) * plotH;
+    const h3 = (d.acwp / maxVal) * plotH;
+
+    const variance = ((d.bcwp - d.acwp) / d.bcwp * 100).toFixed(1);
+
+    barsHtml += `
+      <g class="bar-group" data-index="${i}">
+        <rect class="bar bar-bcws" x="${x}" y="${plotH + padT}" width="${barW}" height="0" data-target="${h1}" fill="var(--amber)" opacity="0.9" rx="1"/>
+        <rect class="bar bar-bcwp" x="${x + barW + 2}" y="${plotH + padT}" width="${barW}" height="0" data-target="${h2}" fill="var(--blue)" opacity="0.9" rx="1"/>
+        <rect class="bar bar-acwp" x="${x + 2*(barW + 2)}" y="${plotH + padT}" width="${barW}" height="0" data-target="${h3}" fill="var(--text)" opacity="0.25" rx="1"/>
+        <text x="${x + barW * 1.5 + 2}" y="${plotH + padT - Math.max(h1,h2,h3) - 8}" font-family="var(--font-mono)" font-size="8" fill="var(--amber)" text-anchor="middle" opacity="0">${variance}%</text>
+      </g>`;
+  });
+  group.innerHTML = barsHtml;
+
+  const observer = new IntersectionObserver(entries => {
+    entries.forEach(entry => {
+      if(entry.isIntersecting){
+        const bars = container.querySelectorAll('.bar');
+        const vars = container.querySelectorAll('.bar-group text');
+        bars.forEach((bar, i) => {
+          const targetH = parseFloat(bar.getAttribute('data-target'));
+          const yBase = plotH + padT;
+          setTimeout(() => {
+            const startTime = performance.now();
+            const duration = 1000;
+            function animateBar(now){
+              const pct = Math.min(1, (now - startTime) / duration);
+              const eased = 1 - Math.pow(1 - pct, 3);
+              const h = eased * targetH;
+              bar.setAttribute('height', h);
+              bar.setAttribute('y', yBase - h);
+              if(pct < 1) requestAnimationFrame(animateBar);
+            }
+            requestAnimationFrame(animateBar);
+          }, i * 100);
+        });
+        setTimeout(() => {
+          vars.forEach(v => { v.style.opacity = '1'; v.style.transition = 'opacity .6s ease'; });
+        }, bars.length * 100 + 500);
+        observer.unobserve(entry.target);
+      }
+    });
+  }, {threshold: 0.2});
+  observer.observe(container);
+})();
+
+// ─── Donut Chart ──────────────────────────────────────
+(function(){
+  if(prefersReduced) return;
+  const svg = document.getElementById('donutSvg');
+  if(!svg) return;
+
+  const segments = [
+    {pct:0.30, color:'var(--amber)', label:'PMC'},
+    {pct:0.25, color:'var(--blue)', label:'Digital Engineering'},
+    {pct:0.20, color:'#E84855', label:'Project Controls'},
+    {pct:0.15, color:'#2EC4B6', label:'Cost Management'},
+    {pct:0.10, color:'var(--text-muted)', label:'Other'}
+  ];
+
+  const cx = 160, cy = 160, r = 120, sw = 32;
+  const circ = 2 * Math.PI * r;
+
+  // Draw segments clockwise from 12 o'clock
+  // Each segment uses dasharray that positions it correctly
+  // Pattern: [0 dash][gap before segment][visible dash][gap after]
+  // total = 0 + startOffset + len + (circ - startOffset - len) = circ
+  let startAt = 0;
+  segments.forEach((seg, i) => {
+    const len = seg.pct * circ;
+    const gapAfter = circ - startAt - len;
+    const circle = document.createElementNS('http://www.w3.org/2000/svg','circle');
+    circle.setAttribute('cx', cx);
+    circle.setAttribute('cy', cy);
+    circle.setAttribute('r', r);
+    circle.setAttribute('fill', 'none');
+    circle.setAttribute('stroke', seg.color);
+    circle.setAttribute('stroke-width', sw);
+    circle.setAttribute('stroke-dasharray', `0 ${startAt} ${len} ${gapAfter}`);
+    circle.setAttribute('stroke-dashoffset', '0');
+    circle.setAttribute('data-index', i);
+    circle.style.cursor = 'pointer';
+    circle.style.opacity = '0';
+    circle.style.transition = 'opacity .6s ease, transform .6s cubic-bezier(0.22,1,0.36,1)';
+    circle.style.transformOrigin = '50% 50%';
+    circle.style.transform = 'scale(0.92)';
+    svg.appendChild(circle);
+
+    // Animate in with stagger
+    setTimeout(() => {
+      circle.style.opacity = '1';
+      circle.style.transform = 'scale(1)';
+    }, 400 + i * 250);
+
+    startAt += len;
+  });
+
+  // Hover tooltip
+  const tooltip = document.getElementById('donutTooltip');
+  const legends = document.querySelectorAll('.legend-item');
+  svg.querySelectorAll('circle[data-index]').forEach((c, i) => {
+    c.addEventListener('mouseenter', (e) => {
+      const seg = segments[i];
+      tooltip.textContent = `${seg.label} — ${Math.round(seg.pct * 100)}%`;
+      tooltip.style.display = 'block';
+      const rect = svg.getBoundingClientRect();
+      tooltip.style.left = (e.clientX - rect.left) + 'px';
+      tooltip.style.top = (e.clientY - rect.top - 40) + 'px';
+    });
+    c.addEventListener('mousemove', (e) => {
+      const rect = svg.getBoundingClientRect();
+      tooltip.style.left = (e.clientX - rect.left) + 'px';
+      tooltip.style.top = (e.clientY - rect.top - 40) + 'px';
+    });
+    c.addEventListener('mouseleave', () => { tooltip.style.display = 'none'; });
+  });
+
+  legends.forEach((l, i) => {
+    l.addEventListener('mouseenter', () => {
+      const seg = segments[i];
+      tooltip.textContent = `${seg.label} — ${Math.round(seg.pct * 100)}%`;
+      tooltip.style.display = 'block';
+    });
+    l.addEventListener('mousemove', (e) => {
+      const rect = l.getBoundingClientRect();
+      tooltip.style.left = (e.clientX - rect.left) + 'px';
+      tooltip.style.top = (e.clientY - rect.top - 40) + 'px';
+    });
+    l.addEventListener('mouseleave', () => { tooltip.style.display = 'none'; });
+  });
+})();
+
+// ─── BIM Assembly (CSS 3D) ────────────────────────────
+(function(){
+  const canvas = document.getElementById('bimCanvas');
+  if(!canvas) return;
+  const ctx = canvas.getContext('2d');
+
+  function resize(){
+    const rect = canvas.parentElement.getBoundingClientRect();
+    canvas.width = rect.width * (window.devicePixelRatio || 1);
+    canvas.height = rect.height * (window.devicePixelRatio || 1);
+    canvas.style.width = rect.width + 'px';
+    canvas.style.height = rect.height + 'px';
+    ctx.scale(window.devicePixelRatio || 1, window.devicePixelRatio || 1);
+  }
+  resize();
+
+  const stages = [
+    {name:'Structure', desc:'Foundational steel and concrete structure assembled — core columns and primary floor plates positioned within the federated model coordinate system.', color:'#F5A623'},
+    {name:'Facade', desc:'Glass curtain wall and cladding panels slide into position from the exterior reference grid. Thermal envelope and weatherproofing integrated.', color:'#4FC3F7'},
+    {name:'MEP', desc:'Mechanical, electrical and plumbing routes thread through vertical shafts and ceiling voids. Clash-free coordination verified.', color:'#E84855'},
+    {name:'Interior', desc:'Floor plates fill with partition layouts, finishes and fit-out elements. Room data sheets synchronised with the model.', color:'#2EC4B6'},
+    {name:'Complete', desc:'Federated model fully resolved. All disciplines integrated, validated and published to the digital twin platform.', color:'#F5A623'}
+  ];
+
+  let currentStage = 0;
+  let animating = false;
+  let animProgress = 0;
+  let countUpDone = false;
+
+  const stageLabel = document.getElementById('bimStageLabel');
+  const stageDesc = document.getElementById('bimDesc');
+  const progressFill = document.getElementById('bimProgressFill');
+  const progressDots = document.querySelectorAll('#bimProgress .bim-progress-dots span');
+  const digitwinCounter = document.getElementById('digitwinCounter');
+  const bimComplete = document.getElementById('bimComplete');
+
+  function drawStage(stage, progress){
+    const w = canvas.width / (window.devicePixelRatio || 1);
+    const h = canvas.height / (window.devicePixelRatio || 1);
+    ctx.clearRect(0, 0, w, h);
+
+    // Background grid
+    ctx.strokeStyle = '#1a1f2e';
+    ctx.lineWidth = 0.5;
+    for(let x = 0; x < w; x += 30){
+      ctx.beginPath(); ctx.moveTo(x,0); ctx.lineTo(x,h); ctx.stroke();
+    }
+    for(let y = 0; y < h; y += 30){
+      ctx.beginPath(); ctx.moveTo(0,y); ctx.lineTo(w,y); ctx.stroke();
+    }
+
+    const cx = w/2, cy = h/2;
+    const scale = Math.min(w,h) / 300;
+
+    // Draw based on stage (using progress for transitions)
+    const p = progress;
+
+    // Stage 1: Structure (always visible as base)
+    ctx.save();
+    ctx.translate(cx, cy);
+    ctx.scale(scale, scale);
+
+    // Building outline
+    const bw = 80, bh = 140;
+    ctx.strokeStyle = stages[0].color;
+    ctx.globalAlpha = 0.3 + p * 0.3;
+    ctx.lineWidth = 1.5;
+    ctx.strokeRect(-bw/2, -bh/2, bw, bh);
+
+    // Floor lines
+    for(let i = 0; i <= 10; i++){
+      const y = -bh/2 + i * (bh/10);
+      ctx.globalAlpha = 0.15 + p * 0.25;
+      ctx.beginPath(); ctx.moveTo(-bw/2, y); ctx.lineTo(bw/2, y); ctx.stroke();
+    }
+
+    // Stage 2: Facade
+    if(stage >= 1){
+      ctx.strokeStyle = stages[1].color;
+      const fProg = stage === 1 ? p : 1;
+      ctx.globalAlpha = 0.3 + fProg * 0.5;
+      ctx.lineWidth = 1;
+      // Vertical mullions
+      for(let i = 0; i <= 8; i++){
+        const x = -bw/2 + i * (bw/8);
+        ctx.beginPath(); ctx.moveTo(x, -bh/2); ctx.lineTo(x, bh/2); ctx.stroke();
+      }
+      // Horizontal transoms
+      for(let i = 0; i <= 6; i++){
+        const y = -bh/2 + i * (bh/6);
+        ctx.beginPath(); ctx.moveTo(-bw/2, y); ctx.lineTo(bw/2, y); ctx.stroke();
+      }
+    }
+
+    // Stage 3: MEP
+    if(stage >= 2){
+      const mProg = stage === 2 ? p : 1;
+      ctx.strokeStyle = stages[2].color;
+      ctx.globalAlpha = 0.4 + mProg * 0.5;
+      ctx.lineWidth = 2;
+      // Horizontal pipes
+      const pipes = [ -bh/4, 0, bh/4 ];
+      pipes.forEach(yp => {
+        ctx.beginPath();
+        ctx.moveTo(-bw/2, yp);
+        ctx.lineTo(bw/2, yp);
+        ctx.stroke();
+      });
+      // Vertical ducts
+      const ducts = [ -bw/4, bw/4 ];
+      ducts.forEach(xd => {
+        ctx.beginPath();
+        ctx.moveTo(xd, -bh/2);
+        ctx.lineTo(xd, bh/2);
+        ctx.stroke();
+      });
+    }
+
+    // Stage 4: Interior
+    if(stage >= 3){
+      const iProg = stage === 3 ? p : 1;
+      ctx.fillStyle = stages[3].color;
+      ctx.globalAlpha = 0.1 + iProg * 0.2;
+      // Internal partitions
+      for(let i = 0; i < 5; i++){
+        const x = -bw/2 + 8 + i * 16;
+        ctx.fillRect(x, -bh/2 + 10, 4, bh - 20);
+      }
+    }
+
+    // Stage 5: Complete glow
+    if(stage >= 4){
+      const cProg = stage === 4 ? p : 1;
+      ctx.globalAlpha = cProg * 0.3;
+      ctx.shadowColor = '#F5A623';
+      ctx.shadowBlur = 30 * cProg;
+      ctx.strokeStyle = '#F5A623';
+      ctx.lineWidth = 2;
+      ctx.strokeRect(-bw/2, -bh/2, bw, bh);
+      ctx.shadowBlur = 0;
+    }
+
+    ctx.restore();
+  }
+
+  function updateStage(index){
+    currentStage = index;
+    animProgress = 0;
+    stageLabel.textContent = `0${index+1} / 05 — ${stages[index].name}`;
+    stageDesc.textContent = stages[index].desc;
+
+    progressFill.style.width = ((index + 1) / 5 * 100) + '%';
+    progressDots.forEach((d, i) => {
+      d.classList.toggle('active', i <= index);
+    });
+
+    if(index === 4){
+      bimComplete.classList.add('show');
+      startCounter();
+    } else {
+      bimComplete.classList.remove('show');
+      countUpDone = false;
+    }
+
+    animating = true;
+  }
+
+  function startCounter(){
+    if(countUpDone) return;
+    countUpDone = true;
+    let val = 0;
+    function count(){
+      val += 2;
+      if(val > 100) val = 100;
+      digitwinCounter.textContent = val + '%';
+      if(val < 100) requestAnimationFrame(count);
+    }
+    setTimeout(count, 300);
+  }
+
+  // Animation loop
+  function animLoop(){
+    if(animating && animProgress < 1){
+      animProgress += 0.02;
+      if(animProgress >= 1) { animProgress = 1; animating = false; }
+    }
+    drawStage(currentStage, animProgress);
+    requestAnimationFrame(animLoop);
+  }
+
+  updateStage(0);
+  animLoop();
+
+  // Controls
+  document.getElementById('bimNext').addEventListener('click', () => {
+    if(currentStage < 4) updateStage(currentStage + 1);
+  });
+  document.getElementById('bimPrev').addEventListener('click', () => {
+    if(currentStage > 0) updateStage(currentStage - 1);
+  });
+
+  // Progress bar click
+  const bimProgressBar = document.getElementById('bimProgress');
+  bimProgressBar.addEventListener('click', (e) => {
+    const rect = bimProgressBar.getBoundingClientRect();
+    const pct = (e.clientX - rect.left) / rect.width;
+    const idx = Math.min(4, Math.floor(pct * 5));
+    updateStage(idx);
+  });
+
+  window.addEventListener('resize', resize);
+})();
+
+// ─── Horizontal Scroll Timeline ───────────────────────
+(function(){
+  const pinned = document.getElementById('lifecyclePinned');
+  const track = document.getElementById('lifecycleTrack');
+  const progressFill = document.getElementById('lifecycleProgressFill');
+  const phases = document.querySelectorAll('.lifecycle-phase');
+  if(!pinned || !track) return;
+
+  const totalWidth = phases.length * 444; // 420 + 24 margin
+  const trackInner = phases.length * 444 + 96; // accounts for padding
+
+  function onScroll(){
+    const rect = pinned.getBoundingClientRect();
+    const pinHeight = pinned.offsetHeight;
+    const offset = window.innerHeight - rect.top;
+
+    if(rect.top <= 0 && rect.bottom >= window.innerHeight){
+      const scrollable = trackInner - window.innerWidth + 96;
+      const progress = Math.min(1, Math.max(0, (-rect.top) / (pinHeight - window.innerHeight)));
+      const tx = -(progress * scrollable);
+      track.style.transform = `translateX(${tx}px)`;
+      progressFill.style.width = (progress * 100) + '%';
+
+      // Active phase
+      const phaseW = 444;
+      const activeIdx = Math.round(progress * (phases.length - 1));
+      phases.forEach((p, i) => p.classList.toggle('active', i === activeIdx));
+    }
+  }
+
+  window.addEventListener('scroll', () => {
+    requestAnimationFrame(onScroll);
+  }, {passive: true});
+
+  // Set pinned height based on track width
+  function setPinHeight(){
+    const trackW = phases.length * 444 + 96;
+    pinned.style.height = Math.max(window.innerHeight, trackW * 0.6) + 'px';
+  }
+  setPinHeight();
+  window.addEventListener('resize', setPinHeight);
+})();
+
+// ─── Smooth anchor scroll ─────────────────────────────
+document.querySelectorAll('a[href^="#"]').forEach(a => {
+  a.addEventListener('click', (e) => {
+    const target = document.querySelector(a.getAttribute('href'));
+    if(target){
+      e.preventDefault();
+      const top = target.getBoundingClientRect().top + window.scrollY - 64;
+      window.scrollTo({top, behavior:'smooth'});
+    }
+  });
+});
+
+// ─── Parallax grid on hero ────────────────────────────
+(function(){
+  const grid = document.querySelector('#hero .bg-grid');
+  if(!grid) return;
+  window.addEventListener('scroll', () => {
+    const st = window.scrollY;
+    grid.style.transform = `translateY(${st * 0.3}px)`;
+  }, {passive:true});
+})();
+
+})();
+</script>
+</body>
+</html>

@@ -1,0 +1,13 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import { ProjectDetailClient } from '../../components/pages/ProjectDetailClient.tsx';
+import { projects } from '@/lib/data';
+
+export function getStaticPaths() {
+  return projects.map((p) => ({ params: { slug: p.id } }));
+}
+---
+
+<Layout>
+  <ProjectDetailClient client:load slug={Astro.params.slug} />
+</Layout>

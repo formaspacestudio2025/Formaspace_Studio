@@ -1,0 +1,35 @@
+---
+import '../styles/global.css';
+import { Navigation } from '../components/layout/Navigation.tsx';
+import { Footer } from '../components/layout/Footer.tsx';
+import LenisProvider from '../components/ui/LenisProvider.tsx';
+---
+
+<!DOCTYPE html>
+<html lang="en" data-lenis>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet" />
+    <meta name="description" content="Formaspace Studio — Digital Engineering, BIM, Project Controls, and Construction Intelligence. Modern project delivery for the built environment." />
+    <meta name="keywords" content="project management consultancy, digital engineering, BIM, project controls, cost management, construction technology" />
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="Formaspace Studio" />
+    <meta property="og:title" content="Formaspace Studio | Digital Engineering, BIM & Project Controls" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="theme-color" content="#0a0a0a" />
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='4' fill='%230a0a0a'/><text x='16' y='22' font-size='18' fill='%233b82f6' font-family='Inter' text-anchor='middle' font-weight='700'>F</text></svg>" />
+    <title>Formaspace Studio | Digital Engineering, BIM & Project Controls</title>
+  </head>
+  <body class="min-h-screen flex flex-col bg-background text-foreground antialiased">
+    <div id="grain" style="position:fixed;inset:0;z-index:99998;pointer-events:none;opacity:0.03;background-image:url(&quot;data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E&quot;);background-repeat:repeat;background-size:256px 256px;"></div>
+    <LenisProvider client:load />
+    <Navigation client:load />
+    <main class="flex-1">
+      <slot />
+    </main>
+    <Footer client:load />
+  </body>
+</html>

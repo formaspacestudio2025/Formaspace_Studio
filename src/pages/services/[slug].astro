@@ -1,0 +1,13 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import { ServiceDetailClient } from '../../components/pages/ServiceDetailClient.tsx';
+import { services } from '@/lib/data';
+
+export function getStaticPaths() {
+  return services.map((s) => ({ params: { slug: s.id } }));
+}
+---
+
+<Layout>
+  <ServiceDetailClient client:load slug={Astro.params.slug} />
+</Layout>

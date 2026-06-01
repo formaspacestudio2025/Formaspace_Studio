@@ -1,0 +1,166 @@
+'use client';
+
+import { useState, useEffect, useRef } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
+import { cn } from '@/lib/utils';
+
+const navLinks = [
+  { label: 'Home', href: '/' },
+  {
+    label: 'Services',
+    href: '/services',
+    megaMenu: [
+      { label: 'Project Management Consultancy', href: '/services/project-management', desc: 'Governance, PMO, reporting' },
+      { label: 'Digital Engineering', href: '/services/digital-engineering', desc: 'BIM, information management, CDE' },
+      { label: 'Project Controls', href: '/services/project-controls', desc: 'Cost, schedule, risk, EVM' },
+      { label: 'Cost Management', href: '/services/cost-management', desc: 'Budget, procurement, commercial' },
+      { label: 'Schedule Management', href: '/services/schedule-management', desc: 'Primavera P6, delay analysis' },
+      { label: 'Construction Management', href: '/services/construction-management', desc: 'Site coordination, quality, handover' },
+    ],
+  },
+  { label: 'Projects', href: '/projects' },
+  { label: 'Construction Intelligence', href: '/innovation' },
+  { label: 'Insights', href: '/insights' },
+  { label: 'About', href: '/about' },
+];
+
+export function Navigation() {
+  const [scrolled, setScrolled] = useState(false);
+  const [mobileOpen, setMobileOpen] = useState(false);
+  const [activeMega, setActiveMega] = useState(false);
+  const megaTimeout = useRef<ReturnType<typeof setTimeout> | null>(null);
+
+  useEffect(() => {
+    const handler = () => setScrolled(window.scrollY > 50);
+    window.addEventListener('scroll', handler, { passive: true });
+    handler();
+    return () => window.removeEventListener('scroll', handler);
+  }, []);
+
+  useEffect(() => {
+    if (mobileOpen) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = '';
+    }
+    return () => { document.body.style.overflow = ''; };
+  }, [mobileOpen]);
+
+  return (
+    <header
+      className={cn(
+        'fixed top-0 left-0 right-0 z-50 transition-all duration-500',
+        scrolled
+          ? 'bg-background/80 backdrop-blur-xl border-b border-border/50'
+          : 'bg-transparent'
+      )}
+    >
+      <nav className="max-w-7xl mx-auto px-6 flex items-center justify-between h-20">
+        <a href="/" className="flex items-center gap-2.5">
+          <img src="/logos/FSS logo.png" alt="FSS" className="h-8 w-auto brightness-0 invert" />
+          <span className="font-sans text-base font-semibold tracking-tight text-text-primary">
+            Formaspace
+          </span>
+        </a>
+
+        <div className="hidden lg:flex items-center gap-8">
+          {navLinks.map((link) => (
+            <div
+              key={link.href}
+              className="relative"
+              onMouseEnter={() => { if (link.megaMenu) { setActiveMega(true); if (megaTimeout.current) clearTimeout(megaTimeout.current); } }}
+              onMouseLeave={() => { megaTimeout.current = setTimeout(() => setActiveMega(false), 150); }}
+            >
+              <a
+                href={link.href}
+                className="text-sm text-text-secondary hover:text-text-primary transition-colors duration-200"
+              >
+                {link.label}
+              </a>
+              {link.megaMenu && activeMega && (
+                <div
+                  className="absolute top-full left-1/2 -translate-x-1/2 pt-4"
+                  onMouseEnter={() => { setActiveMega(true); if (megaTimeout.current) clearTimeout(megaTimeout.current); }}
+                  onMouseLeave={() => setActiveMega(false)}
+                >
+                  <div className="bg-surface border border-border shadow-2xl min-w-[500px] p-6 grid grid-cols-2 gap-4"
+                    style={{ boxShadow: '0 20px 60px rgba(0,0,0,0.5)' }}
+                  >
+                    {link.megaMenu.map((item) => (
+                      <a
+                        key={item.href}
+                        href={item.href}
+                        className="group p-3 hover:bg-background transition-colors duration-200 rounded"
+                      >
+                        <span className="font-sans text-sm text-text-primary group-hover:text-accent transition-colors">
+                          {item.label}
+                        </span>
+                        <span className="block text-xs text-text-light mt-0.5">{item.desc}</span>
+                      </a>
+                    ))}
+                  </div>
+                </div>
+              )}
+            </div>
+          ))}
+        </div>
+
+        <div className="hidden lg:block">
+          <a
+            href="/contact"
+            className="inline-flex items-center px-6 py-2.5 text-sm font-medium bg-accent text-white hover:bg-accent-light transition-all duration-300"
+          >
+            Contact Us
+          </a>
+        </div>
+
+        <button
+          onClick={() => setMobileOpen(true)}
+          className="lg:hidden flex flex-col gap-1.5 p-2"
+          aria-label="Open menu"
+        >
+          <span className="block w-6 h-0.5 bg-text-primary" />
+          <span className="block w-6 h-0.5 bg-text-primary" />
+          <span className="block w-6 h-0.5 bg-text-primary" />
+        </button>
+      </nav>
+
+      <AnimatePresence>
+        {mobileOpen && (
+          <motion.div
+            key="mobile-menu"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            className="fixed inset-0 bg-background/95 backdrop-blur-xl z-40 flex flex-col items-center justify-center gap-8"
+          >
+            <button
+              onClick={() => setMobileOpen(false)}
+              className="absolute top-6 right-6 text-3xl text-text-primary"
+              aria-label="Close menu"
+            >
+              &times;
+            </button>
+            {navLinks.map((link) => (
+              <motion.a
+                key={link.href}
+                href={link.href}
+                onClick={() => setMobileOpen(false)}
+                className="text-3xl md:text-4xl text-text-primary hover:text-accent transition-colors duration-200"
+              >
+                {link.label}
+              </motion.a>
+            ))}
+            <motion.a
+              href="/contact"
+              onClick={() => setMobileOpen(false)}
+              className="mt-4 px-8 py-3 bg-accent text-white text-sm font-medium"
+            >
+              Contact Us
+            </motion.a>
+          </motion.div>
+        )}
+      </AnimatePresence>
+    </header>
+  );
+}
