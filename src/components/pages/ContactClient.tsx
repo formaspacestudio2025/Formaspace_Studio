@@ -76,6 +76,7 @@ export function ContactClient() {
                   <input
                     required
                     type="text"
+                    minLength={2}
                     value={form.name}
                     onChange={(e) => setForm({ ...form, name: e.target.value })}
                     className="w-full px-4 py-3 bg-transparent border border-border text-text-primary text-sm placeholder:text-text-secondary/40 focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary/20 transition-all"
@@ -107,6 +108,7 @@ export function ContactClient() {
                   <label className="block text-xs uppercase tracking-widest text-text-secondary mb-2">Message</label>
                   <textarea
                     required
+                    minLength={10}
                     rows={5}
                     value={form.message}
                     onChange={(e) => setForm({ ...form, message: e.target.value })}
