@@ -81,6 +81,11 @@ export function Footer() {
                   info@formaspacestudio.com
                 </a>
               </li>
+              <li>
+                <a href="https://www.linkedin.com" target="_blank" rel="noopener noreferrer" className="hover:text-text-primary transition-colors">
+                  LinkedIn
+                </a>
+              </li>
             </ul>
           </div>
         </div>
@@ -90,8 +95,8 @@ export function Footer() {
             &copy; {new Date().getFullYear()} Formaspace Studio. All rights reserved.
           </p>
           <div className="flex items-center gap-6">
-            <a href="#" className="text-xs text-text-secondary hover:text-text-primary transition-colors">Privacy Policy</a>
-            <a href="#" className="text-xs text-text-secondary hover:text-text-primary transition-colors">Terms of Service</a>
+            <a href="/privacy" className="text-xs text-text-secondary hover:text-text-primary transition-colors">Privacy Policy</a>
+            <a href="/terms" className="text-xs text-text-secondary hover:text-text-primary transition-colors">Terms of Service</a>
           </div>
         </div>
       </div>

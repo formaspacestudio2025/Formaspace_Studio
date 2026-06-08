@@ -1,8 +1,12 @@
 ---
+export const prerender = true;
+
 import Layout from '../../layouts/Layout.astro';
+import Breadcrumb from '../../components/ui/Breadcrumb.astro';
 import { InsightsPageClient } from '../../components/pages/InsightsPageClient.tsx';
 ---
 
-<Layout>
+<Layout title="Insights | Formaspace Studio" description="Thought leadership and research from Formaspace Studio — earned value management, ISO 19650, digital twins, AI progress monitoring, cost management strategies, and BIM coordination.">
+  <Breadcrumb path={[{ label: 'Insights' }]} />
   <InsightsPageClient client:load />
 </Layout>

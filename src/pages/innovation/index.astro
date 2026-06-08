@@ -1,8 +1,12 @@
 ---
+export const prerender = true;
+
 import Layout from '../../layouts/Layout.astro';
+import Breadcrumb from '../../components/ui/Breadcrumb.astro';
 import { InnovationClient } from '../../components/pages/InnovationClient.tsx';
 ---
 
-<Layout>
+<Layout title="Construction Intelligence | Formaspace Studio" description="Explore Formaspace Studio's construction intelligence capabilities — BIM, Digital Twin, Reality Capture, AI & Analytics, Project Intelligence, and Construction Technology.">
+  <Breadcrumb path={[{ label: 'Construction Intelligence' }]} />
   <InnovationClient client:load />
 </Layout>

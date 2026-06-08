@@ -1,0 +1,26 @@
+---
+export const prerender = true;
+
+import Layout from '../layouts/Layout.astro';
+import Breadcrumb from '../components/ui/Breadcrumb.astro';
+---
+
+<Layout title="Terms of Service | Formaspace Studio" description="Formaspace Studio terms of service — conditions governing the use of our website and services.">
+  <Breadcrumb path={[{ label: 'Terms of Service' }]} />
+  <main class="max-w-3xl mx-auto px-6 py-24">
+    <h1 class="font-display text-4xl md:text-5xl text-text-primary mb-8">Terms of Service</h1>
+    <div class="text-text-secondary space-y-6 leading-relaxed">
+      <p>Last updated: June 2026</p>
+      <h2 class="text-text-primary text-xl font-semibold mt-8">Acceptance of Terms</h2>
+      <p>By accessing or using the Formaspace Studio website, you agree to be bound by these terms of service. If you do not agree, please do not use this website.</p>
+      <h2 class="text-text-primary text-xl font-semibold mt-8">Use of Website</h2>
+      <p>This website is provided for informational purposes. You may not use this website for any unlawful purpose or in violation of any applicable laws or regulations.</p>
+      <h2 class="text-text-primary text-xl font-semibold mt-8">Intellectual Property</h2>
+      <p>All content on this website, including text, graphics, logos, and images, is the property of Formaspace Studio and is protected by applicable intellectual property laws.</p>
+      <h2 class="text-text-primary text-xl font-semibold mt-8">Limitation of Liability</h2>
+      <p>Formaspace Studio shall not be liable for any damages arising from the use or inability to use this website or the services described herein.</p>
+      <h2 class="text-text-primary text-xl font-semibold mt-8">Contact</h2>
+      <p>For questions about these terms, contact us at info@formaspacestudio.com.</p>
+    </div>
+  </main>
+</Layout>

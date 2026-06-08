@@ -1,0 +1,26 @@
+---
+export interface Props {
+  path: { label: string; href?: string }[];
+}
+
+const { path } = Astro.props;
+const items = [{ label: 'Home', href: '/' }, ...path];
+---
+
+<nav aria-label="Breadcrumb" class="px-4 pt-6 max-w-7xl mx-auto w-full">
+  <ol class="flex flex-wrap items-center gap-1 text-sm text-text-light" itemscope itemtype="https://schema.org/BreadcrumbList">
+    {items.map((item, i) => (
+      <li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem" class="flex items-center gap-1">
+        {i > 0 && <span aria-hidden="true" class="mx-1">/</span>}
+        {item.href ? (
+          <a href={item.href} itemprop="item" class="hover:text-accent transition-colors">
+            <span itemprop="name">{item.label}</span>
+          </a>
+        ) : (
+          <span itemprop="name" aria-current="page" class="text-foreground font-medium">{item.label}</span>
+        )}
+        <meta itemprop="position" content={String(i + 1)} />
+      </li>
+    ))}
+  </ol>
+</nav>

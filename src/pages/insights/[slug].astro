@@ -1,13 +1,21 @@
 ---
+export const prerender = true;
+
 import Layout from '../../layouts/Layout.astro';
+import Breadcrumb from '../../components/ui/Breadcrumb.astro';
 import { InsightDetailClient } from '../../components/pages/InsightDetailClient.tsx';
 import { insights } from '@/lib/data';
 
 export function getStaticPaths() {
   return insights.map((i) => ({ params: { slug: i.id } }));
 }
+
+const insight = insights.find((i) => i.id === Astro.params.slug);
+const title = insight ? `${insight.title} | Formaspace Studio` : 'Insight | Formaspace Studio';
+const description = insight ? `${insight.excerpt?.slice(0, 155)}...` : 'Formaspace Studio insight article.';
 ---
 
-<Layout>
+<Layout title={title} description={description}>
+  <Breadcrumb path={[{ label: 'Insights', href: '/insights' }, { label: insight?.title || 'Insight' }]} />
   <InsightDetailClient client:load slug={Astro.params.slug} />
 </Layout>

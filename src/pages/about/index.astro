@@ -1,8 +1,12 @@
 ---
+export const prerender = true;
+
 import Layout from '../../layouts/Layout.astro';
+import Breadcrumb from '../../components/ui/Breadcrumb.astro';
 import { AboutClient } from '../../components/pages/AboutClient.tsx';
 ---
 
-<Layout>
+<Layout title="About Us | Formaspace Studio" description="Formaspace Studio is a Bangalore-based Project Management Consultancy and Digital Engineering firm. Meet our founders and learn about our mission, values, and certifications.">
+  <Breadcrumb path={[{ label: 'About Us' }]} />
   <AboutClient client:load />
 </Layout>

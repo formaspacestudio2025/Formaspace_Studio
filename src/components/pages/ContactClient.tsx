@@ -6,10 +6,25 @@ import ScrollReveal from '@/components/ui/ScrollReveal';
 export function ContactClient() {
   const [form, setForm] = useState({ name: '', email: '', company: '', message: '' });
   const [submitted, setSubmitted] = useState(false);
+  const [error, setError] = useState('');
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    setSubmitted(true);
+    setError('');
+    try {
+      const res = await fetch('/api/contact', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(form),
+      });
+      if (!res.ok) {
+        const data = await res.json();
+        throw new Error(data.error || 'Failed to send message');
+      }
+      setSubmitted(true);
+    } catch (err) {
+      setError(err instanceof Error ? err.message : 'Failed to send message');
+    }
   };
 
   if (submitted) {
@@ -99,6 +114,9 @@ export function ContactClient() {
                     placeholder="Tell us about your project..."
                   />
                 </div>
+                {error && (
+                  <p className="text-red-400 text-sm" role="alert">{error}</p>
+                )}
                 <button
                   type="submit"
                   className="px-8 py-3 bg-primary text-background uppercase tracking-wider text-sm font-medium hover:bg-primary/90 transition-all duration-300 shadow-lg shadow-primary/20"

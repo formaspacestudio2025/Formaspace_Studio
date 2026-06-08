@@ -1,8 +1,12 @@
 ---
+export const prerender = true;
+
 import Layout from '../../layouts/Layout.astro';
+import Breadcrumb from '../../components/ui/Breadcrumb.astro';
 import { ProjectsPageClient } from '../../components/pages/ProjectsPageClient.tsx';
 ---
 
-<Layout>
+<Layout title="Projects | Formaspace Studio" description="Explore Formaspace Studio's international portfolio of projects — hospitality, commercial towers, tech campuses, residential, airports, and cultural centres delivered with digital engineering excellence.">
+  <Breadcrumb path={[{ label: 'Projects' }]} />
   <ProjectsPageClient client:load />
 </Layout>

@@ -1,13 +1,21 @@
 ---
+export const prerender = true;
+
 import Layout from '../../layouts/Layout.astro';
+import Breadcrumb from '../../components/ui/Breadcrumb.astro';
 import { ProjectDetailClient } from '../../components/pages/ProjectDetailClient.tsx';
 import { projects } from '@/lib/data';
 
 export function getStaticPaths() {
   return projects.map((p) => ({ params: { slug: p.id } }));
 }
+
+const project = projects.find((p) => p.id === Astro.params.slug);
+const title = project ? `${project.title} | Formaspace Studio` : 'Project | Formaspace Studio';
+const description = project ? `${project.description?.slice(0, 155)}...` : 'Formaspace Studio project case study.';
 ---
 
-<Layout>
+<Layout title={title} description={description}>
+  <Breadcrumb path={[{ label: 'Projects', href: '/projects' }, { label: project?.title || 'Project' }]} />
   <ProjectDetailClient client:load slug={Astro.params.slug} />
 </Layout>
