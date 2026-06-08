@@ -1,3 +1,5 @@
+import { Resend } from 'resend';
+
 const prerender = false;
 const RESEND_API_KEY = process.env.RESEND_API_KEY || "";
 const rateLimitMap = /* @__PURE__ */ new Map();
@@ -73,7 +75,6 @@ const POST = async ({ request }) => {
   };
   try {
     if (RESEND_API_KEY) {
-      const { Resend } = await import('resend');
       const resend = new Resend(RESEND_API_KEY);
       await resend.emails.send({
         from: "Formaspace Studio <noreply@formaspacestudio.com>",
