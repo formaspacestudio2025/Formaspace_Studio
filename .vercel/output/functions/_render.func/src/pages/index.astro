@@ -1,0 +1,1599 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Formaspace Studio | Digital Engineering, BIM &amp; Project Controls</title>
+<meta name="description" content="Formaspace Studio — Project Management Consultancy &amp; Digital Engineering firm. Digital Engineering, BIM, Project Controls and Construction Intelligence.">
+<link rel="canonical" href="https://formaspacestudio.com/" />
+<meta property="og:title" content="Formaspace Studio | Digital Engineering, BIM &amp; Project Controls">
+<meta property="og:description" content="Project Management Consultancy &amp; Digital Engineering firm at the intersection of construction intelligence, BIM, and data-driven project delivery.">
+<meta property="og:image" content="https://formaspacestudio.com/logos/FSS%20App%20branding%20without%20background.png">
+<meta property="og:url" content="https://formaspacestudio.com/">
+<meta property="og:type" content="website">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" type="image/png" href="/logos/FSS logo.png">
+<link rel="apple-touch-icon" href="/logos/FSS App branding without background.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=IBM+Plex+Mono:wght@300;400;500&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' https://cdnjs.cloudflare.com 'unsafe-inline' 'unsafe-eval'; style-src 'self' https://fonts.googleapis.com 'unsafe-inline'; font-src 'self' https://fonts.gstatic.com; frame-src https://tour.panoee.net; img-src 'self' data:; connect-src 'self';" />
+<meta http-equiv="X-Content-Type-Options" content="nosniff" />
+<meta name="referrer" content="strict-origin-when-cross-origin" />
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Organization",
+  "name": "Formaspace Studio",
+  "url": "https://formaspacestudio.com",
+  "logo": "https://formaspacestudio.com/logos/FSS App branding without background.png",
+  "description": "Bangalore-based Project Management Consultancy and Digital Engineering firm operating at the intersection of construction intelligence, BIM, and data-driven project delivery.",
+  "foundingDate": "2020",
+  "founders": [
+    { "@type": "Person", "name": "Nadeem Ahmad" },
+    { "@type": "Person", "name": "Syed Sajid Kirmani" }
+  ],
+  "address": {
+    "@type": "PostalAddress",
+    "addressLocality": "Bangalore",
+    "addressCountry": "IN"
+  }
+}
+</script>
+<style>
+:root {
+  --black: #0A0C10;
+  --black2: #0d1018;
+  --surface: #111318;
+  --surface2: #161b24;
+  --surface3: #1a2030;
+  --amber: #F5A623;
+  --amber2: #ffb84d;
+  --amber-dim: rgba(245,166,35,0.15);
+  --blue: #4FC3F7;
+  --blue-dim: rgba(79,195,247,0.12);
+  --white: #f0ece4;
+  --white2: #c8c4bc;
+  --white3: #7a7870;
+  --mono: 'IBM Plex Mono', monospace;
+  --serif: 'DM Serif Display', serif;
+  --sans: 'DM Sans', sans-serif;
+  --border: rgba(255,255,255,0.07);
+  --border2: rgba(245,166,35,0.3);
+  --glow: rgba(245,166,35,0.04);
+}
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body {
+  background: var(--black);
+  color: var(--white);
+  font-family: var(--sans);
+  overflow-x: hidden;
+}
+body:not(.touch) #cursor { display: block; }
+::selection { background: rgba(245,166,35,0.3); color: #fff; }
+img { max-width: 100%; display: block; }
+a { color: inherit; text-decoration: none; }
+button { border: none; background: none; font: inherit; color: inherit; }
+
+/* NOISE OVERLAY */
+#grain {
+  position: fixed; inset: 0; z-index: 9997; pointer-events: none; opacity: 0.35; mix-blend-mode: overlay;
+}
+
+/* AMBIENT SPOTLIGHT */
+#spotlight {
+  position: fixed; width: 600px; height: 600px; border-radius: 50%; background: var(--glow);
+  pointer-events: none; z-index: 0; transform: translate(-50%, -50%); will-change: left, top;
+}
+
+/* SCROLL PROGRESS */
+#scroll-progress {
+  position: fixed; top: 0; left: 0; width: 0; height: 2px;
+  background: linear-gradient(90deg, var(--amber), var(--amber2)); z-index: 9999; transition: width 0.1s linear;
+}
+
+/* CURSOR */
+#cursor {
+  position: fixed; pointer-events: none; z-index: 9999; width: 20px; height: 20px;
+  transition: transform 0.15s ease, opacity 0.15s; transform: translate(-50%, -50%);
+}
+#cursor svg { width: 100%; height: 100%; }
+#cursor.hover { transform: translate(-50%, -50%) scale(2); }
+
+/* LOADER */
+#loader {
+  position: fixed; inset: 0; background: var(--black); z-index: 9998;
+  display: flex; align-items: center; justify-content: center; flex-direction: column; gap: 20px;
+  transition: opacity 0.8s ease, visibility 0.8s;
+}
+#loader.hide { opacity: 0; visibility: hidden; }
+#loader img { width: 280px; height: auto; opacity: 0; animation: fadeIn 1s ease 0.3s forwards; }
+#loader-bar {
+  width: 200px; height: 1px; background: var(--border); position: relative; overflow: hidden;
+}
+#loader-bar::after {
+  content: ''; position: absolute; left: -100%; top: 0; width: 100%; height: 100%;
+  background: linear-gradient(90deg, transparent, var(--amber), transparent);
+  animation: loaderSweep 1.4s ease-in-out forwards;
+}
+@keyframes loaderSweep { 0% { left: -100%; } 100% { left: 100%; } }
+#loader-text {
+  font-family: var(--mono); font-size: 11px; color: var(--white3);
+  letter-spacing: 0.2em; text-transform: uppercase;
+}
+
+/* NAV */
+nav {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 200;
+  padding: 0 48px; height: 64px;
+  display: flex; align-items: center; justify-content: space-between;
+  transition: background 0.3s, border-bottom 0.3s;
+  border-bottom: 1px solid transparent;
+}
+nav.scrolled {
+  background: rgba(10,12,16,0.92);
+  backdrop-filter: blur(20px);
+  border-bottom: 1px solid var(--border2);
+}
+.nav-logo {
+  font-family: var(--serif); font-size: 22px; color: var(--white);
+  text-decoration: none; letter-spacing: 0.01em;
+  display: flex; align-items: center; gap: 10px;
+}
+.nav-logo img { height: 64px; width: auto; transition: filter 0.4s ease; }
+.nav-logo:hover img { filter: brightness(1.2) drop-shadow(0 0 8px rgba(245,166,35,0.3)); }
+.nav-links {
+  display: flex; align-items: center; gap: 36px; list-style: none;
+}
+.nav-links a {
+  font-family: var(--mono); font-size: 11px; color: var(--white2);
+  text-decoration: none; letter-spacing: 0.12em; text-transform: uppercase;
+  transition: color 0.2s, letter-spacing 0.2s; position: relative;
+}
+.nav-links a::after {
+  content: ''; position: absolute; bottom: -4px; left: 0; width: 0; height: 1px;
+  background: var(--amber); transition: width 0.3s;
+}
+.nav-links a:hover { color: var(--white); letter-spacing: 0.16em; }
+.nav-links a:hover::after { width: 100%; }
+.nav-links a.active { color: var(--amber); }
+.nav-links a.active::after { width: 100%; }
+.nav-cta {
+  font-family: var(--mono); font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase;
+  color: var(--black); background: var(--amber); border: none; padding: 10px 20px;
+  transition: background 0.2s, transform 0.15s;
+}
+.nav-cta:hover { background: var(--amber2); transform: translateY(-1px); }
+.nav-toggle {
+  display: none; flex-direction: column; gap: 5px; background: none; border: none;
+  padding: 4px;
+}
+.nav-toggle span {
+  display: block; width: 22px; height: 1.5px; background: var(--white2);
+  transition: transform 0.3s, opacity 0.3s;
+}
+.nav-toggle.open span:nth-child(1) { transform: translateY(6.5px) rotate(45deg); }
+.nav-toggle.open span:nth-child(2) { opacity: 0; }
+.nav-toggle.open span:nth-child(3) { transform: translateY(-6.5px) rotate(-45deg); }
+
+/* HERO */
+#hero {
+  position: relative; height: 100vh; min-height: 700px;
+  display: flex; align-items: center; overflow: hidden;
+}
+#hero-canvas { position: absolute; inset: 0; z-index: 0; }
+.hero-grid-overlay {
+  position: absolute; inset: 0; z-index: 1;
+  background-image:
+    linear-gradient(rgba(79,195,247,0.03) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(79,195,247,0.03) 1px, transparent 1px);
+  background-size: 60px 60px;
+}
+.hero-content { position: relative; z-index: 3; padding: 0 48px; max-width: 900px; }
+.hero-tag {
+  font-family: var(--mono); font-size: 11px; letter-spacing: 0.2em; text-transform: uppercase;
+  color: var(--amber); margin-bottom: 28px; display: flex; align-items: center; gap: 12px;
+  opacity: 0; animation: fadeUp 0.8s 1.8s forwards;
+}
+.hero-tag::before { content: ''; width: 32px; height: 1px; background: var(--amber); }
+.hero-h1 {
+  font-family: var(--serif); font-size: clamp(52px, 7vw, 96px); line-height: 1.0;
+  color: var(--white); margin-bottom: 24px; opacity: 0; animation: fadeUp 0.9s 2s forwards;
+}
+.hero-h1 em {
+  font-style: italic;
+  background: linear-gradient(135deg, var(--amber), var(--amber2), var(--blue));
+  -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+}
+.hero-sub {
+  font-family: var(--mono); font-size: 13px; color: var(--white2);
+  line-height: 1.8; letter-spacing: 0.04em; max-width: 560px; margin-bottom: 40px;
+  opacity: 0; animation: fadeUp 0.9s 2.2s forwards;
+}
+.hero-actions { display: flex; gap: 16px; align-items: center; opacity: 0; animation: fadeUp 0.9s 2.4s forwards; }
+.btn-primary {
+  font-family: var(--mono); font-size: 11px; letter-spacing: 0.14em; text-transform: uppercase;
+  color: var(--black); background: var(--amber); border: none; padding: 14px 28px;
+  text-decoration: none; transition: background 0.2s, transform 0.15s; display: inline-block;
+}
+.btn-primary:hover { background: var(--amber2); transform: translateY(-2px); }
+.btn-outline {
+  font-family: var(--mono); font-size: 11px; letter-spacing: 0.14em; text-transform: uppercase;
+  color: var(--white2); background: transparent; border: 1px solid var(--border);
+  padding: 14px 28px; text-decoration: none; transition: border-color 0.2s, color 0.2s, transform 0.15s; display: inline-block;
+}
+.btn-outline:hover { border-color: var(--white2); color: var(--white); transform: translateY(-2px); }
+.hero-scroll-hint {
+  position: absolute; bottom: 40px; left: 48px; z-index: 2;
+  display: flex; align-items: center; gap: 12px;
+  font-family: var(--mono); font-size: 10px; color: var(--white3);
+  letter-spacing: 0.15em; text-transform: uppercase;
+  opacity: 0; animation: fadeUp 0.8s 2.8s forwards;
+}
+.scroll-line { width: 1px; height: 40px; background: linear-gradient(to bottom, var(--amber), transparent); animation: scrollPulse 2s ease-in-out infinite; }
+@keyframes scrollPulse { 0%,100%{opacity:0.4;transform:scaleY(1)} 50%{opacity:1;transform:scaleY(1.1)} }
+
+.hero-stats-bar {
+  position: absolute; bottom: 0; left: 0; right: 0; z-index: 3;
+  display: flex; border-top: 1px solid var(--border);
+  background: rgba(10,12,16,0.8); backdrop-filter: blur(10px);
+  opacity: 0; animation: fadeIn 0.8s 3s forwards;
+}
+.hero-stat { flex: 1; padding: 20px 32px; border-right: 1px solid var(--border); position: relative; transition: background 0.3s; }
+.hero-stat:hover { background: rgba(245,166,35,0.04); }
+.hero-stat:last-child { border-right: none; }
+.hero-stat-num { font-family: var(--serif); font-size: 32px; color: var(--amber); display: block; line-height: 1; margin-bottom: 6px; }
+.hero-stat-label { font-family: var(--mono); font-size: 10px; color: var(--white3); letter-spacing: 0.15em; text-transform: uppercase; }
+
+@keyframes fadeUp { from { opacity:0; transform: translateY(24px); } to { opacity:1; transform: translateY(0); } }
+@keyframes fadeIn { from{opacity:0} to{opacity:1} }
+
+/* SECTIONS */
+section { padding: 120px 48px; }
+.section-tag {
+  font-family: var(--mono); font-size: 10px; letter-spacing: 0.25em; text-transform: uppercase;
+  color: var(--amber); margin-bottom: 20px; display: flex; align-items: center; gap: 12px;
+}
+.section-tag::before { content: ''; width: 24px; height: 1px; background: var(--amber); }
+.section-h2 {
+  font-family: var(--serif); font-size: clamp(36px, 4vw, 60px);
+  line-height: 1.05; margin-bottom: 20px; color: var(--white);
+}
+.section-sub {
+  font-family: var(--mono); font-size: 13px; color: var(--white3);
+  line-height: 1.8; max-width: 560px; letter-spacing: 0.03em;
+}
+.reveal { opacity: 0; transform: translateY(32px); transition: opacity 0.7s ease, transform 0.7s ease; }
+.reveal.visible { opacity: 1; transform: translateY(0); }
+.reveal-delay-1 { transition-delay: 0.1s; }
+.reveal-delay-2 { transition-delay: 0.2s; }
+.reveal-delay-3 { transition-delay: 0.3s; }
+.reveal-delay-4 { transition-delay: 0.4s; }
+.reveal-delay-5 { transition-delay: 0.5s; }
+
+/* STATS / ABOUT */
+#about { background: var(--surface); padding: 120px 48px; }
+.about-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: start; }
+.about-pillars { display: grid; grid-template-columns: 1fr 1fr; gap: 1px; background: var(--border); margin-top: 48px; }
+.pillar { background: var(--surface); padding: 32px; position: relative; transition: background 0.3s; }
+.pillar:hover { background: var(--surface2); }
+.pillar-num { font-family: var(--mono); font-size: 10px; color: var(--amber); letter-spacing: 0.2em; margin-bottom: 16px; }
+.pillar-title { font-family: var(--serif); font-size: 20px; margin-bottom: 12px; color: var(--white); }
+.pillar-desc { font-size: 13px; color: var(--white3); line-height: 1.7; }
+.about-right { padding-top: 60px; }
+.metric-row { display: flex; align-items: baseline; gap: 16px; padding: 24px 0; border-bottom: 1px solid var(--border); }
+.metric-row:first-child { border-top: 1px solid var(--border); }
+.metric-val { font-family: var(--serif); font-size: 52px; color: var(--amber); min-width: 160px; }
+.metric-label { font-family: var(--mono); font-size: 12px; color: var(--white2); line-height: 1.6; letter-spacing: 0.05em; }
+
+/* STATS COUNTS */
+.stats-counts { display: grid; grid-template-columns: repeat(4, 1fr); gap: 24px; margin-top: 60px; }
+.stat-item { padding: 32px 24px; border: 1px solid var(--border); text-align: center; background: var(--surface); transition: border-color 0.3s, transform 0.3s; }
+.stat-item:hover { border-color: var(--border2); transform: translateY(-4px); }
+.stat-item .num { font-family: var(--serif); font-size: 42px; color: var(--amber); line-height: 1; }
+.stat-item .label { font-family: var(--mono); font-size: 10px; color: var(--white3); letter-spacing: 0.15em; text-transform: uppercase; margin-top: 8px; }
+
+/* SERVICES */
+#services { background: var(--surface); }
+.services-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1px; background: var(--border); margin-top: 60px; }
+.service-card { background: var(--surface); padding: 40px 36px; position: relative; overflow: hidden; transition: background 0.3s; }
+.service-card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px; background: var(--amber); transform: scaleX(0); transform-origin: left; transition: transform 0.4s ease; }
+.service-card:hover { background: var(--surface2); }
+.service-card:hover::before { transform: scaleX(1); }
+.service-icon { width: 40px; height: 40px; border: 1px solid var(--amber); display: flex; align-items: center; justify-content: center; margin-bottom: 24px; font-family: var(--mono); font-size: 14px; color: var(--amber); }
+.service-title { font-family: var(--serif); font-size: 22px; margin-bottom: 12px; color: var(--white); }
+.service-desc { font-size: 13px; color: var(--white3); line-height: 1.7; margin-bottom: 20px; }
+.service-badges { display: flex; flex-wrap: wrap; gap: 6px; }
+.tool-badge { font-family: var(--mono); font-size: 10px; letter-spacing: 0.08em; color: var(--white2); border: 1px solid rgba(255,255,255,0.15); padding: 4px 10px; transition: border-color 0.2s, color 0.2s, background 0.2s; }
+.tool-badge:hover { border-color: var(--amber); color: var(--black); background: var(--amber); }
+
+/* BIM */
+#digital-eng { background: var(--black); }
+.bim-layout { display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: center; margin-top: 60px; }
+#bim-canvas-wrap { position: relative; aspect-ratio: 1; background: var(--surface); border: 1px solid var(--border); overflow: hidden; }
+#bim-canvas { width: 100%; height: 100%; }
+.bim-progress-bar { height: 2px; background: var(--border); margin-top: 16px; position: relative; overflow: hidden; }
+.bim-progress-fill { height: 100%; background: var(--amber); transition: width 0.8s ease; box-shadow: 0 0 12px rgba(245,166,35,0.3); }
+.bim-stages { margin-top: 24px; }
+.bim-stage { display: flex; align-items: center; gap: 16px; padding: 14px 0; border-bottom: 1px solid var(--border); transition: color 0.3s; }
+.bim-stage:last-child { border-bottom: none; }
+.bim-stage-dot { width: 8px; height: 8px; border: 1px solid var(--white3); transition: background 0.3s, border-color 0.3s; flex-shrink: 0; }
+.bim-stage.active .bim-stage-dot { background: var(--amber); border-color: var(--amber); box-shadow: 0 0 12px var(--amber); }
+.bim-stage-name { font-family: var(--mono); font-size: 12px; color: var(--white3); letter-spacing: 0.1em; transition: color 0.3s; }
+.bim-stage.active .bim-stage-name { color: var(--amber); }
+.bim-stage-pct { font-family: var(--mono); font-size: 11px; color: var(--white3); margin-left: auto; }
+.bim-counter { font-family: var(--serif); font-size: 72px; color: var(--amber); line-height: 1; margin-bottom: 8px; }
+.bim-counter-label { font-family: var(--mono); font-size: 11px; color: var(--white3); letter-spacing: 0.2em; text-transform: uppercase; }
+
+/* INTELLIGENCE */
+#intelligence { background: var(--surface); }
+.intel-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1px; background: var(--border); margin-top: 60px; }
+.intel-card { background: var(--surface); padding: 36px; position: relative; overflow: hidden; }
+.intel-card::after { content: ''; position: absolute; bottom: 0; left: 0; right: 0; height: 2px; background: linear-gradient(90deg, var(--amber), transparent); opacity: 0; transition: opacity 0.3s; }
+.intel-card:hover { background: var(--surface2); }
+.intel-card:hover::after { opacity: 1; }
+.intel-icon { font-family: var(--mono); font-size: 20px; color: var(--amber); margin-bottom: 20px; opacity: 0.8; }
+.intel-title { font-family: var(--serif); font-size: 20px; margin-bottom: 12px; color: var(--white); }
+.intel-desc { font-size: 13px; color: var(--white3); line-height: 1.7; margin-bottom: 20px; }
+.intel-bullets { list-style: none; font-family: var(--mono); font-size: 11px; color: var(--white3); letter-spacing: 0.06em; }
+.intel-bullets li { padding: 4px 0; padding-left: 16px; position: relative; }
+.intel-bullets li::before { content: '\25C8'; position: absolute; left: 0; color: var(--amber); font-size: 8px; top: 5px; }
+
+/* DASHBOARD */
+#dashboard { background: var(--black); }
+.dashboard-layout { display: grid; grid-template-columns: 2fr 1fr; gap: 24px; margin-top: 60px; }
+.chart-panel { background: var(--surface); border: 1px solid var(--border); padding: 32px; }
+.chart-panel-title { font-family: var(--mono); font-size: 11px; letter-spacing: 0.15em; text-transform: uppercase; color: var(--white2); margin-bottom: 8px; display: flex; align-items: center; justify-content: space-between; }
+.live-dot { width: 6px; height: 6px; background: var(--amber); border-radius: 50%; animation: livePulse 2s ease-in-out infinite; }
+@keyframes livePulse { 0%,100%{opacity:1;transform:scale(1)} 50%{opacity:0.4;transform:scale(0.8)} }
+.chart-subtitle { font-family: var(--serif); font-size: 22px; color: var(--white); margin-bottom: 32px; }
+
+.kpi-strip { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1px; background: var(--border); margin-bottom: 32px; }
+.kpi-cell { background: var(--surface); padding: 16px; }
+.kpi-label { font-family: var(--mono); font-size: 10px; letter-spacing: 0.12em; color: var(--white3); text-transform: uppercase; margin-bottom: 8px; }
+.kpi-val { font-family: var(--mono); font-size: 20px; font-weight: 500; }
+.kpi-val.good { color: #4ade80; }
+.kpi-val.warn { color: var(--amber); }
+.kpi-val.bad { color: #f87171; }
+.kpi-val.info { color: var(--blue); }
+.kpi-sub { font-family: var(--mono); font-size: 10px; color: var(--white3); margin-top: 4px; }
+.right-col { display: flex; flex-direction: column; gap: 24px; }
+.ev-panel { background: var(--surface); border: 1px solid var(--border); padding: 32px; flex: 1; }
+
+/* ASSET MANAGEMENT */
+#asset-management { background: var(--surface); position: relative; overflow: hidden; }
+
+/* PROJECTS */
+#projects { background: var(--black); }
+.projects-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1px; background: var(--border); margin-top: 60px; }
+.project-card { background: var(--black); padding: 40px; position: relative; overflow: hidden; transition: background 0.3s; }
+.project-card:hover { background: var(--surface); }
+.project-type { font-family: var(--mono); font-size: 10px; letter-spacing: 0.2em; color: var(--amber); text-transform: uppercase; margin-bottom: 16px; }
+.project-title { font-family: var(--serif); font-size: 26px; margin-bottom: 8px; color: var(--white); }
+.project-location { font-family: var(--mono); font-size: 11px; color: var(--white3); margin-bottom: 8px; letter-spacing: 0.06em; }
+.project-client { font-family: var(--mono); font-size: 11px; color: var(--blue); letter-spacing: 0.06em; }
+.project-num { position: absolute; bottom: 20px; right: 32px; font-family: var(--serif); font-size: 80px; line-height: 1; color: rgba(255,255,255,0.03); }
+
+/* PARTNERS */
+#partners { background: var(--surface); padding: 80px 48px; }
+.partners-grid { display: grid; grid-template-columns: repeat(5, 1fr); gap: 1px; background: var(--border); margin-top: 40px; }
+.partner-cell { background: var(--surface); padding: 24px; display: flex; align-items: center; justify-content: center; font-family: var(--mono); font-size: 13px; color: var(--white3); letter-spacing: 0.08em; transition: background 0.3s, color 0.3s; }
+.partner-cell:hover { background: var(--surface2); color: var(--white); }
+
+/* INSIGHTS */
+#insights { background: var(--black); }
+.insights-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; margin-top: 60px; }
+.insight-card { background: var(--surface); border: 1px solid var(--border); padding: 36px; position: relative; overflow: hidden; transition: transform 0.3s ease, border-color 0.3s; }
+.insight-card::before { content: ''; position: absolute; left: 0; top: 0; bottom: 0; width: 2px; background: var(--amber); transform: scaleY(0); transition: transform 0.4s ease; }
+.insight-card:hover { transform: translateY(-8px); border-color: rgba(245,166,35,0.3); }
+.insight-card:hover::before { transform: scaleY(1); }
+.insight-card:hover .insight-title { color: var(--amber); }
+.insight-cat { font-family: var(--mono); font-size: 10px; letter-spacing: 0.2em; color: var(--amber); text-transform: uppercase; margin-bottom: 8px; }
+.insight-read { font-family: var(--mono); font-size: 10px; color: var(--white3); margin-bottom: 20px; letter-spacing: 0.1em; }
+.insight-title { font-family: var(--serif); font-size: 22px; line-height: 1.2; margin-bottom: 16px; color: var(--white); transition: color 0.3s; }
+.insight-author { font-family: var(--mono); font-size: 11px; color: var(--white3); letter-spacing: 0.06em; }
+.insight-date { font-family: var(--mono); font-size: 11px; color: var(--white3); letter-spacing: 0.06em; }
+.insight-arrow { font-family: var(--mono); font-size: 12px; color: var(--amber); letter-spacing: 0.1em; position: absolute; bottom: 36px; left: 36px; transform: translateY(20px); opacity: 0; transition: transform 0.3s, opacity 0.3s; }
+.insight-card:hover .insight-arrow { transform: translateY(0); opacity: 1; }
+
+/* CTA */
+#cta { background: var(--surface); padding: 120px 48px; text-align: center; border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); position: relative; }
+#cta::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse at 50% 50%, rgba(245,166,35,0.04), transparent 70%); pointer-events: none; }
+.cta-h2 { font-family: var(--serif); font-size: clamp(36px, 4vw, 64px); margin-bottom: 20px; color: var(--white); max-width: 800px; margin-left: auto; margin-right: auto; }
+.cta-sub { font-family: var(--mono); font-size: 13px; color: var(--white3); margin-bottom: 40px; letter-spacing: 0.04em; }
+.cta-actions { display: flex; gap: 16px; justify-content: center; }
+
+/* FOOTER */
+footer { background: var(--black); padding: 80px 48px 40px; border-top: 1px solid var(--border); }
+.footer-grid { display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 60px; margin-bottom: 60px; }
+.footer-brand-name { font-family: var(--serif); font-size: 28px; margin-bottom: 12px; color: var(--white); display: flex; align-items: center; gap: 12px; }
+.footer-brand-name img { height: 96px; width: auto; }
+.footer-brand-desc { font-size: 13px; color: var(--white3); line-height: 1.7; margin-bottom: 20px; max-width: 300px; }
+.footer-col-title { font-family: var(--mono); font-size: 10px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--amber); margin-bottom: 20px; }
+.footer-links { list-style: none; }
+.footer-links li { margin-bottom: 12px; }
+.footer-links a { font-family: var(--mono); font-size: 12px; color: var(--white3); text-decoration: none; letter-spacing: 0.06em; transition: color 0.2s; }
+.footer-links a:hover { color: var(--white); }
+.footer-founders { margin-top: 16px; font-family: var(--mono); font-size: 11px; color: var(--white3); line-height: 1.8; }
+.footer-bottom { border-top: 1px solid var(--border); padding-top: 24px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 16px; }
+.footer-cert { font-family: var(--mono); font-size: 10px; color: var(--white3); letter-spacing: 0.12em; display: flex; gap: 12px; flex-wrap: wrap; }
+.footer-cert span { padding: 4px 8px; border: 1px solid var(--border); }
+.footer-copy { font-family: var(--mono); font-size: 10px; color: var(--white3); letter-spacing: 0.08em; }
+/* CONTACT MODAL */
+#contact-overlay {
+  position: fixed; inset: 0; z-index: 10000;
+  background: rgba(10,12,16,0.85); backdrop-filter: blur(12px);
+  display: flex; align-items: center; justify-content: center;
+  opacity: 0; visibility: hidden; transition: opacity 0.4s ease, visibility 0.4s ease;
+  padding: 24px;
+}
+#contact-overlay.open { opacity: 1; visibility: visible; }
+#contact-modal {
+  background: var(--surface); border: 1px solid var(--border);
+  width: 100%; max-width: 560px; max-height: 90vh; overflow-y: auto;
+  padding: 48px; position: relative;
+  transform: translateY(24px); transition: transform 0.4s ease;
+}
+#contact-overlay.open #contact-modal { transform: translateY(0); }
+#contact-close {
+  position: absolute; top: 20px; right: 20px;
+  font-family: var(--mono); font-size: 18px; color: var(--white3);
+  background: none; border: none; cursor: pointer; padding: 8px;
+  transition: color 0.2s;
+}
+#contact-close:hover { color: var(--amber); }
+.contact-title { font-family: var(--serif); font-size: 28px; color: var(--white); margin-bottom: 8px; }
+.contact-sub { font-family: var(--mono); font-size: 11px; color: var(--white3); letter-spacing: 0.06em; margin-bottom: 32px; }
+.form-group { margin-bottom: 20px; }
+.form-group label {
+  font-family: var(--mono); font-size: 10px; color: var(--white2);
+  letter-spacing: 0.15em; text-transform: uppercase; display: block; margin-bottom: 8px;
+}
+.form-group input,
+.form-group textarea {
+  width: 100%; background: var(--black); border: 1px solid var(--border);
+  padding: 14px 16px; font-family: var(--sans); font-size: 14px; color: var(--white);
+  outline: none; transition: border-color 0.3s;
+}
+.form-group input:focus,
+.form-group textarea:focus { border-color: var(--amber); }
+.form-group textarea { resize: vertical; min-height: 120px; }
+.form-group input::placeholder,
+.form-group textarea::placeholder { color: var(--white3); opacity: 0.5; }
+#contact-submit {
+  width: 100%; font-family: var(--mono); font-size: 11px; letter-spacing: 0.14em;
+  text-transform: uppercase; color: var(--black); background: var(--amber);
+  border: none; padding: 16px 28px; cursor: pointer; transition: background 0.2s, transform 0.15s;
+}
+#contact-submit:hover { background: var(--amber2); transform: translateY(-1px); }
+#contact-submit:disabled { opacity: 0.5; cursor: not-allowed; transform: none; }
+.contact-success {
+  display: none; text-align: center; padding: 40px 0;
+}
+.contact-success.show { display: block; }
+.contact-success-icon { font-size: 48px; color: #4ade80; margin-bottom: 16px; }
+.contact-success-title { font-family: var(--serif); font-size: 24px; color: var(--white); margin-bottom: 8px; }
+.contact-success-text { font-family: var(--mono); font-size: 12px; color: var(--white3); line-height: 1.6; }
+
+::-webkit-scrollbar { width: 4px; height: 4px; }
+::-webkit-scrollbar-track { background: var(--black); }
+::-webkit-scrollbar-thumb { background: var(--border2); }
+
+@media (max-width: 1024px) {
+  .about-grid, .bim-layout { grid-template-columns: 1fr; gap: 40px; }
+  .services-grid, .intel-grid, .projects-grid, .insights-grid { grid-template-columns: 1fr 1fr; }
+  .footer-grid { grid-template-columns: 1fr 1fr; }
+  .kpi-strip { grid-template-columns: repeat(2, 1fr); }
+  .partners-grid { grid-template-columns: repeat(3, 1fr); }
+  .dashboard-layout { grid-template-columns: 1fr; }
+  .stats-counts { grid-template-columns: repeat(2, 1fr); }
+}
+@media (max-width: 768px) {
+  nav { padding: 0 24px; }
+  .nav-toggle { display: flex; }
+  .nav-links { position: fixed; top: 64px; left: 0; right: 0; flex-direction: column; background: rgba(10,12,16,0.98); backdrop-filter: blur(20px); padding: 40px 48px; gap: 28px; border-bottom: 1px solid var(--border2); transform: translateY(-120%); transition: transform 0.4s ease; pointer-events: none; }
+  .nav-links.open { transform: translateY(0); pointer-events: auto; }
+  section { padding: 80px 24px; }
+  .hero-content { padding: 0 24px; }
+  .hero-stats-bar { flex-direction: column; }
+  .hero-stat { border-right: none; border-bottom: 1px solid var(--border); }
+  .services-grid, .intel-grid, .projects-grid, .insights-grid { grid-template-columns: 1fr; }
+  .footer-grid { grid-template-columns: 1fr; gap: 40px; }
+  #hero-canvas { display: none; }
+  .kpi-strip { grid-template-columns: 1fr 1fr; }
+  .partners-grid { grid-template-columns: repeat(2, 1fr); }
+  .stats-counts { grid-template-columns: 1fr 1fr; }
+  .about-grid { grid-template-columns: 1fr; }
+}
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; }
+}
+</style>
+</head>
+<body>
+
+<!-- GRAIN -->
+<svg id="grain" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+  <filter id="noise"><feTurbulence type="fractalNoise" baseFrequency="0.6" numOctaves="3" stitchTiles="stitch"/><feColorMatrix type="saturate" values="0"/></filter>
+  <rect width="100%" height="100%" filter="url(#noise)" opacity="0.15"/>
+</svg>
+
+<!-- SPOTLIGHT -->
+<div id="spotlight"></div>
+
+<!-- SCROLL PROGRESS -->
+<div id="scroll-progress"></div>
+
+<!-- CURSOR -->
+<div id="cursor">
+  <svg viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <line x1="10" y1="0" x2="10" y2="8" stroke="#F5A623" stroke-width="1.5"/>
+    <line x1="10" y1="12" x2="10" y2="20" stroke="#F5A623" stroke-width="1.5"/>
+    <line x1="0" y1="10" x2="8" y2="10" stroke="#F5A623" stroke-width="1.5"/>
+    <line x1="12" y1="10" x2="20" y2="10" stroke="#F5A623" stroke-width="1.5"/>
+    <circle cx="10" cy="10" r="2" fill="#F5A623"/>
+  </svg>
+</div>
+
+<!-- LOADER -->
+<div id="loader">
+  <img src="/logos/FSS App branding without background.png" alt="Formaspace">
+  <div id="loader-bar"></div>
+  <div id="loader-text">Formaspace Studio</div>
+</div>
+
+<!-- NAV -->
+<nav id="nav">
+  <a href="#hero" class="nav-logo">
+    <img src="/logos/FSS App branding without background.png" alt="FSS">
+    Formaspace Studio
+  </a>
+  <ul class="nav-links" id="navLinks">
+    <li><a href="#about">About</a></li>
+    <li><a href="#services">Services</a></li>
+    <li><a href="#digital-eng">BIM</a></li>
+    <li><a href="#dashboard">Intelligence</a></li>
+    <li><a href="#projects">Projects</a></li>
+    <li><a href="#insights">Insights</a></li>
+  </ul>
+  <div style="display:flex;align-items:center;gap:16px;">
+    <button class="nav-cta" onclick="openContactModal()">Get in Touch</button>
+    <button class="nav-toggle" id="navToggle" aria-label="Menu"><span></span><span></span><span></span></button>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section id="hero">
+  <canvas id="hero-canvas"></canvas>
+  <div class="hero-grid-overlay"></div>
+  <div class="hero-content">
+    <div class="hero-tag">Formaspace Studio — Est. 2020</div>
+    <h1 class="hero-h1">The Future of<br><em>Project Delivery</em></h1>
+    <p class="hero-sub">Digital Engineering, BIM, Project Controls and Construction Intelligence — powered by AI, real-time data, and precision digital workflows.</p>
+    <div class="hero-actions">
+      <a href="#services" class="btn-primary">Explore Services</a>
+      <a href="#cta" class="btn-outline">Start Your Project</a>
+    </div>
+  </div>
+  <div class="hero-scroll-hint">
+    <div class="scroll-line"></div>
+    <span>Scroll to explore</span>
+  </div>
+  <div class="hero-stats-bar">
+    <div class="hero-stat">
+      <span class="hero-stat-num" data-count="6" data-suffix="+">0</span>
+      <span class="hero-stat-label">Projects Delivered</span>
+    </div>
+    <div class="hero-stat">
+      <span class="hero-stat-num" data-count="20" data-prefix="$" data-suffix="M">$0</span>
+      <span class="hero-stat-label">Value Managed</span>
+    </div>
+    <div class="hero-stat">
+      <span class="hero-stat-num" data-count="10" data-suffix="+">0</span>
+      <span class="hero-stat-label">Supply Chain Partners</span>
+    </div>
+    <div class="hero-stat">
+      <span class="hero-stat-num" data-count="50" data-suffix="K+ Sqm">0</span>
+      <span class="hero-stat-label">Under Management</span>
+    </div>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section id="about">
+  <div class="about-grid">
+    <div>
+      <div class="section-tag reveal">About Formaspace</div>
+      <h2 class="section-h2 reveal reveal-delay-1">Built for the<br>Future of Construction</h2>
+      <p class="section-sub reveal reveal-delay-2">Formaspace is a Bangalore-based Project Management Consultancy and Digital Engineering firm operating at the intersection of construction intelligence, BIM, and data-driven project delivery.</p>
+      <div class="about-pillars">
+        <div class="pillar reveal reveal-delay-1">
+          <div class="pillar-num">01</div>
+          <div class="pillar-title">Technical Excellence</div>
+          <div class="pillar-desc">Every engagement delivered with rigour and precision — deep construction expertise with advanced digital capabilities.</div>
+        </div>
+        <div class="pillar reveal reveal-delay-2">
+          <div class="pillar-num">02</div>
+          <div class="pillar-title">Data-Driven Delivery</div>
+          <div class="pillar-desc">Project intelligence, earned value analysis, and real-time dashboards inform every recommendation.</div>
+        </div>
+        <div class="pillar reveal reveal-delay-3">
+          <div class="pillar-num">03</div>
+          <div class="pillar-title">Digital First</div>
+          <div class="pillar-desc">BIM, project controls platforms, and digital twins are not add-ons — they are the foundation.</div>
+        </div>
+        <div class="pillar reveal reveal-delay-4">
+          <div class="pillar-num">04</div>
+          <div class="pillar-title">Founder-Led</div>
+          <div class="pillar-desc">Nadeem Ahmad &amp; Syed Sajid Kirmani directly engaged in every project — no delegation of expertise.</div>
+        </div>
+      </div>
+      <div class="stats-counts reveal reveal-delay-3">
+        <div class="stat-item"><div class="num counter" data-count="6">0</div><div class="label">Projects</div></div>
+        <div class="stat-item"><div class="num counter" data-count="10">0</div><div class="label">Partners</div></div>
+        <div class="stat-item"><div class="num counter" data-count="20">0</div><div class="label">K Sqm</div></div>
+        <div class="stat-item"><div class="num counter" data-count="6">0</div><div class="label">Years Exp</div></div>
+      </div>
+    </div>
+    <div class="about-right">
+      <div class="metric-row reveal">
+        <span class="metric-val" data-count="6" data-suffix="+">0+</span>
+        <span class="metric-label">Projects Delivered<br>Across Hospitality, Commercial &amp; Technology Sectors</span>
+      </div>
+      <div class="metric-row reveal reveal-delay-1">
+        <span class="metric-val" data-prefix="$" data-count="20" data-suffix="M">$0M</span>
+        <span class="metric-label">Total Project Value Managed<br>Across International Portfolio</span>
+      </div>
+      <div class="metric-row reveal reveal-delay-2">
+        <span class="metric-val" data-count="10" data-suffix="+">0+</span>
+        <span class="metric-label">Supply Chain Partners<br>ISO 19650 Compliant CDEs</span>
+      </div>
+      <div class="metric-row reveal reveal-delay-3">
+        <span class="metric-val" data-count="6" data-suffix="">0</span>
+        <span class="metric-label">Service Lines<br>End-to-End Project Delivery</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SERVICES -->
+<section id="services">
+  <div class="section-tag reveal">What We Do</div>
+  <h2 class="section-h2 reveal reveal-delay-1">End-to-End Project Delivery</h2>
+  <p class="section-sub reveal reveal-delay-2">Comprehensive capabilities for the built environment — from governance and controls to digital engineering and construction technology.</p>
+  <div class="services-grid">
+    <div class="service-card reveal">
+      <div class="service-icon">PMC</div>
+      <div class="service-title">Project Management Consultancy</div>
+      <div class="service-desc">Governance, control, and strategic delivery. Programme-level oversight combining rigour with digital intelligence.</div>
+      <div class="service-badges"><span class="tool-badge">Power BI</span><span class="tool-badge">MS Project</span><span class="tool-badge">Jira</span></div>
+    </div>
+    <div class="service-card reveal reveal-delay-1">
+      <div class="service-icon">BIM</div>
+      <div class="service-title">Digital Engineering</div>
+      <div class="service-desc">BIM management, information management, and digital delivery at every project stage. ISO 19650 compliant.</div>
+      <div class="service-badges"><span class="tool-badge">Revit + Dynamo</span><span class="tool-badge">Navisworks</span><span class="tool-badge">Solibri</span></div>
+    </div>
+    <div class="service-card reveal reveal-delay-2">
+      <div class="service-icon">EVM</div>
+      <div class="service-title">Project Controls</div>
+      <div class="service-desc">Cost, schedule, risk — integrated and transparent. Earned value management and probabilistic forecasting.</div>
+      <div class="service-badges"><span class="tool-badge">Primavera P6</span><span class="tool-badge">Power BI</span><span class="tool-badge">MS Project</span></div>
+    </div>
+    <div class="service-card reveal reveal-delay-1">
+      <div class="service-icon">$£</div>
+      <div class="service-title">Cost Management</div>
+      <div class="service-desc">Budget planning, procurement strategy, commercial control and change order management.</div>
+      <div class="service-badges"><span class="tool-badge">Excel</span><span class="tool-badge">Power BI</span><span class="tool-badge">CostX</span></div>
+    </div>
+    <div class="service-card reveal reveal-delay-2">
+      <div class="service-icon">P6</div>
+      <div class="service-title">Schedule Management</div>
+      <div class="service-desc">Primavera P6, 4D planning, progress tracking, delay analysis and critical path management.</div>
+      <div class="service-badges"><span class="tool-badge">Primavera P6</span><span class="tool-badge">Synchro 4D</span><span class="tool-badge">MS Project</span></div>
+    </div>
+    <div class="service-card reveal reveal-delay-3">
+      <div class="service-icon">◎</div>
+      <div class="service-title">Construction Management</div>
+      <div class="service-desc">Site coordination, quality inspection workflows, progress photo analytics and handover management.</div>
+      <div class="service-badges"><span class="tool-badge">Procore</span><span class="tool-badge">Power BI</span><span class="tool-badge">Bluebeam</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- BIM -->
+<section id="digital-eng">
+  <div class="section-tag reveal">Digital Engineering</div>
+  <h2 class="section-h2 reveal reveal-delay-1">Digital Model Assembly</h2>
+  <p class="section-sub reveal reveal-delay-2">Live 3D simulation of BIM construction sequence — from structural frame to coordinated digital twin, layer by layer.</p>
+  <div class="bim-layout">
+    <div>
+      <div id="bim-canvas-wrap"><canvas id="bim-canvas"></canvas></div>
+      <div class="bim-progress-bar"><div class="bim-progress-fill" id="bim-progress" style="width:20%"></div></div>
+    </div>
+    <div>
+      <div class="bim-counter" id="bim-pct">20</div>
+      <div class="bim-counter-label">Digital Twin Completion</div>
+      <div class="bim-stages" id="bim-stages">
+        <div class="bim-stage active" data-stage="0"><div class="bim-stage-dot"></div><div class="bim-stage-name">01 — Structure: Steel &amp; Concrete Framework</div><div class="bim-stage-pct">20%</div></div>
+        <div class="bim-stage" data-stage="1"><div class="bim-stage-dot"></div><div class="bim-stage-name">02 — Facade: Building Envelope &amp; Glazing</div><div class="bim-stage-pct">40%</div></div>
+        <div class="bim-stage" data-stage="2"><div class="bim-stage-dot"></div><div class="bim-stage-name">03 — MEP: Mechanical, Electrical, Plumbing</div><div class="bim-stage-pct">60%</div></div>
+        <div class="bim-stage" data-stage="3"><div class="bim-stage-dot"></div><div class="bim-stage-name">04 — Interior: Fit-Out &amp; Finishes</div><div class="bim-stage-pct">80%</div></div>
+        <div class="bim-stage" data-stage="4"><div class="bim-stage-dot"></div><div class="bim-stage-name">05 — Complete: Coordinated Digital Twin</div><div class="bim-stage-pct">100%</div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- INTELLIGENCE -->
+<section id="intelligence">
+  <div class="section-tag reveal">Construction Intelligence</div>
+  <h2 class="section-h2 reveal reveal-delay-1">Technology Driving<br>Modern Project Delivery</h2>
+  <div class="intel-grid">
+    <div class="intel-card reveal">
+      <div class="intel-icon">◈</div>
+      <div class="intel-title">Building Information Modeling</div>
+      <div class="intel-desc">Comprehensive BIM management from execution planning through model authoring, coordination, and information management.</div>
+      <ul class="intel-bullets"><li>BIM Execution Planning</li><li>Model Authoring &amp; Coordination</li><li>Clash Detection &amp; Resolution</li></ul>
+    </div>
+    <div class="intel-card reveal reveal-delay-1">
+      <div class="intel-icon">◇</div>
+      <div class="intel-title">Digital Twin</div>
+      <div class="intel-desc">Live digital replicas connecting design, construction, and operations data into a single source of truth.</div>
+      <ul class="intel-bullets"><li>IoT Integration</li><li>Real-Time Monitoring</li><li>Predictive Maintenance</li></ul>
+    </div>
+    <div class="intel-card reveal reveal-delay-2">
+      <div class="intel-icon">◎</div>
+      <div class="intel-title">Reality Capture</div>
+      <div class="intel-desc">High-precision laser scanning and photogrammetry for as-built verification, progress tracking, and digital asset creation.</div>
+      <ul class="intel-bullets"><li>3D Laser Scanning</li><li>Drone Photogrammetry</li><li>Scan-to-BIM</li></ul>
+    </div>
+    <div class="intel-card reveal">
+      <div class="intel-icon">⊕</div>
+      <div class="intel-title">AI &amp; Construction Analytics</div>
+      <div class="intel-desc">Machine learning and computer vision for progress monitoring, quality detection, schedule risk prediction.</div>
+      <ul class="intel-bullets"><li>Progress Monitoring</li><li>Anomaly Detection</li><li>Risk Prediction</li></ul>
+    </div>
+    <div class="intel-card reveal reveal-delay-1">
+      <div class="intel-icon">⊞</div>
+      <div class="intel-title">Project Intelligence</div>
+      <div class="intel-desc">Executive dashboards and analytics platforms transforming complex project data into actionable intelligence.</div>
+      <ul class="intel-bullets"><li>Power BI Dashboards</li><li>Earned Value Analytics</li><li>Portfolio Reporting</li></ul>
+    </div>
+    <div class="intel-card reveal reveal-delay-2">
+      <div class="intel-icon">⊡</div>
+      <div class="intel-title">Construction Technology</div>
+      <div class="intel-desc">Integrated construction technology stacks connecting site to office with real-time data on progress, quality, and safety.</div>
+      <ul class="intel-bullets"><li>Field Management Apps</li><li>Quality Inspection Workflows</li><li>Progress Photo Analytics</li></ul>
+    </div>
+  </div>
+</section>
+
+<!-- DASHBOARD -->
+<section id="dashboard">
+  <div class="section-tag reveal">Project Performance Intelligence</div>
+  <h2 class="section-h2 reveal reveal-delay-1">Live Construction Dashboard</h2>
+  <p class="section-sub reveal reveal-delay-2">Real-time project controls intelligence — S-curves, earned value, and portfolio analytics powering every decision.</p>
+
+  <div class="kpi-strip reveal" style="margin-top:48px;">
+    <div class="kpi-cell"><div class="kpi-label">Schedule Performance Index</div><div class="kpi-val warn">0.96</div><div class="kpi-sub">SPI — Slightly behind plan</div></div>
+    <div class="kpi-cell"><div class="kpi-label">Cost Performance Index</div><div class="kpi-val warn">0.93</div><div class="kpi-sub">CPI — Minor cost overrun</div></div>
+    <div class="kpi-cell"><div class="kpi-label">Forecast Completion</div><div class="kpi-val bad">+2.5 mo</div><div class="kpi-sub">EAC — vs Baseline</div></div>
+    <div class="kpi-cell"><div class="kpi-label">Change Order Impact</div><div class="kpi-val info">$1.2M</div><div class="kpi-sub">Approved variations</div></div>
+  </div>
+
+  <div class="dashboard-layout">
+    <div class="chart-panel reveal">
+      <div class="chart-panel-title"><span>S-Curve — Planned vs Actual Progress</span><div class="live-dot"></div></div>
+      <div class="chart-subtitle">Project Months 1–24</div>
+      <svg id="scurve-svg" viewBox="0 0 680 320" style="width:100%;height:auto;">
+        <defs><marker id="dot-marker" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="4" markerHeight="4"><circle cx="5" cy="5" r="4" fill="#F5A623"/></marker></defs>
+        <g id="grid-lines"></g>
+        <g id="axis-labels"></g>
+        <path id="planned-path" fill="none" stroke="#F5A623" stroke-width="2" stroke-linecap="round"/>
+        <path id="actual-path" fill="none" stroke="#4FC3F7" stroke-width="2" stroke-dasharray="6 3" stroke-linecap="round"/>
+        <rect x="20" y="10" width="14" height="3" fill="#F5A623" rx="1"/>
+        <text x="38" y="16" font-family="'IBM Plex Mono',monospace" font-size="11" fill="#c8c4bc">Planned Progress</text>
+        <line x1="160" y1="12" x2="174" y2="12" stroke="#4FC3F7" stroke-width="2" stroke-dasharray="4 2"/>
+        <text x="178" y="16" font-family="'IBM Plex Mono',monospace" font-size="11" fill="#c8c4bc">Actual Progress</text>
+      </svg>
+    </div>
+    <div class="right-col">
+      <div class="ev-panel reveal">
+        <div class="chart-panel-title"><span>Earned Value Analysis</span><div class="live-dot"></div></div>
+        <svg id="ev-svg" viewBox="0 0 300 240" style="width:100%;height:auto;margin-top:12px;"></svg>
+      </div>
+      <div class="ev-panel reveal reveal-delay-1">
+        <div class="chart-panel-title"><span>Portfolio Distribution</span><div class="live-dot"></div></div>
+        <svg id="donut-svg" viewBox="0 0 300 240" style="width:100%;height:auto;margin-top:12px;"></svg>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- INTELLIGENT ASSET MANAGEMENT -->
+<section id="asset-management" style="background:var(--surface);">
+  <div class="section-tag reveal">Reality Capture &amp; Asset Intelligence</div>
+  <h2 class="section-h2 reveal reveal-delay-1">Intelligent Asset Management</h2>
+  <p class="section-sub reveal reveal-delay-2">High-precision 3D laser scanning, 360° immersive imaging, and Lidar-powered surveys for comprehensive digital asset capture, verification, and lifecycle management.</p>
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:center;margin-top:60px;">
+    <div>
+      <div class="reveal" style="margin-bottom:32px;">
+        <div style="font-family:var(--mono);font-size:10px;color:var(--amber);letter-spacing:0.2em;text-transform:uppercase;margin-bottom:12px;">360° Immersive Imaging</div>
+        <div style="font-family:var(--serif);font-size:20px;margin-bottom:12px;color:var(--white);">Interactive Virtual Tours</div>
+        <div style="font-size:13px;color:var(--white3);line-height:1.6;max-width:480px;">Full-spectrum 360° panoramic imaging creates immersive walkthrough environments for remote site inspection, stakeholder collaboration, and as-built documentation.</div>
+      </div>
+      <div class="reveal reveal-delay-1" style="margin-bottom:32px;">
+        <div style="font-family:var(--mono);font-size:10px;color:var(--amber);letter-spacing:0.2em;text-transform:uppercase;margin-bottom:12px;">Lidar Scanning</div>
+        <div style="font-family:var(--serif);font-size:20px;margin-bottom:12px;color:var(--white);">Precision Point Cloud Surveys</div>
+        <div style="font-size:13px;color:var(--white3);line-height:1.6;max-width:480px;">Terrestrial and mobile Lidar capture millions of measurement points per second, delivering millimetre-accurate 3D models for structural analysis, MEP coordination, and heritage preservation.</div>
+      </div>
+      <div class="reveal reveal-delay-2">
+        <div style="font-family:var(--mono);font-size:10px;color:var(--amber);letter-spacing:0.2em;text-transform:uppercase;margin-bottom:12px;">Scan-to-BIM</div>
+        <div style="font-family:var(--serif);font-size:20px;margin-bottom:12px;color:var(--white);">Intelligent Model Conversion</div>
+        <div style="font-size:13px;color:var(--white3);line-height:1.6;max-width:480px;">Point cloud data converted directly into intelligent BIM models — enabling clash detection, quantity takeoffs, renovation planning, and facility management integration.</div>
+      </div>
+    </div>
+    <div style="display:flex;flex-direction:column;gap:16px;">
+      <div class="reveal" style="background:var(--black);border:1px solid var(--border);padding:24px;text-align:center;">
+        <div style="font-family:var(--mono);font-size:28px;color:var(--amber);margin-bottom:4px;">±1mm</div>
+        <div style="font-family:var(--mono);font-size:10px;color:var(--white3);letter-spacing:0.2em;text-transform:uppercase;">Scan Accuracy</div>
+      </div>
+      <div class="reveal reveal-delay-1" style="background:var(--black);border:1px solid var(--border);padding:24px;text-align:center;">
+        <div style="font-family:var(--mono);font-size:28px;color:var(--amber);margin-bottom:4px;">2M<small> pts/sec</small></div>
+        <div style="font-family:var(--mono);font-size:10px;color:var(--white3);letter-spacing:0.2em;text-transform:uppercase;">Lidar Capture Rate</div>
+      </div>
+      <div class="reveal reveal-delay-2" style="background:var(--black);border:1px solid var(--border);padding:24px;text-align:center;">
+        <div style="font-family:var(--mono);font-size:28px;color:var(--amber);margin-bottom:4px;">360°</div>
+        <div style="font-family:var(--mono);font-size:10px;color:var(--white3);letter-spacing:0.2em;text-transform:uppercase;">Immersive Panoramic Capture</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section-tag reveal" style="margin-top:80px;">360 Virtual Tours</div>
+  <h3 class="section-h2 reveal reveal-delay-1" style="font-size:clamp(28px, 3vw, 40px);">Explore in Immersive 360°</h3>
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:24px;margin-top:40px;">
+    <div class="reveal">
+      <div style="font-family:var(--mono);font-size:10px;color:var(--amber);letter-spacing:0.2em;text-transform:uppercase;margin-bottom:8px;">Hotel MAQAM</div>
+      <iframe id="tour-embeded-1" name="Hotel MAQAM" src="https://tour.panoee.net/iframe/69429a268e3c26784e8aeb17" frameBorder="0" width="100%" height="400px" scrolling="no" allowvr="yes" allow="vr; xr; xr-spatial-tracking; accelerometer; gyroscope; autoplay;" allowFullScreen="false" webkitallowfullscreen="false" mozallowfullscreen="false" loading="lazy" sandbox="allow-scripts allow-same-origin" style="border:1px solid var(--border);"></iframe>
+    </div>
+    <div class="reveal reveal-delay-1">
+      <div style="font-family:var(--mono);font-size:10px;color:var(--amber);letter-spacing:0.2em;text-transform:uppercase;margin-bottom:8px;">Houseboat Canberra</div>
+      <iframe id="tour-embeded-2" name="Houseboat Canberra" src="https://tour.panoee.net/iframe/690596e5eac32b09e73f0ee0" frameBorder="0" width="100%" height="400px" scrolling="no" allowvr="yes" allow="vr; xr; xr-spatial-tracking; accelerometer; gyroscope; autoplay;" allowFullScreen="false" webkitallowfullscreen="false" mozallowfullscreen="false" loading="lazy" sandbox="allow-scripts allow-same-origin" style="border:1px solid var(--border);"></iframe>
+    </div>
+  </div>
+</section>
+
+<script>
+  var pano_iframe_name_1 = "tour-embeded-1";
+  window.addEventListener("devicemotion", function(e){ var iframe = document.getElementById(pano_iframe_name_1); if (iframe) iframe.contentWindow.postMessage({ type:"devicemotion", deviceMotionEvent:{ acceleration:{ x:e.acceleration.x, y:e.acceleration.y, z:e.acceleration.z }, accelerationIncludingGravity:{ x:e.accelerationIncludingGravity.x, y:e.accelerationIncludingGravity.y, z:e.accelerationIncludingGravity.z }, rotationRate:{ alpha:e.rotationRate.alpha, beta:e.rotationRate.beta, gamma:e.rotationRate.gamma }, interval:e.interval, timeStamp:e.timeStamp } }, "https://tour.panoee.net"); });
+  var pano_iframe_name_2 = "tour-embeded-2";
+  window.addEventListener("devicemotion", function(e){ var iframe = document.getElementById(pano_iframe_name_2); if (iframe) iframe.contentWindow.postMessage({ type:"devicemotion", deviceMotionEvent:{ acceleration:{ x:e.acceleration.x, y:e.acceleration.y, z:e.acceleration.z }, accelerationIncludingGravity:{ x:e.accelerationIncludingGravity.x, y:e.accelerationIncludingGravity.y, z:e.accelerationIncludingGravity.z }, rotationRate:{ alpha:e.rotationRate.alpha, beta:e.rotationRate.beta, gamma:e.rotationRate.gamma }, interval:e.interval, timeStamp:e.timeStamp } }, "https://tour.panoee.net"); });
+</script>
+
+<!-- PROJECTS -->
+<section id="projects">
+  <div class="section-tag reveal">Selected Projects</div>
+  <h2 class="section-h2 reveal reveal-delay-1">International Portfolio</h2>
+  <div class="projects-grid">
+    <div class="project-card reveal"><div class="project-type">Industrial</div><div class="project-title">Biological Drug Substance</div><div class="project-location">Munich, Germany</div><div class="project-client">DSE Group</div><div class="project-num">01</div></div>
+    <div class="project-card reveal reveal-delay-1"><div class="project-type">Industrial</div><div class="project-title">SÜD-OST Link and SÜEDLINK Transmission Stations</div><div class="project-location">Düsseldorf, Germany</div><div class="project-client">Tennet</div><div class="project-num">02</div></div>
+    <div class="project-card reveal reveal-delay-2"><div class="project-type">Industrial</div><div class="project-title">PP13 combined cycle powerplant</div><div class="project-location">Riyadh, Saudi Arabia</div><div class="project-client">Worley Parsons</div><div class="project-num">03</div></div>
+  </div>
+</section>
+
+<!-- PARTNERS -->
+<section id="partners" style="padding:80px 48px;background:var(--surface);">
+  <div class="section-tag reveal" style="margin-bottom:12px;">Trusted Ecosystem</div>
+  <h2 class="section-h2 reveal reveal-delay-1" style="font-size:36px;margin-bottom:32px;">Partners &amp; Certifications</h2>
+  <div class="partners-grid">
+    <div class="partner-cell reveal">Autodesk</div>
+    <div class="partner-cell reveal reveal-delay-1">Oracle</div>
+    <div class="partner-cell reveal reveal-delay-2">Microsoft</div>
+    <div class="partner-cell reveal reveal-delay-3">Procore</div>
+    <div class="partner-cell reveal reveal-delay-4">Trimble</div>
+    <div class="partner-cell reveal">ISO 19650 BIM</div>
+    <div class="partner-cell reveal reveal-delay-1">PMP Certified</div>
+    <div class="partner-cell reveal reveal-delay-2">PSP Certified</div>
+    <div class="partner-cell reveal reveal-delay-3">LEED AP</div>
+    <div class="partner-cell reveal reveal-delay-4">RICS Member</div>
+  </div>
+</section>
+
+<!-- INSIGHTS -->
+<section id="insights">
+  <div class="section-tag reveal">Insights &amp; Research</div>
+  <h2 class="section-h2 reveal reveal-delay-1">Latest Thinking</h2>
+  <div class="insights-grid">
+    <a href="/insights/evm-best-practices" class="insight-card reveal" style="display:block;color:inherit;text-decoration:none;">
+      <div class="insight-cat">Project Controls</div>
+      <div class="insight-read">8 min read</div>
+      <div class="insight-title">Earned Value Management on Complex Capital Programmes</div>
+      <div class="insight-author">Syed Sajid Kirmani</div>
+      <div class="insight-date">November 2025</div>
+      <div class="insight-arrow">Read Article →</div>
+    </a>
+    <a href="/insights/iso-19650-implementation-guide" class="insight-card reveal reveal-delay-1" style="display:block;color:inherit;text-decoration:none;">
+      <div class="insight-cat">Digital Engineering</div>
+      <div class="insight-read">12 min read</div>
+      <div class="insight-title">Implementing ISO 19650: A Practical Guide for Project Teams</div>
+      <div class="insight-author">Nadeem Ahmad</div>
+      <div class="insight-date">September 2025</div>
+      <div class="insight-arrow">Read Article →</div>
+    </a>
+    <a href="/insights/digital-twin-construction-operations" class="insight-card reveal reveal-delay-2" style="display:block;color:inherit;text-decoration:none;">
+      <div class="insight-cat">Technology</div>
+      <div class="insight-read">10 min read</div>
+      <div class="insight-title">Closing the Loop: Digital Twins from Construction to Operations</div>
+      <div class="insight-author">Nadeem Ahmad</div>
+      <div class="insight-date">August 2025</div>
+      <div class="insight-arrow">Read Article →</div>
+    </a>
+  </div>
+</section>
+
+<!-- CTA -->
+<section id="cta">
+  <div class="section-tag reveal" style="justify-content:center;">Transform Your Delivery</div>
+  <h2 class="cta-h2 reveal reveal-delay-1">Ready to Transform Your<br>Project Delivery?</h2>
+  <p class="cta-sub reveal reveal-delay-2">Let's discuss how our digital engineering, BIM, and project controls capabilities can help you deliver with confidence.</p>
+  <div class="cta-actions reveal reveal-delay-3">
+    <button class="btn-primary" onclick="openContactModal()" style="cursor:pointer;">Get in Touch</button>
+    <a href="#services" class="btn-outline">Explore Services</a>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-grid">
+    <div>
+      <div class="footer-brand-name"><img src="/logos/FSS App branding without background.png" alt="FSS">Formaspace Studio</div>
+      <div class="footer-brand-desc">Formaspace is a Bangalore-based Project Management Consultancy and Digital Engineering firm operating at the intersection of construction intelligence, BIM, and data-driven project delivery.</div>
+      <div class="footer-founders">Founders:<br>Nadeem Ahmad <span style="color:var(--blue)">(BIM)</span><br>Syed Sajid Kirmani <span style="color:var(--amber)">(Project Controls)</span></div>
+    </div>
+    <div>
+      <div class="footer-col-title">Services</div>
+      <ul class="footer-links">
+        <li><a href="#services">Project Management</a></li>
+        <li><a href="#services">Digital Engineering</a></li>
+        <li><a href="#services">Project Controls</a></li>
+        <li><a href="#services">Cost Management</a></li>
+        <li><a href="#services">Schedule Management</a></li>
+        <li><a href="#services">Construction Management</a></li>
+      </ul>
+    </div>
+    <div>
+      <div class="footer-col-title">Quick Links</div>
+      <ul class="footer-links">
+        <li><a href="#about">About</a></li>
+        <li><a href="#dashboard">Intelligence</a></li>
+        <li><a href="#projects">Projects</a></li>
+        <li><a href="#insights">Insights</a></li>
+        <li><a href="#cta">Contact</a></li>
+      </ul>
+    </div>
+    <div>
+      <div class="footer-col-title">Contact</div>
+      <ul class="footer-links">
+        <li><a href="https://maps.google.com/?q=Bangalore+India" target="_blank">Bangalore, India</a></li>
+        <li><a href="mailto:info@formaspacestudio.com">info@formaspacestudio.com</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <div class="footer-cert"><span>ISO 19650</span><span>PMP</span><span>PSP</span><span>RICS</span><span>PMI</span><span>LEED AP</span></div>
+    <div class="footer-copy">© 2026 Formaspace Studio. All rights reserved.</div>
+  </div>
+</footer>
+
+<!-- CONTACT MODAL -->
+<div id="contact-overlay">
+  <div id="contact-modal">
+    <button id="contact-close" aria-label="Close">&times;</button>
+    <div id="contact-form-wrap">
+      <div class="contact-title">Get in Touch</div>
+      <div class="contact-sub">Fill in the form and our team will get back to you within 24 hours.</div>
+      <form id="contact-form">
+        <div class="form-group">
+          <label for="cf-name">Your Name</label>
+          <input type="text" id="cf-name" placeholder="John Smith" required>
+        </div>
+        <div class="form-group">
+          <label for="cf-email">Email Address</label>
+          <input type="email" id="cf-email" placeholder="john@company.com" required>
+        </div>
+        <div class="form-group">
+          <label for="cf-phone">Phone Number</label>
+          <input type="tel" id="cf-phone" placeholder="+1 234 567 890">
+        </div>
+        <div class="form-group">
+          <label for="cf-company">Company</label>
+          <input type="text" id="cf-company" placeholder="Your Company Ltd.">
+        </div>
+        <div class="form-group">
+          <label for="cf-message">Message</label>
+          <textarea id="cf-message" placeholder="Tell us about your project..." required></textarea>
+        </div>
+        <button type="submit" id="contact-submit">Send Message</button>
+      </form>
+    </div>
+    <div class="contact-success" id="contact-success">
+      <div class="contact-success-icon">&#10003;</div>
+      <div class="contact-success-title">Message Sent</div>
+      <div class="contact-success-text">Thank you for reaching out. Our team will respond to you at the provided email address within 24 hours.</div>
+    </div>
+  </div>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js" integrity="sha256-knS7zsjZYWhibHMrXTHHdaqM+36qBZm+wMF1kIosHOI=" crossorigin="anonymous"></script>
+<script>
+(function(){
+'use strict';
+
+const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+const isMobile = window.innerWidth < 768;
+
+// Touch detection
+if ('ontouchstart' in window) document.body.classList.add('touch');
+
+// Scroll progress (with rAF throttling)
+const scrollBar = document.getElementById('scroll-progress');
+var ticking = false;
+window.addEventListener('scroll', function() {
+  if (!ticking) {
+    requestAnimationFrame(function() {
+      var pct = window.scrollY / (document.documentElement.scrollHeight - window.innerHeight);
+      scrollBar.style.width = (pct * 100) + '%';
+      ticking = false;
+    });
+    ticking = true;
+  }
+}, { passive: true });
+
+// Cursor
+const cursor = document.getElementById('cursor');
+document.addEventListener('mousemove', e => {
+  cursor.style.left = e.clientX + 'px';
+  cursor.style.top = e.clientY + 'px';
+});
+document.querySelectorAll('a,button,.phase-card,.service-card,.intel-card,.project-card,.insight-card,.bim-stage,.partner-cell').forEach(el => {
+  el.addEventListener('mouseenter', () => cursor.classList.add('hover'));
+  el.addEventListener('mouseleave', () => cursor.classList.remove('hover'));
+});
+
+// Spotlight
+const spotlight = document.getElementById('spotlight');
+document.addEventListener('mousemove', e => {
+  spotlight.style.left = e.clientX + 'px';
+  spotlight.style.top = e.clientY + 'px';
+});
+
+// Contact Modal
+window.openContactModal = function() {
+  document.getElementById('contact-overlay').classList.add('open');
+  document.body.style.overflow = 'hidden';
+  var firstInput = document.querySelector('#contact-overlay input, #contact-overlay textarea, #contact-overlay button');
+  if (firstInput) setTimeout(function() { firstInput.focus(); }, 100);
+};
+window.closeContactModal = function() {
+  document.getElementById('contact-overlay').classList.remove('open');
+  document.body.style.overflow = '';
+  var trigger = document.querySelector('[onclick="openContactModal()"]');
+  if (trigger) trigger.focus();
+};
+document.getElementById('contact-close').addEventListener('click', window.closeContactModal);
+document.getElementById('contact-overlay').addEventListener('click', function(e) {
+  if (e.target === this) window.closeContactModal();
+});
+document.addEventListener('keydown', function(e) {
+  if (e.key === 'Escape') window.closeContactModal();
+});
+// Focus trap inside modal
+document.getElementById('contact-overlay').addEventListener('keydown', function(e) {
+  if (e.key !== 'Tab') return;
+  var focusable = this.querySelectorAll('input, textarea, button, [tabindex]:not([tabindex="-1"])');
+  if (!focusable.length) return;
+  var first = focusable[0];
+  var last = focusable[focusable.length - 1];
+  if (e.shiftKey && document.activeElement === first) {
+    e.preventDefault();
+    last.focus();
+  } else if (!e.shiftKey && document.activeElement === last) {
+    e.preventDefault();
+    first.focus();
+  }
+});
+document.getElementById('contact-form').addEventListener('submit', async function(e) {
+  e.preventDefault();
+  var name = document.getElementById('cf-name').value.trim();
+  var email = document.getElementById('cf-email').value.trim();
+  var phone = document.getElementById('cf-phone').value.trim();
+  var company = document.getElementById('cf-company').value.trim();
+  var message = document.getElementById('cf-message').value.trim();
+  var btn = document.getElementById('contact-submit');
+  btn.disabled = true;
+  btn.textContent = 'Sending...';
+  try {
+    var res = await fetch('/api/contact', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ name: name, email: email, phone: phone, company: company, message: message })
+    });
+    if (!res.ok) {
+      var data = await res.json();
+      throw new Error(data.error || 'Failed to send');
+    }
+    document.getElementById('contact-form-wrap').style.display = 'none';
+    document.getElementById('contact-success').classList.add('show');
+  } catch (err) {
+    alert('Failed to send message. Please try again or email us directly at info@formaspacestudio.com.');
+  }
+  btn.disabled = false;
+  btn.textContent = 'Send Message';
+});
+
+// Loader
+window.addEventListener('load', () => {
+  document.getElementById('loader').classList.add('hide');
+  if (!isMobile) initHeroCanvas();
+  document.querySelectorAll('.hero-stat-num').forEach(el => {
+    if (!el.dataset.animated) animateCounter(el);
+  });
+});
+
+// Nav
+const nav = document.getElementById('nav');
+const navLinks = document.querySelectorAll('.nav-links a');
+const sections = document.querySelectorAll('section[id]');
+window.addEventListener('scroll', () => {
+  nav.classList.toggle('scrolled', window.scrollY > 60);
+  let current = '';
+  sections.forEach(sec => {
+    const top = sec.offsetTop - 200;
+    if (window.scrollY >= top) current = sec.getAttribute('id');
+  });
+  navLinks.forEach(a => {
+    a.style.color = a.getAttribute('href') === '#' + current ? 'var(--amber)' : '';
+  });
+}, { passive: true });
+
+// Hamburger
+const toggle = document.getElementById('navToggle');
+const navList = document.querySelector('.nav-links');
+if (toggle) {
+  toggle.addEventListener('click', () => {
+    toggle.classList.toggle('open');
+    navList.classList.toggle('open');
+  });
+  navList.querySelectorAll('a').forEach(a => {
+    a.addEventListener('click', () => {
+      toggle.classList.remove('open');
+      navList.classList.remove('open');
+    });
+  });
+}
+
+// Intersection Observer - Reveal
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(e => {
+    if (e.isIntersecting) {
+      e.target.classList.add('visible');
+      if (e.target.hasAttribute('data-count')) animateCounter(e.target);
+    }
+  });
+}, { threshold: 0.15 });
+document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+document.querySelectorAll('[data-count]').forEach(el => observer.observe(el));
+
+// Counter
+function animateCounter(el) {
+  if (el.dataset.animated) return;
+  el.dataset.animated = 'true';
+  const target = parseFloat(el.dataset.count);
+  const prefix = el.dataset.prefix || '';
+  const suffix = el.dataset.suffix || '';
+  const duration = 1800;
+  const start = performance.now();
+  const isDecimal = target % 1 !== 0;
+  function step(now) {
+    const p = Math.min((now - start) / duration, 1);
+    const ease = 1 - Math.pow(1 - p, 4);
+    const val = target * ease;
+    el.textContent = prefix + (isDecimal ? val.toFixed(1) : Math.floor(val)) + suffix;
+    if (p < 1) requestAnimationFrame(step);
+  }
+  requestAnimationFrame(step);
+}
+
+// Hero Three.js
+function initHeroCanvas() {
+  if (window.innerWidth < 768) return;
+  const canvas = document.getElementById('hero-canvas');
+  const renderer = new THREE.WebGLRenderer({ canvas, alpha: true, antialias: true });
+  renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+  renderer.setSize(window.innerWidth, window.innerHeight);
+  const scene = new THREE.Scene();
+  const camera = new THREE.PerspectiveCamera(60, window.innerWidth / window.innerHeight, 0.1, 1000);
+  camera.position.set(0, 6, 18);
+  camera.lookAt(0, 0, 0);
+  const floors = [];
+  const floorCount = 8;
+  for (let i = 0; i < floorCount; i++) {
+    const geo = new THREE.BoxGeometry(6, 0.3, 6);
+    const wireMat = new THREE.MeshBasicMaterial({ color: 0xF5A623, wireframe: true, transparent: true, opacity: 0 });
+    const solidMat = new THREE.MeshBasicMaterial({ color: 0x1a1f2e, transparent: true, opacity: 0, wireframe: false });
+    const wire = new THREE.Mesh(geo, wireMat);
+    const solid = new THREE.Mesh(geo, solidMat);
+    wire.position.y = i * 1.2 - 4;
+    solid.position.y = i * 1.2 - 4;
+    scene.add(wire);
+    scene.add(solid);
+    floors.push({ wire, solid, wireMat, solidMat, delay: i * 0.3 });
+  }
+  const colPositions = [[-3, 0, -3], [3, 0, -3], [-3, 0, 3], [3, 0, 3]];
+  colPositions.forEach(pos => {
+    const geo = new THREE.BoxGeometry(0.15, floorCount * 1.2, 0.15);
+    const mat = new THREE.MeshBasicMaterial({ color: 0xF5A623, wireframe: true, transparent: true, opacity: 0.15 });
+    const col = new THREE.Mesh(geo, mat);
+    col.position.set(pos[0], (floorCount * 1.2) / 2 - 4.6, pos[2]);
+    scene.add(col);
+  });
+  const particleCount = 200;
+  const positions = new Float32Array(particleCount * 3);
+  for (let i = 0; i < particleCount; i++) {
+    positions[i * 3]     = (Math.random() - 0.5) * 30;
+    positions[i * 3 + 1] = (Math.random() - 0.5) * 20;
+    positions[i * 3 + 2] = (Math.random() - 0.5) * 30;
+  }
+  const partGeo = new THREE.BufferGeometry();
+  partGeo.setAttribute('position', new THREE.BufferAttribute(positions, 3));
+  const partMat = new THREE.PointsMaterial({ color: 0x4FC3F7, size: 0.08, transparent: true, opacity: 0.6 });
+  const particles = new THREE.Points(partGeo, partMat);
+  scene.add(particles);
+  const gridHelper = new THREE.GridHelper(30, 30, 0x1a2030, 0x111318);
+  gridHelper.position.y = -4.6;
+  scene.add(gridHelper);
+  let elapsed = 0;
+  let scrollY = 0;
+  window.addEventListener('scroll', () => { scrollY = window.scrollY; }, { passive: true });
+  function animate() {
+    requestAnimationFrame(animate);
+    elapsed += 0.01;
+    floors.forEach(({ wire, solid, wireMat, solidMat, delay }) => {
+      const t = Math.max(0, Math.min(1, (elapsed - delay) * 0.8));
+      wireMat.opacity = t * 0.8;
+      wire.scale.y = 0.1 + t * 0.9;
+      const scrollFactor = Math.min(1, scrollY / 500);
+      solidMat.opacity = scrollFactor * 0.4 * t;
+      wireMat.opacity = (1 - scrollFactor * 0.6) * t * 0.8;
+    });
+    scene.rotation.y = elapsed * 0.12;
+    particles.rotation.y = elapsed * 0.03;
+    const pos = partGeo.attributes.position.array;
+    for (let i = 0; i < particleCount; i++) { pos[i * 3 + 1] += Math.sin(elapsed + i) * 0.003; }
+    partGeo.attributes.position.needsUpdate = true;
+    renderer.render(scene, camera);
+  }
+  animate();
+  window.addEventListener('resize', () => {
+    camera.aspect = window.innerWidth / window.innerHeight;
+    camera.updateProjectionMatrix();
+    renderer.setSize(window.innerWidth, window.innerHeight);
+  });
+}
+
+// BIM Canvas
+(function initBIM() {
+  const wrap = document.getElementById('bim-canvas-wrap');
+  const canvas = document.getElementById('bim-canvas');
+  if (!wrap || !canvas) return;
+  const renderer = new THREE.WebGLRenderer({ canvas, alpha: true, antialias: true });
+  function resize() {
+    const w = wrap.clientWidth; const h = wrap.clientHeight;
+    renderer.setSize(w, h);
+    renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+    camera.aspect = w / h; camera.updateProjectionMatrix();
+  }
+  const camera = new THREE.PerspectiveCamera(50, 1, 0.1, 100);
+  camera.position.set(8, 6, 10);
+  camera.lookAt(0, 1, 0);
+  const scene = new THREE.Scene();
+  const stages = [];
+  const s0 = new THREE.Group();
+  for (let fl = 0; fl < 5; fl++) {
+    const cols = [[-2,0,-2],[2,0,-2],[-2,0,2],[2,0,2]];
+    cols.forEach(p => {
+      const g = new THREE.BoxGeometry(0.2, 1.0, 0.2);
+      const m = new THREE.MeshBasicMaterial({ color: 0xF5A623, wireframe: true });
+      const c = new THREE.Mesh(g, m);
+      c.position.set(p[0], fl * 1.2, p[2]);
+      s0.add(c);
+    });
+    const fg = new THREE.BoxGeometry(4.2, 0.12, 4.2);
+    const fm = new THREE.MeshBasicMaterial({ color: 0xF5A623, wireframe: true });
+    const f = new THREE.Mesh(fg, fm);
+    f.position.y = fl * 1.2;
+    s0.add(f);
+  }
+  stages.push(s0); scene.add(s0);
+  const s1 = new THREE.Group(); s1.visible = false;
+  const facadePositions = [
+    { pos: [0, 2.4, -2.2], rot: [0, 0, 0], size: [4.4, 5.0, 0.08] },
+    { pos: [0, 2.4, 2.2],  rot: [0, 0, 0], size: [4.4, 5.0, 0.08] },
+    { pos: [-2.2, 2.4, 0], rot: [0, Math.PI/2, 0], size: [4.4, 5.0, 0.08] },
+    { pos: [2.2, 2.4, 0],  rot: [0, Math.PI/2, 0], size: [4.4, 5.0, 0.08] },
+  ];
+  facadePositions.forEach(fd => {
+    const g = new THREE.BoxGeometry(...fd.size);
+    const m = new THREE.MeshBasicMaterial({ color: 0x4FC3F7, wireframe: true, transparent: true, opacity: 0.5 });
+    const mesh = new THREE.Mesh(g, m);
+    mesh.position.set(...fd.pos);
+    mesh.rotation.set(...fd.rot);
+    s1.add(mesh);
+  });
+  stages.push(s1); scene.add(s1);
+  const s2 = new THREE.Group(); s2.visible = false;
+  const mepColors = [0xff6b6b, 0x4FC3F7, 0xffd93d, 0x6bcb77];
+  for (let i = 0; i < 4; i++) {
+    const pts = [];
+    for (let j = 0; j < 6; j++) pts.push(new THREE.Vector3(-1.5 + i * 0.6, j * 0.9 + 0.3, (Math.random() - 0.5) * 2));
+    const curve = new THREE.CatmullRomCurve3(pts);
+    const tubeGeo = new THREE.TubeGeometry(curve, 20, 0.06, 6, false);
+    const mat = new THREE.MeshBasicMaterial({ color: mepColors[i], wireframe: true });
+    s2.add(new THREE.Mesh(tubeGeo, mat));
+  }
+  stages.push(s2); scene.add(s2);
+  const s3 = new THREE.Group(); s3.visible = false;
+  for (let fl = 0; fl < 5; fl++) {
+    const g = new THREE.BoxGeometry(3.8, 0.05, 3.8);
+    const m = new THREE.MeshBasicMaterial({ color: 0xffffff, wireframe: true, transparent: true, opacity: 0.3 });
+    const f = new THREE.Mesh(g, m);
+    f.position.y = fl * 1.2 + 0.1;
+    s3.add(f);
+  }
+  stages.push(s3); scene.add(s3);
+  const s4 = new THREE.Group(); s4.visible = false;
+  for (let fl = 0; fl < 5; fl++) {
+    const g = new THREE.BoxGeometry(4.4, 1.1, 4.4);
+    const m = new THREE.MeshBasicMaterial({ color: 0x4FC3F7, wireframe: true, transparent: true, opacity: 0.2 });
+    const f = new THREE.Mesh(g, m);
+    f.position.y = fl * 1.2 + 0.4;
+    s4.add(f);
+  }
+  stages.push(s4); scene.add(s4);
+  const grid = new THREE.GridHelper(12, 12, 0x1a2030, 0x111318);
+  grid.position.y = -0.1;
+  scene.add(grid);
+  let currentStage = 0;
+  const stageEls = document.querySelectorAll('.bim-stage');
+  const pctEl = document.getElementById('bim-pct');
+  const progressEl = document.getElementById('bim-progress');
+  const pcts = [20, 40, 60, 80, 100];
+  function goToStage(s) {
+    stages.forEach((g, i) => { g.visible = i <= s; });
+    stageEls.forEach((el, i) => el.classList.toggle('active', i === s));
+    pctEl.textContent = pcts[s];
+    progressEl.style.width = pcts[s] + '%';
+    currentStage = s;
+    resetStageTimer();
+  }
+  stageEls.forEach((el, i) => el.addEventListener('click', () => goToStage(i)));
+  let stageTimer;
+  function resetStageTimer() {
+    clearInterval(stageTimer);
+    stageTimer = setInterval(() => { goToStage((currentStage + 1) % 5); }, 4000);
+  }
+  resetStageTimer();
+  let t = 0;
+  function animate() {
+    requestAnimationFrame(animate);
+    t += 0.008;
+    scene.rotation.y = t * 0.3;
+    renderer.render(scene, camera);
+  }
+  resize();
+  window.addEventListener('resize', resize);
+  animate();
+})();
+
+// S-Curve
+(function initSCurve() {
+  const svg = document.getElementById('scurve-svg');
+  if (!svg) return;
+  const W = 680, H = 320;
+  const pad = { left: 50, right: 20, top: 40, bottom: 40 };
+  const cW = W - pad.left - pad.right;
+  const cH = H - pad.top - pad.bottom;
+  const months = 24;
+  const planned = Array.from({ length: months }, (_, i) => {
+    const t = i / (months - 1);
+    return 1 / (1 + Math.exp(-10 * (t - 0.5)));
+  });
+  const actual = planned.map((v, i) => {
+    if (i < 8) return v * (0.88 + i * 0.008);
+    if (i < 18) return v * (0.94 + (i - 8) * 0.003);
+    return v * 0.99;
+  });
+  const gridG = document.getElementById('grid-lines');
+  for (let g = 0; g <= 5; g++) {
+    const y = pad.top + (cH / 5) * g;
+    const line = document.createElementNS('http://www.w3.org/2000/svg','line');
+    line.setAttribute('x1', pad.left); line.setAttribute('x2', pad.left + cW); line.setAttribute('y1', y); line.setAttribute('y2', y); line.setAttribute('stroke','#1a1f2e'); line.setAttribute('stroke-width','1');
+    gridG.appendChild(line);
+    const label = document.createElementNS('http://www.w3.org/2000/svg','text');
+    label.setAttribute('x', pad.left - 8); label.setAttribute('y', y + 4); label.setAttribute('text-anchor','end');
+    label.setAttribute('font-family',"'IBM Plex Mono',monospace"); label.setAttribute('font-size','10'); label.setAttribute('fill','#7a7870');
+    label.textContent = (100 - g * 20) + '%';
+    gridG.appendChild(label);
+  }
+  const axisG = document.getElementById('axis-labels');
+  [1, 6, 12, 18, 24].forEach(m => {
+    const x = pad.left + ((m - 1) / (months - 1)) * cW;
+    const label = document.createElementNS('http://www.w3.org/2000/svg','text');
+    label.setAttribute('x', x); label.setAttribute('y', pad.top + cH + 16); label.setAttribute('text-anchor','middle');
+    label.setAttribute('font-family',"'IBM Plex Mono',monospace"); label.setAttribute('font-size','10'); label.setAttribute('fill','#7a7870');
+    label.textContent = 'M' + m;
+    axisG.appendChild(label);
+  });
+  function buildPathD(data) {
+    return data.map((v, i) => {
+      const x = pad.left + (i / (months - 1)) * cW;
+      const y = pad.top + cH - v * cH;
+      return (i === 0 ? 'M' : 'L') + x.toFixed(1) + ',' + y.toFixed(1);
+    }).join(' ');
+  }
+  const plannedPath = document.getElementById('planned-path');
+  const actualPath = document.getElementById('actual-path');
+  plannedPath.setAttribute('d', buildPathD(planned));
+  actualPath.setAttribute('d', buildPathD(actual));
+  function getLength(el) { try { return el.getTotalLength(); } catch(e) { return 1000; } }
+  const dashObserver = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        [plannedPath, actualPath].forEach(path => {
+          const len = getLength(path);
+          path.style.strokeDasharray = len;
+          path.style.strokeDashoffset = len;
+          path.style.transition = 'stroke-dashoffset 2.5s cubic-bezier(0.4,0,0.2,1)';
+          setTimeout(() => { path.style.strokeDashoffset = 0; }, 100);
+        });
+        dashObserver.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.3 });
+  dashObserver.observe(svg);
+})();
+
+// EV Bar Chart
+(function initEV() {
+  const svg = document.getElementById('ev-svg');
+  if (!svg) return;
+  const W = 300, H = 240;
+  const pad = { left: 30, right: 10, top: 30, bottom: 30 };
+  const cH = H - pad.top - pad.bottom;
+  const labels = ['M1','M2','M3','M4','M5','M6'];
+  const bcws = [0.15, 0.28, 0.45, 0.60, 0.74, 0.88];
+  const bcwp = [0.12, 0.23, 0.40, 0.54, 0.68, 0.82];
+  const acwp = [0.13, 0.26, 0.44, 0.59, 0.75, 0.90];
+  const groupW = (W - pad.left - pad.right) / 6;
+  const barW = groupW * 0.25;
+  [['#F5A623', 'BCWS'], ['#4FC3F7', 'BCWP'], ['rgba(255,255,255,0.25)', 'ACWP']].forEach((item, i) => {
+    const g = document.createElementNS('http://www.w3.org/2000/svg','g');
+    const rect = document.createElementNS('http://www.w3.org/2000/svg','rect');
+    rect.setAttribute('x', 20 + i * 75); rect.setAttribute('y', 8); rect.setAttribute('width', 10); rect.setAttribute('height', 6); rect.setAttribute('fill', item[0]);
+    g.appendChild(rect);
+    const text = document.createElementNS('http://www.w3.org/2000/svg','text');
+    text.setAttribute('x', 34 + i * 75); text.setAttribute('y', 15);
+    text.setAttribute('font-family',"'IBM Plex Mono',monospace"); text.setAttribute('font-size','9'); text.setAttribute('fill','#7a7870');
+    text.textContent = item[1];
+    g.appendChild(text);
+    svg.appendChild(g);
+  });
+  labels.forEach((label, gi) => {
+    const gx = pad.left + gi * groupW + groupW / 2;
+    const sets = [bcws[gi], bcwp[gi], acwp[gi]];
+    const colors = ['#F5A623', '#4FC3F7', 'rgba(255,255,255,0.2)'];
+    sets.forEach((val, bi) => {
+      const bH = val * cH;
+      const x = gx + (bi - 1) * (barW + 2) - barW / 2;
+      const y = pad.top + cH - bH;
+      const rect = document.createElementNS('http://www.w3.org/2000/svg','rect');
+      rect.setAttribute('x', x); rect.setAttribute('y', pad.top + cH); rect.setAttribute('width', barW); rect.setAttribute('height', 0); rect.setAttribute('fill', colors[bi]);
+      svg.appendChild(rect);
+      const obs = new IntersectionObserver((entries) => {
+        entries.forEach(e => {
+          if (e.isIntersecting) {
+            setTimeout(() => { rect.style.transition = 'y 0.8s ease, height 0.8s ease'; rect.setAttribute('y', y); rect.setAttribute('height', bH); }, bi * 100 + gi * 60);
+            obs.unobserve(e.target);
+          }
+        });
+      }, { threshold: 0.3 });
+      obs.observe(svg);
+    });
+    const variance = ((bcwp[gi] / bcws[gi] - 1) * 100).toFixed(0);
+    const text = document.createElementNS('http://www.w3.org/2000/svg','text');
+    text.setAttribute('x', gx); text.setAttribute('y', pad.top + cH - bcws[gi] * cH - 5); text.setAttribute('text-anchor','middle');
+    text.setAttribute('font-family',"'IBM Plex Mono',monospace"); text.setAttribute('font-size','9'); text.setAttribute('fill', variance < 0 ? '#f87171' : '#4ade80');
+    text.textContent = variance + '%';
+    svg.appendChild(text);
+    const ml = document.createElementNS('http://www.w3.org/2000/svg','text');
+    ml.setAttribute('x', gx); ml.setAttribute('y', pad.top + cH + 16); ml.setAttribute('text-anchor','middle');
+    ml.setAttribute('font-family',"'IBM Plex Mono',monospace"); ml.setAttribute('font-size','9'); ml.setAttribute('fill','#7a7870'); ml.textContent = label;
+    svg.appendChild(ml);
+  });
+})();
+
+// Donut
+(function initDonut() {
+  const svg = document.getElementById('donut-svg');
+  if (!svg) return;
+  const cx = 150, cy = 120, r = 70, inner = 42;
+  const data = [{ label: 'PMC', pct: 30, color: '#F5A623' },{ label: 'Digital Eng', pct: 25, color: '#4FC3F7' },{ label: 'Controls', pct: 20, color: '#6bcb77' },{ label: 'Cost Mgmt', pct: 15, color: '#ffd93d' },{ label: 'Other', pct: 10, color: '#7a7870' }];
+  let startAngle = -Math.PI / 2;
+  data.forEach(d => {
+    const angle = (d.pct / 100) * Math.PI * 2;
+    const endAngle = startAngle + angle;
+    const x1 = cx + r * Math.cos(startAngle), y1 = cy + r * Math.sin(startAngle);
+    const x2 = cx + r * Math.cos(endAngle), y2 = cy + r * Math.sin(endAngle);
+    const xi1 = cx + inner * Math.cos(startAngle), yi1 = cy + inner * Math.sin(startAngle);
+    const xi2 = cx + inner * Math.cos(endAngle), yi2 = cy + inner * Math.sin(endAngle);
+    const large = angle > Math.PI ? 1 : 0;
+    const pathD = `M${xi1} ${yi1} L${x1} ${y1} A${r} ${r} 0 ${large} 1 ${x2} ${y2} L${xi2} ${yi2} A${inner} ${inner} 0 ${large} 0 ${xi1} ${yi1} Z`;
+    const path = document.createElementNS('http://www.w3.org/2000/svg','path');
+    path.setAttribute('d', pathD); path.setAttribute('fill', d.color); path.setAttribute('opacity','0.85');
+    path.setAttribute('stroke','#111318'); path.setAttribute('stroke-width','2');
+    const midAngle = startAngle + angle / 2;
+    path.addEventListener('mouseenter', function() {
+      this.setAttribute('transform', `translate(${Math.cos(midAngle) * 4}, ${Math.sin(midAngle) * 4})`);
+      tooltip.style.opacity = '1';
+      tooltip.querySelector('text:first-child').textContent = d.label;
+      tooltip.querySelector('text:last-child').textContent = d.pct + '%';
+    });
+    path.addEventListener('mouseleave', function() { this.setAttribute('transform',''); tooltip.style.opacity = '0'; });
+    svg.appendChild(path);
+    const obs = new IntersectionObserver((entries) => {
+      entries.forEach(e => { if (e.isIntersecting) { path.style.transition = 'opacity 0.6s ease'; path.style.opacity = '0'; setTimeout(() => { path.style.opacity = '0.85'; }, startAngle * 200 + 400); obs.unobserve(e.target); } });
+    }, { threshold: 0.3 });
+    obs.observe(svg);
+    startAngle = endAngle;
+  });
+  const t1 = document.createElementNS('http://www.w3.org/2000/svg','text');
+  t1.setAttribute('x', cx); t1.setAttribute('y', cy - 4); t1.setAttribute('text-anchor','middle');
+  t1.setAttribute('font-family',"'DM Serif Display',serif"); t1.setAttribute('font-size','20'); t1.setAttribute('fill','#F5A623'); t1.textContent = '$20M';
+  svg.appendChild(t1);
+  const t2 = document.createElementNS('http://www.w3.org/2000/svg','text');
+  t2.setAttribute('x', cx); t2.setAttribute('y', cy + 14); t2.setAttribute('text-anchor','middle');
+  t2.setAttribute('font-family',"'IBM Plex Mono',monospace"); t2.setAttribute('font-size','9'); t2.setAttribute('fill','#7a7870'); t2.textContent = 'PORTFOLIO VALUE';
+  svg.appendChild(t2);
+  const tooltip = document.createElementNS('http://www.w3.org/2000/svg','g');
+  tooltip.style.opacity = '0'; tooltip.style.transition = 'opacity 0.2s'; tooltip.style.pointerEvents = 'none';
+  const tBg = document.createElementNS('http://www.w3.org/2000/svg','rect');
+  tBg.setAttribute('x','220'); tBg.setAttribute('y','100'); tBg.setAttribute('width','70'); tBg.setAttribute('height','36');
+  tBg.setAttribute('fill','#111318'); tBg.setAttribute('rx','2'); tBg.setAttribute('stroke','#F5A623'); tBg.setAttribute('stroke-width','0.5');
+  const tt1 = document.createElementNS('http://www.w3.org/2000/svg','text');
+  tt1.setAttribute('x','255'); tt1.setAttribute('y','115'); tt1.setAttribute('text-anchor','middle');
+  tt1.setAttribute('font-family',"'IBM Plex Mono',monospace"); tt1.setAttribute('font-size','9'); tt1.setAttribute('fill','#c8c4bc');
+  const tt2 = document.createElementNS('http://www.w3.org/2000/svg','text');
+  tt2.setAttribute('x','255'); tt2.setAttribute('y','130'); tt2.setAttribute('text-anchor','middle');
+  tt2.setAttribute('font-family',"'IBM Plex Mono',monospace"); tt2.setAttribute('font-size','11'); tt2.setAttribute('fill','#F5A623');
+  tooltip.appendChild(tBg); tooltip.appendChild(tt1); tooltip.appendChild(tt2); svg.appendChild(tooltip);
+  data.forEach((d, i) => {
+    const lx = 20 + (i % 3) * 90, ly = 200 + Math.floor(i / 3) * 18;
+    const rect = document.createElementNS('http://www.w3.org/2000/svg','rect');
+    rect.setAttribute('x', lx); rect.setAttribute('y', ly); rect.setAttribute('width','8'); rect.setAttribute('height','8'); rect.setAttribute('fill', d.color); rect.setAttribute('rx','1');
+    svg.appendChild(rect);
+    const lt = document.createElementNS('http://www.w3.org/2000/svg','text');
+    lt.setAttribute('x', lx + 12); lt.setAttribute('y', ly + 8);
+    lt.setAttribute('font-family',"'IBM Plex Mono',monospace"); lt.setAttribute('font-size','9'); lt.setAttribute('fill','#7a7870');
+    lt.textContent = d.label + ' ' + d.pct + '%';
+    svg.appendChild(lt);
+  });
+})();
+
+
+
+})();
+</script>
+</body>
+</html>
