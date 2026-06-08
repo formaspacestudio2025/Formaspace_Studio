@@ -1,5 +1,5 @@
 User-agent: *
 Allow: /
-Disallow: /api/
 
 Sitemap: https://formaspacestudio.com/sitemap.xml
+
