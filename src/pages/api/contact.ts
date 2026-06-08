@@ -4,6 +4,8 @@ import { Resend } from 'resend';
 export const prerender = false;
 
 const RESEND_API_KEY = process.env.RESEND_API_KEY || '';
+const CONTACT_EMAIL = process.env.CONTACT_EMAIL || 'info@formaspacestudio.com';
+const EMAIL_FROM = process.env.EMAIL_FROM || 'Formaspace Studio <noreply@formaspacestudio.com>';
 
 const rateLimitMap = new Map<string, { count: number; resetAt: number }>();
 const RATE_LIMIT_MAX = 3;
@@ -81,8 +83,8 @@ export const POST: APIRoute = async ({ request }) => {
       if (RESEND_API_KEY) {
         const resend = new Resend(RESEND_API_KEY);
         await resend.emails.send({
-          from: 'Formaspace Studio <noreply@formaspacestudio.com>',
-          to: 'info@formaspacestudio.com',
+          from: EMAIL_FROM,
+          to: CONTACT_EMAIL,
           subject: `New enquiry from ${submission.name}`,
           text: `Name: ${submission.name}\nEmail: ${submission.email}\nCompany: ${submission.company}\nPhone: ${submission.phone}\n\nMessage:\n${submission.message}`,
         });
